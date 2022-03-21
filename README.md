@@ -7,11 +7,13 @@
    - To install a particular package: `npm i <PACKAGE NAME>`
 3. Run on local 3000: `npm start`
 
+- To view, set the window dimensions to have a maximum width of 600px.
+
 # Pages
 
-- /facilities All Facilities Page
-- /facilities/result Search Result Page
-- /facilities/view Specific Facility View
+- `/facilities` : All Facilities Page
+- `/facilities/result` : Search Result Page
+- `/facilities/view` : Specific Facility View
 
 ## Version Numbers
 
@@ -20,7 +22,7 @@
 3. New search, New result
 4. New search, Old result
 
-* Example: `url?version=1`
+- Example: `url?version=1`
 
 # User Tasks
 

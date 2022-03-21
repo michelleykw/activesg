@@ -31,10 +31,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route exact path="/facilities/view/:id" element={<FacilityViewPage />} />
-              <Route exact path="/facilities/view/:id" element={<FacilityViewPage />} />
               <Route exact path="/facilities/result" element={<ResultPage />} />
-              <Route exact path="/facilities/result" element={<ResultPage />} />
-              <Route exact path="/facilities" element={<FacilitiesPage />} />
               <Route exact path="/facilities" element={<FacilitiesPage />} />
               <Route exact path="/programmes" element={<NotFound isNotFacility />} />
               <Route exact path="/home" element={<NotFound isNotFacility />} />
