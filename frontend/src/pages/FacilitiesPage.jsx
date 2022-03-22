@@ -4,7 +4,9 @@ import { makeStyles, useTheme } from '@mui/styles';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import SearchPage from './SearchPage';
+import SearchBar from '../components/SearchBar.jsx';
 import { allSearchOptions } from '../resources/constants.jsx';
+
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -20,9 +22,8 @@ function FacilitiesPage() {
     const versionId = new URLSearchParams(location.search).get('version') || 1;
 
     const isOldVersion = (versionId == 1) || (versionId == 2);
-    // console.log('SearchPage', versionId, isOldVersion);
 
-    const [isSearching, setIsSearching] = useState(false);
+    const [openPage, setOpenPage] = useState(false);
     const [hasSearchValues, setHasSearchValues] = useState(false);
     const [options, setOptions] = useState(allSearchOptions);
     const [recentSearchList, setRecentSearchList] = useState(JSON.parse(window.localStorage.getItem('recentSearchList')));
@@ -37,18 +38,9 @@ function FacilitiesPage() {
         navigate(`/facilities/result?version=${versionId}&query=${searchInput}`);
     };
 
-    const startSearch = () => {
-        setIsSearching(true);
-    };
-
     const resetSearchInput = () => {
         setHasSearchValues(false);
         setOptions(allSearchOptions);
-    };
-
-    const cancelSearch = () => {
-        setIsSearching(false);
-        resetSearchInput();
     };
 
     const updateRecentSearch = (newSearch) => {
@@ -90,15 +82,26 @@ function FacilitiesPage() {
         setOptions(allSearchOptions.filter(item => item.toLowerCase().includes(searchInput.toLowerCase())));
     };
 
+    
+    const openSearchPage = () => {
+        setOpenPage(true);
+    };
+    const closeSearchPage = () => {
+        resetSearchInput();
+        setOpenPage(false);
+    };
+
     return (
         <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
+            {isOldVersion && (
+                <SearchBar startSearch={openSearchPage} />
+            )}
             <SearchPage 
+                openPage={openPage}
+                cancelSearch={closeSearchPage}
                 isOldVersion={isOldVersion} 
-                isSearching={isSearching} 
                 recentSearchList={recentSearchList}
-                startSearch={startSearch} 
                 resetSearchInput={resetSearchInput}
-                cancelSearch={cancelSearch}
                 doSearch={doSearch}
                 removeRecentSearch={removeRecentSearch}
                 hasSearchValues={hasSearchValues}
@@ -106,9 +109,7 @@ function FacilitiesPage() {
                 searchOptions={options}
                 updateSearchOptions={updateSearchOptions}
             />
-            {!isSearching && (
-                <Typography>Welcome to Facilities Page. Start searching now!</Typography>
-            )}
+            <Typography>Welcome to Facilities Page. Start searching now!</Typography>
         </Grid>
     );
 }
