@@ -5,8 +5,8 @@ import Dialog from '@mui/material/Dialog';
 import AppButton from '../components/AppButton';
 import CategoryOptionsDialog from '../components/CategoryOptionsDialog';
 import RecentSearch from '../components/RecentSearch';
-import SearchBar from '../components/SearchBar';
-import SearchList from '../components/SearchList';
+import SearchBarOldVer from '../components/SearchBarOldVer';
+import SearchListOldVer from '../components/SearchListOldVer';
 
 const useStyles = makeStyles(theme => ({
     mr1: {
@@ -23,17 +23,15 @@ const useStyles = makeStyles(theme => ({
         marginRight: `${theme.spacing(2)} !important`
     },
     px2: {
-        paddingLeft: '2rem !important',
-        paddingRight: '2rem !important'
+        paddingLeft: `${theme.spacing(2)} !important`,
+        paddingRight: `${theme.spacing(2)} !important`
     },
     searchContainer: {
         maxHeight: 'calc(100vh - 9rem) !important'
     }
 }));
 
-// Perhaps can change this to a dialog (fullscreen) instead
-
-function SearchPage({ openPage, handleClosePage, isOldVersion, recentSearchList, startSearch, resetSearchInput, cancelSearch, doSearch, removeRecentSearch, hasSearchValues, updateHasSearchValues, searchOptions, updateSearchOptions }) {
+function SearchPageOldVer({ openPage, handleClosePage, isOldVersion, recentSearchList, startSearch, resetSearchInput, cancelSearch, doSearch, removeRecentSearch, hasSearchValues, updateHasSearchValues, searchOptions, updateSearchOptions }) {
     const classes = useStyles();
     const searchInput = useRef(null);
 
@@ -58,9 +56,9 @@ function SearchPage({ openPage, handleClosePage, isOldVersion, recentSearchList,
         setSearchCategory(null);
     };
 
-    const renderSearchBar = () => {
+    const renderSearchBarOldVer = () => {
         return (
-            <SearchBar 
+            <SearchBarOldVer 
                 isSearching
                 startSearch={startSearch} 
                 resetSearchInput={resetSearchInput}
@@ -106,7 +104,7 @@ function SearchPage({ openPage, handleClosePage, isOldVersion, recentSearchList,
     const renderSearchList = () => {
         return (
             <Grid container item className={classes.searchContainer}>
-                <SearchList list={searchOptions} search={doRecentSearch} /> 
+                <SearchListOldVer list={searchOptions} search={doRecentSearch} /> 
             </Grid>
         );
     };
@@ -130,7 +128,7 @@ function SearchPage({ openPage, handleClosePage, isOldVersion, recentSearchList,
             onClose={handleClosePage}
         >
             <Grid container alignItems="flex-start" justifyContent="flex-start" className={classes.mt2}>
-                {isOldVersion && renderSearchBar()}
+                {isOldVersion && renderSearchBarOldVer()}
                 {!hasSearchValues && isOldVersion && renderCategoryButtons()}
                 {!hasSearchValues && recentSearchList && recentSearchList.length > 0 && renderRecentSearch()}
                 {hasSearchValues && renderSearchList()}
@@ -140,4 +138,4 @@ function SearchPage({ openPage, handleClosePage, isOldVersion, recentSearchList,
     );
 }
 
-export default SearchPage;
+export default SearchPageOldVer;

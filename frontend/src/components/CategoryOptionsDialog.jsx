@@ -4,7 +4,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button, Dialog, ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { categoryOptionsMap } from '../resources/constants.jsx';
-import SearchList from '../components/SearchList';
+import SearchListOldVer from '../components/SearchListOldVer';
 
 const useStyles = makeStyles(theme => ({
 
@@ -43,7 +43,7 @@ function CategoryOptionsDialog({ category, doSearch, open, fullScreen=false, han
             onClose={handleClose}
         >
             {renderDialogHeader()}   
-            <SearchList fullScreen={fullScreen} list={categoryOptionsMap[category]} search={doSearch} /> 
+            <SearchListOldVer fullScreen={fullScreen} list={categoryOptionsMap[category]} search={doSearch} /> 
       </Dialog>
     );
 }

@@ -1,33 +1,42 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Grid, Typography } from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
     pxHalf: {
-        paddingLeft: '0.5rem',
-        paddingRight: '0.5rem'
+        paddingLeft: theme.spacing(0.5),
+        paddingRight: theme.spacing(0.5),
+        paddingTop: theme.spacing(1)
     },
     px1: {
-        paddingLeft: '1rem',
-        paddingRight: '1rem'
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1)
     },
     px2: {
-        paddingLeft: '1.5rem',
-        paddingRight: '1.5rem'
+        paddingLeft: theme.spacing(1.5),
+        paddingRight:  theme.spacing(1.5)
     },
     row: {
-        paddingBottom: '1rem',
-        paddingTop: '1rem',
+        paddingBottom:  theme.spacing(1),
+        paddingTop:  theme.spacing(1),
         borderBottom: `1px solid ${theme.palette.background.midGrey}`
     },
     mt1mb8: {
-        marginTop: '0.5rem',
+        marginTop:  theme.spacing(0.5),
         paddingBottom: `${theme.spacing(7)} !important`
     }
 }));
 
-function SearchList({ list, search, fullScreen=false }) {
+function SearchListNewVer({ type, list, search, fullScreen=false }) {
     const classes = useStyles();
+
+    useEffect(() => {
+    }, [list, type]);
+
+    /* SPORTS */
+    if (type == 'Sport') {
+        console.log('sport');
+    }
 
     const renderRow = searchItem => {
         return (
@@ -48,4 +57,4 @@ function SearchList({ list, search, fullScreen=false }) {
     );
 }
 
-export default SearchList;
+export default SearchListNewVer;
