@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { styled } from '@mui/material/styles';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -54,20 +54,24 @@ const CancelButton = styled(Button)(({ theme }) => ({
     minWidth: '4rem'
   }));
 
-function SearchBar({ isSearching, startSearch, resetSearchInput, cancelSearch, doSearch, searchInput, hasSearchValues, updateHasSearchValues, updateSearchOptions, isResultPage }) {
+function SearchBar({ isSearching, startSearch, resetSearchInput, cancelSearch, doSearch, searchInput, hasSearchValues, updateHasSearchValues, updateSearchOptions, isResultPage, displayBack }) {
     const classes = useStyles();
+    const [query, setQuery] = useState();
 
     useEffect(() => {
+        console.log(hasSearchValues);
+        setQuery(hasSearchValues);
     }, [hasSearchValues]);
 
     const onInputSearch = e => {
         const searchInput = e.target.value;
+        setQuery(searchInput);
         updateHasSearchValues(searchInput);
         updateSearchOptions(searchInput);
 
         if (e.keyCode == 13) {
             doSearch(searchInput);
-            
+
         }
     };
 
@@ -81,23 +85,29 @@ function SearchBar({ isSearching, startSearch, resetSearchInput, cancelSearch, d
         searchInput.current.value = "";
     }
 
+    const placeholder = () => {
+        return query && query.length > 0 ? query : isSearching ? 'Enter Sport / Venue' : 'Search Facilities'
+    }
+
     const renderSearchBar = (params) => {
         return (
-            <Search onClick={startSearch} onKeyUp={onInputSearch}>
-                <SearchIconWrapper>
-                    <SearchIcon fontSize="large" className={classes.icon} />
-                </SearchIconWrapper>
-                <StyledInputBase
-                    {...params}
-                    fullWidth
-                    placeholder={isSearching ? 'Enter Sport / Venue' : 'Search Facilities'}
-                    inputProps={{ 'aria-label': 'search' }}
-                    inputRef={searchInput}
-                    endAdornment={isSearching && (
-                        <CancelIcon onClick={onResetSearchInput} className={`${classes.cancelIcon} ${classes.mr1}`} />
-                    )}
-                />
-            </Search>
+            <div>
+                <Search onClick={startSearch} onKeyUp={onInputSearch}>
+                    <SearchIconWrapper>
+                        <SearchIcon fontSize="large" className={classes.icon} />
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                        {...params}
+                        fullWidth
+                        placeholder={placeholder()}
+                        inputProps={{ 'aria-label': 'search' }}
+                        inputRef={searchInput}
+                        endAdornment={isSearching && (
+                            <CancelIcon onClick={onResetSearchInput} className={`${classes.cancelIcon} ${classes.mr1}`} />
+                        )}
+                    />
+                </Search>
+            </div>
         );
     };
 
