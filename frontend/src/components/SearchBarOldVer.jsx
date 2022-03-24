@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { styled } from '@mui/material/styles';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -54,20 +54,25 @@ const CancelButton = styled(Button)(({ theme }) => ({
     minWidth: '4rem'
   }));
 
-function SearchBar({ isSearching, startSearch, resetSearchInput, cancelSearch, doSearch, searchInput, hasSearchValues, updateHasSearchValues, updateSearchOptions, isResultPage }) {
+function SearchBarOldVer({ isSearching=false, startSearch, resetSearchInput, cancelSearch, doSearch, searchInput, hasSearchValues, updateHasSearchValues, updateSearchOptions, isResultPage, displayBack }) {
     const classes = useStyles();
+    const [query, setQuery] = useState();
 
     useEffect(() => {
+        console.log(hasSearchValues);
+        setQuery(hasSearchValues);
     }, [hasSearchValues]);
 
     const onInputSearch = e => {
         const searchInput = e.target.value;
+        setQuery(searchInput);
         updateHasSearchValues(searchInput);
+        console.log('##onInputSearch (searchInput):', searchInput);
         updateSearchOptions(searchInput);
 
         if (e.keyCode == 13) {
             doSearch(searchInput);
-            
+
         }
     };
 
@@ -79,7 +84,11 @@ function SearchBar({ isSearching, startSearch, resetSearchInput, cancelSearch, d
     const onResetSearchInput = () => {
         resetSearchInput();
         searchInput.current.value = "";
-    }
+    };
+
+    const getPlaceholder = () => {
+        return query && query.length > 0 ? query : isSearching ? 'Enter Sport / Venue' : 'Search Facilities'
+    };
 
     const renderSearchBar = (params) => {
         return (
@@ -89,8 +98,9 @@ function SearchBar({ isSearching, startSearch, resetSearchInput, cancelSearch, d
                 </SearchIconWrapper>
                 <StyledInputBase
                     {...params}
+                    disabled={!isSearching}
                     fullWidth
-                    placeholder={isSearching ? 'Enter Sport / Venue' : 'Search Facilities'}
+                    placeholder={getPlaceholder()}
                     inputProps={{ 'aria-label': 'search' }}
                     inputRef={searchInput}
                     endAdornment={isSearching && (
@@ -115,4 +125,4 @@ function SearchBar({ isSearching, startSearch, resetSearchInput, cancelSearch, d
     );
 }
 
-export default SearchBar;
+export default SearchBarOldVer;

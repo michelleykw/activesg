@@ -23,7 +23,7 @@ export const theme = createTheme({
         h1: {
             fontWeight: 600,
             fontSize: '3rem',
-            textTransform: 'uppercase'
+            textTransform: 'capitalise'
         },
         h2: {
             fontWeight: 500,

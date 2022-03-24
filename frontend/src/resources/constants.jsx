@@ -400,9 +400,97 @@ export const venueList = [
     'Zhonghua Primary School Hall'
 ];
 
+export const locationList = {
+    'Ang Mo Kio':
+        ['ActiveSG Gym at Ang Mo Kio',
+        'Anderson Secondary School Field',
+        'Anderson Secondary School Hall',
+        'Ang Mo Kio Primary School Hall',
+        'Ang Mo Kio Secondary School Field',
+        'Ang Mo Kio Secondary School Hall',
+        'Ang Mo Kio Swimming Complex'],
+    'Bishan':
+        ['Bishan - Stadium Foyer',
+        'Bishan ActiveSG Gym',
+        'Bishan Sports Hall',
+        'Bishan Swimming Complex',
+        'Kuo Chuan Presbyterian Primary School Hall',
+        'Kuo Chuan Presbyterian Secondary School Hall'],
+    'Clementi':
+        ['Clementi - Sports Hall Foyer',
+        'Clementi - Swimming Pool Foyer',
+        'Clementi ActiveSG Gym',
+        'Clementi Primary School Hall',
+        'Clementi Sports Hall',
+        'Clementi Swimming Complex',
+        'Clementi Town Secondary School Field',
+        'Clementi Town Secondary School Hall'],
+    'Hougang':
+        ['Hougang - Between Swimming Pool and Stadium',
+        'Hougang ActiveSG Gym',
+        'Hougang Primary School Hall',
+        'Hougang Secondary School Hall',
+        'Hougang Sports Hall',
+        'Hougang Stadium Gallery',
+        'Hougang Swimming Complex',
+        'Hougang Swimming Complex - Table Tennis'],
+    'Jurong East':
+        ['Jurong East - North Entrance',
+        'Jurong East ActiveSG Gym',
+        'Jurong East Conference Room',
+        'Jurong East Petanque Courts',
+        'Jurong East Sports Hall',
+        'Jurong East Sports Hall Table Tennis Area',
+        'Jurong East Swimming Complex'],
+    'Pasir Ris':
+        ['Pasir Ris - Foyer',
+        'Pasir Ris 5 a Side Soccer',
+        'Pasir Ris ActiveSG Gym',
+        'Pasir Ris Crest Secondary School Field',
+        'Pasir Ris Crest Secondary School Hall',
+        'Pasir Ris Secondary School Field',
+        'Pasir Ris Secondary School Hall',
+        'Pasir Ris Sports Hall'],
+    'Punggol':
+        ['Greendale Primary School Hall',
+        'Oasis Primary School Hall',
+        'Punggol Green Primary School Hall',
+        'Punggol Secondary School Field',
+        'Punggol View Primary School Hall'],
+    'Sengkang':
+        ['Seng Kang Primary School Hall',
+        'Seng Kang Secondary School Hall',
+        'Sengkang - Behind Competition Pool Gallery',
+        'Sengkang ActiveSG Gym',
+        'Sengkang Conference Room'],
+    'Woodlands':
+        ['Woodlands - Carpark Area',
+        'Woodlands ActiveSG Gym',
+        'Woodlands Ring Primary School Hall',
+        'Woodlands Ring Secondary School Field',
+        'Woodlands Secondary School Field',
+        'Woodlands Secondary School Hall',
+        'Woodlands Sports Hall',
+        'Woodlands Sports Hall Meeting Room',
+        'Woodlands Stadium Gallery',
+        'Woodlands Swimming Complex'],
+    'Yio Chu Kang':
+        ['Yio Chu Kang ActiveSG Gym',
+        'Yio Chu Kang Conference Room',
+        'Yio Chu Kang Primary School Hall',
+        'Yio Chu Kang Secondary School Field',
+        'Yio Chu Kang Secondary School Hall',
+        'Yio Chu Kang Sports Hall',
+        'Yio Chu Kang Squash Centre',
+        'Yio Chu Kang Stadium Gallery',
+        'Yio Chu Kang Swimming Complex',
+        'Yio Chu Kang Tennis Centre']
+};
+
 export const allSearchOptions = sportsList.concat(venueList).sort((a, b) => a.localeCompare(b));
 
 export const categoryOptionsMap = {
     'Sport': sportsList,
-    'Venue': venueList
-}
+    'Venue': venueList,
+    'Location': locationList // New
+};
