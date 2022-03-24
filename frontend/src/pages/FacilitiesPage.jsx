@@ -116,8 +116,23 @@ function FacilitiesPage() {
     };
 
     const updateSearchOptions = searchInput => {
-        console.log('updateSearchOptions', searchInput, listOptions);
-        setOptions(listOptions.filter(item => item.toLowerCase().includes(searchInput.toLowerCase())));
+        if (listOptions && listOptions[0] && typeof listOptions[0] === 'string') {
+            setOptions(listOptions.filter(item => item.toLowerCase().includes(searchInput.toLowerCase())));    
+        } else {
+            const newListOptions = [];
+            listOptions.map(item => {
+                const result = item?.facilities?.filter(f => f.toLowerCase().includes(searchInput.toLowerCase()));
+                console.log('IS OBEJCT CRIES', item.area, item?.facilities.length, result.length);
+                if (result.length > 0) {
+                    newListOptions.push({
+                        area: item.area,
+                        facilities: result
+                    });
+                }
+            });
+            console.log('##RESULT##', newListOptions);
+            setOptions(newListOptions);
+        }
     };
 
     

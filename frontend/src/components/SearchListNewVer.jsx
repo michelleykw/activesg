@@ -62,6 +62,14 @@ function SearchListNewVer({ type, list, search, fullScreen=false }) {
         )
     };
 
+    const renderSectionTitle = title => {
+        return (
+            <Grid item xs={12}>
+                <Typography variant="h2" color="textSecondary" className={classes.sectionTitle}>{title}</Typography>
+            </Grid>
+        );
+    };
+
     /* SPORTS */
     if (type == 'Sport') {
         const popularSportList = [
@@ -74,14 +82,6 @@ function SearchListNewVer({ type, list, search, fullScreen=false }) {
             {name: 'Tennis', icon: <SportsTennisIcon fontSize='large' className={classes.mHalf} />},
             {name: 'Volleyball', icon: <SportsVolleyballIcon fontSize='large' className={classes.mHalf} /> },
         ];
-
-        const renderSectionTitle = title => {
-            return (
-                <Grid item xs={12}>
-                    <Typography variant="h2" color="textSecondary" className={classes.sectionTitle}>{title}</Typography>
-                </Grid>
-            );
-        };
 
         const renderSportButton = item => {
             const { name, icon } = item;
@@ -104,7 +104,23 @@ function SearchListNewVer({ type, list, search, fullScreen=false }) {
 
     /* LOCATION */
     if (type == 'Location') {
-        console.log('LOCATION');
+        console.log('LOCATION', list);
+
+        const renderRowWithGrouping = item => {
+            const { area, facilities } = item;
+            return (
+                <Grid item xs={12} className={classes.py2}>
+                    {renderSectionTitle(area)}
+                    {facilities && facilities.map(faci => renderRow(faci))}
+                </Grid>
+            );
+        };
+
+        return (
+            <Grid container justifyContent="flex-start" alignItems="center" className={fullScreen ? classes.pxHalf : classes.mt1mb8}>
+                {list && list.map(item => renderRowWithGrouping(item))}
+            </Grid>
+        );
     }
 
     /* GENERAL */
