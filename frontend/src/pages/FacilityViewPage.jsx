@@ -14,7 +14,7 @@ function FacilityViewPage() {
 
     return (
         <Grid container alignItems="center" className={classes.fullScreenHeight}>
-            <Typography>Oh no, the page can’t be found</Typography>
+            <Typography>Facilities View: Oh no, the page can’t be found</Typography>
         </Grid>
     );
 }

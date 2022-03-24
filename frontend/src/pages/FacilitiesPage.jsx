@@ -53,23 +53,23 @@ function FacilitiesPage() {
     const [openSportDialog, setOpenSportDialog] = useState(false); // NEW VERSION
     const [openLocationDialog, setOpenLocationDialog] = useState(false); // NEW VERSION
 
+    let listOptions = allSearchOptions;
+    if (openSportDialog) {
+        listOptions = (categoryOptionsMap[SPORT_TITLE]);
+    } else if (openLocationDialog) {
+        listOptions = (categoryOptionsMap[LOCATION_TITLE]);
+    }
+
     const [openPage, setOpenPage] = useState(false);
     const [hasSearchValues, setHasSearchValues] = useState(false);
-    const [options, setOptions] = useState(allSearchOptions);
+    const [options, setOptions] = useState(listOptions);
     const [recentSearchList, setRecentSearchList] = useState(JSON.parse(window.localStorage.getItem('recentSearchList')));
-
-    
 
     useEffect(() => {
         if (window.localStorage.getItem('recentSearchList') === null) {
             window.localStorage.setItem('recentSearchList', JSON.stringify([]));
         }
-        if (openSportDialog) {
-            setOptions(categoryOptionsMap[SPORT_TITLE]);
-        } else if (openLocationDialog) {
-            setOptions(categoryOptionsMap[LOCATION_TITLE]);
-        }
-    }, [recentSearchList, options, openSportDialog, openLocationDialog]);
+    }, [recentSearchList, options]);
 
     const goToSearchResultPage = searchInput => {
         navigate(`/facilities/result?version=${versionId}&query=${searchInput}`);
@@ -77,7 +77,7 @@ function FacilitiesPage() {
 
     const resetSearchInput = () => {
         setHasSearchValues(false);
-        setOptions(options);
+        setOptions(listOptions);
     };
 
     const updateRecentSearch = (newSearch) => {
@@ -116,7 +116,8 @@ function FacilitiesPage() {
     };
 
     const updateSearchOptions = searchInput => {
-        setOptions(options.filter(item => item.toLowerCase().includes(searchInput.toLowerCase())));
+        console.log('updateSearchOptions', searchInput, listOptions);
+        setOptions(listOptions.filter(item => item.toLowerCase().includes(searchInput.toLowerCase())));
     };
 
     
@@ -154,12 +155,15 @@ function FacilitiesPage() {
     const doOpenCategoryDialog = type => {
         if (type == SPORT_TITLE) {
             setOpenSportDialog(true);
+            setOptions(categoryOptionsMap[SPORT_TITLE]);
         } else if (type == LOCATION_TITLE) {
             setOpenLocationDialog(true);
+            setOptions(categoryOptionsMap[LOCATION_TITLE]);
         }
     };
 
     const closeCategoryDialog = type => {
+        setOptions(allSearchOptions);
         if (openSportDialog) {
             setOpenSportDialog(false);
         } else if (openLocationDialog) {
@@ -215,11 +219,6 @@ function FacilitiesPage() {
         );
     };
 
-    const doRecentSearchNewVer = item => {
-        doSearch(item);
-        searchInputNew.current.value = item;
-    };
-
     const renderCategoryDialog = type => {
         return (
             <CategoryOptionsDialogNewVer 
@@ -228,6 +227,7 @@ function FacilitiesPage() {
                 list={options}
                 open={(type == SPORT_TITLE && openSportDialog) || (type == LOCATION_TITLE && openLocationDialog)} 
                 handleClose={closeCategoryDialog}
+                hasSearchValues={hasSearchValues}
                 updateHasSearchValues={updateHasSearchValues}
                 updateSearchOptions={updateSearchOptions}
                 resetSearchInput={resetSearchInput}

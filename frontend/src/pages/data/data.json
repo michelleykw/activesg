@@ -1,23 +1,23 @@
 [
     {
         "name": "Bishan Swimming Complex",
-        "sport": "Swimming",
+        "sport": "Swim",
         "availability": [{
             "date": "15 April",
             "time": [{"0800": 17}, {"0900": 41}, {"1000": 24}]
         }, {
-            "date": "16 April", 
+            "date": "16 April",
             "time": [{"1900": 29}, {"2000": 0}, {"2100": 10}]
         }]
     },
     {
         "name": "Bishan Swimming Complex",
-        "sport": "Swimming",
+        "sport": "Swim",
         "availability": [{
             "date": "15 April",
             "time": [{"0800": 17}, {"0900": 41}, {"1000": 24}]
         }, {
-            "date": "16 April", 
+            "date": "16 April",
             "time": [{"1900": 29}, {"2000": 0}, {"2100": 10}]
         }]
     }

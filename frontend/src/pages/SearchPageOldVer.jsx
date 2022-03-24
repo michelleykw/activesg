@@ -7,6 +7,8 @@ import CategoryOptionsDialog from '../components/CategoryOptionsDialog';
 import RecentSearch from '../components/RecentSearch';
 import SearchBarOldVer from '../components/SearchBarOldVer';
 import SearchListOldVer from '../components/SearchListOldVer';
+import sportsList from '../resources/constants';
+import venueList from '../resources/constants';
 
 const useStyles = makeStyles(theme => ({
     mr1: {
@@ -60,7 +62,7 @@ function SearchPageOldVer({ openPage, handleClosePage, isOldVersion, recentSearc
         return (
             <SearchBarOldVer 
                 isSearching
-                startSearch={startSearch} 
+                startSearch={startSearch}
                 resetSearchInput={resetSearchInput}
                 cancelSearch={cancelSearch}
                 doSearch={doSearch}
@@ -71,19 +73,19 @@ function SearchPageOldVer({ openPage, handleClosePage, isOldVersion, recentSearc
             />
         );
     };
-    
+
     const renderCategoryButtons = () => {
         return (
             <Grid container item className={`${classes.mt1} ${classes.mx2}`}>
-                <AppButton 
-                    content="Sports" 
-                    className={`${classes.px2} ${classes.mr1}`} 
+                <AppButton
+                    content="Sports"
+                    className={`${classes.px2} ${classes.mr1}`}
                     onClick={() => openCategoryOptionsDialog('Sport')}
                 />
-                <AppButton 
-                    content="Venue" 
+                <AppButton
+                    content="Venue"
                     onClick={() => openCategoryOptionsDialog('Venue')}
-                    className={`${classes.px2} ${classes.mr1}`} 
+                    className={`${classes.px2} ${classes.mr1}`}
                 />
             </Grid>
         );
@@ -92,8 +94,8 @@ function SearchPageOldVer({ openPage, handleClosePage, isOldVersion, recentSearc
     const renderRecentSearch = () => {
         return (
             <Grid container item className={classes.mt1}>
-                <RecentSearch 
-                    recentSearchList={recentSearchList} 
+                <RecentSearch
+                    recentSearchList={recentSearchList}
                     removeRecentSearch={removeRecentSearch}
                     doRecentSearch={doRecentSearch}
                 />
@@ -111,12 +113,12 @@ function SearchPageOldVer({ openPage, handleClosePage, isOldVersion, recentSearc
 
     const renderCategoryDialog = () => {
         return (
-            <CategoryOptionsDialog 
-                doSearch={doRecentSearch} 
-                category={searchCategory} 
-                open={openCategoryOptions} 
-                fullScreen 
-                handleClose={closeCategoryOptionsDialog} 
+            <CategoryOptionsDialog
+                doSearch={doRecentSearch}
+                category={searchCategory}
+                open={openCategoryOptions}
+                fullScreen
+                handleClose={closeCategoryOptionsDialog}
             />
         );
     };

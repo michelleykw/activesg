@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function SearchPageNewVer({ openPage, handleClosePage, recentSearchList, startSearch, resetSearchInput, cancelSearch, doSearch, removeRecentSearch, hasSearchValues, updateHasSearchValues, searchOptions, updateSearchOptions }) {
+function SearchPageNewVer({ openPage, handleClosePage, recentSearchList, startSearch, resetSearchInput, doSearch, removeRecentSearch, hasSearchValues, updateHasSearchValues, searchOptions, updateSearchOptions }) {
     const classes = useStyles();
     const theme = useTheme();
     const searchInput = useRef(null);
@@ -50,7 +50,6 @@ function SearchPageNewVer({ openPage, handleClosePage, recentSearchList, startSe
                 showFilter={false}
                 startSearch={startSearch} 
                 resetSearchInput={resetSearchInput}
-                cancelSearch={cancelSearch}
                 doSearch={doSearch}
                 searchInput={searchInput}
                 hasSearchValues={hasSearchValues}

@@ -30,13 +30,12 @@ const useStyles = makeStyles(theme => ({
 function SearchListNewVer({ type, list, search, fullScreen=false }) {
     const classes = useStyles();
 
-    useEffect(() => {
-    }, [list, type]);
+    // useEffect(() => {
+    //     console.log("SearchListNewVer:", list);
+    // }, [list, type]);
 
     /* SPORTS */
-    if (type == 'Sport') {
-        console.log('sport');
-    }
+    //
 
     const renderRow = searchItem => {
         return (

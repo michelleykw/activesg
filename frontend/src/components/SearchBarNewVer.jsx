@@ -61,22 +61,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-function SearchBarNewVer({ openFilterDialog, showFilter=true, startSearch, resetSearchInput, cancelSearch, doSearch, searchInput, updateHasSearchValues, updateSearchOptions, isResultPage }) {
+function SearchBarNewVer({ openFilterDialog, showFilter=true, startSearch, resetSearchInput, doSearch, searchInput, updateHasSearchValues, updateSearchOptions, isResultPage }) {
     const classes = useStyles();
+
+    useEffect(() => {
+    }, [searchInput]);
 
     const onInputSearch = e => {
         const searchInput = e.target.value;
         updateHasSearchValues(searchInput);
+
+        console.log('##onInputSearch (searchInput):', searchInput);
         updateSearchOptions(searchInput);
 
         if (e.keyCode == 13) {
             doSearch(searchInput);
         }
-    };
-
-    const onCancelSearch = e => {
-        cancelSearch();
-        searchInput.current.value = "";
     };
 
     const onResetSearchInput = () => {
@@ -86,7 +86,7 @@ function SearchBarNewVer({ openFilterDialog, showFilter=true, startSearch, reset
 
     const renderSearchBar = (params) => {
         return (
-            <Search onClick={startSearch} onKeyUp={onInputSearch}>
+            <Search onClick={() => startSearch && startSearch()} onKeyUp={onInputSearch}>
                 <SearchIconWrapper>
                     <SearchIcon fontSize="large" className={classes.icon} />
                 </SearchIconWrapper>

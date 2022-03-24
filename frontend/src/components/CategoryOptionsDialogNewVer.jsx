@@ -18,12 +18,21 @@ function CategoryOptionsDialogNewVer({ category, list, doSearch, open, handleClo
     const theme = useTheme();
     const location = useLocation();
     const navigate = useNavigate();
-
     const searchInput = useRef(null);    
+
+    useEffect(() => {
+        console.log(searchInput, list);
+    }, [list]);
+
 
     const handleCloseDialog = () => {
         resetSearchInput();
         handleClose();
+    };
+
+    const doRecentSearch = item => {
+        doSearch(item);
+        searchInput.current.value = item;
     };
 
     return (
@@ -37,13 +46,14 @@ function CategoryOptionsDialogNewVer({ category, list, doSearch, open, handleClo
                 <SearchBarNewVer 
                     showFilter={false} 
                     doSearch={doSearch} 
+                    // startSearch={startSearch} 
                     searchInput={searchInput}
                     hasSearchValues={hasSearchValues}
                     updateHasSearchValues={updateHasSearchValues}
                     resetSearchInput={resetSearchInput}
                     updateSearchOptions={updateSearchOptions}
                 />
-                <SearchListNewVer list={list} search={doSearch} type={category} /> 
+                <SearchListNewVer list={list} search={doRecentSearch} type={category} /> 
             </Grid>
       </Dialog>
     );
