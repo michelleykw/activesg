@@ -21,7 +21,7 @@ function CategoryOptionsDialogNewVer({ category, list, doSearch, open, handleClo
     const searchInput = useRef(null);    
 
     useEffect(() => {
-        console.log(searchInput, list);
+        
     }, [list]);
 
 
@@ -44,16 +44,16 @@ function CategoryOptionsDialogNewVer({ category, list, doSearch, open, handleClo
             <DialogHeaderNew header={category} handleClose={handleCloseDialog} />
             <Grid container className={classes.mt10}>
                 <SearchBarNewVer 
+                    type={category}
                     showFilter={false} 
                     doSearch={doSearch} 
-                    // startSearch={startSearch} 
                     searchInput={searchInput}
                     hasSearchValues={hasSearchValues}
                     updateHasSearchValues={updateHasSearchValues}
                     resetSearchInput={resetSearchInput}
                     updateSearchOptions={updateSearchOptions}
                 />
-                <SearchListNewVer list={list} search={doRecentSearch} type={category} /> 
+                <SearchListNewVer list={list} search={doRecentSearch} fullScreen type={category} /> 
             </Grid>
       </Dialog>
     );

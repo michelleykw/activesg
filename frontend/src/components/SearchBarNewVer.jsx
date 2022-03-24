@@ -4,6 +4,8 @@ import { styled } from '@mui/material/styles';
 import ClearIcon from '@mui/icons-material/Clear';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import SearchIcon from '@mui/icons-material/Search';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import { Button, Grid, InputBase } from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
@@ -61,7 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-function SearchBarNewVer({ openFilterDialog, showFilter=true, startSearch, resetSearchInput, doSearch, searchInput, updateHasSearchValues, updateSearchOptions, isResultPage }) {
+function SearchBarNewVer({ type, openFilterDialog, showFilter=true, startSearch, resetSearchInput, doSearch, searchInput, updateHasSearchValues, updateSearchOptions, isResultPage }) {
     const classes = useStyles();
 
     useEffect(() => {
@@ -70,8 +72,6 @@ function SearchBarNewVer({ openFilterDialog, showFilter=true, startSearch, reset
     const onInputSearch = e => {
         const searchInput = e.target.value;
         updateHasSearchValues(searchInput);
-
-        console.log('##onInputSearch (searchInput):', searchInput);
         updateSearchOptions(searchInput);
 
         if (e.keyCode == 13) {
@@ -88,14 +88,28 @@ function SearchBarNewVer({ openFilterDialog, showFilter=true, startSearch, reset
         return (
             <Search onClick={() => startSearch && startSearch()} onKeyUp={onInputSearch}>
                 <SearchIconWrapper>
-                    <SearchIcon fontSize="large" className={classes.icon} />
+                    {type == 'Sport' ? (
+                        <SportsSoccerIcon fontSize="large" className={classes.icon} />
+                    ) : (type == 'Location' ? (
+                            <LocationOnIcon fontSize="large" className={classes.icon} />
+                        ) : (
+                            <SearchIcon fontSize="large" className={classes.icon} />
+                        )
+                    )}
                 </SearchIconWrapper>
                 <div className={classes.alignCenter}>
                     <StyledInputBase
                         {...params}
                         fullWidth
                         disabled={showFilter}
-                        placeholder='Search'
+                        placeholder={type == 'Sport' ? (
+                            'Search for a sport'
+                        ) : (type == 'Location' ? (
+                            'Search for a location'
+                            ) : (
+                                'Search'
+                            )
+                        )}
                         inputProps={{ 'aria-label': 'search' }}
                         inputRef={searchInput}
                         endAdornment={showFilter ? (

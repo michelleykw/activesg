@@ -27,22 +27,22 @@ export const theme = createTheme({
         },
         h2: {
             fontWeight: 500,
-            fontSize: '2rem',
+            fontSize: '1.5rem',
             textTransform: 'capitalise'
         },
         h3: {
             fontWeight: 500,
-            fontSize: '1.5rem',
+            fontSize: '1.33rem',
             textTransform: 'capitalise'
         },
         h4: {
             fontWeight: 500,
-            fontSize: '1.25rem',
+            fontSize: '1.17rem',
             textTransform: 'capitalise'
         },
         body1: {
             fontWeight: 400,
-            fontSize: '1.125rem'
+            fontSize: '1.1rem'
         },
         body2: {
             fontWeight: 400,
