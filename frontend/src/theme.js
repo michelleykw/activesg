@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-export const theme = createTheme({
+const settings = {
     palette: {
         primary: {
             main: '#E95050'
@@ -65,6 +65,14 @@ export const theme = createTheme({
         caption: {
             fontWeight: 400,
             fontSize: '0.85rem'
-        }
+        },
+        fontFamily: "\"Montserrat\", sans-serif"
     }
-});
+};
+
+// const versionIndex = parseInt((window.location.search).search('version')) + 8;
+// if (window.location.search.substring(versionIndex) === '3') {
+//     settings.typography.fontFamily = "\"Montserrat\", sans-serif";
+// }
+
+export const theme = createTheme(settings);

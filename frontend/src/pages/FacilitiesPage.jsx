@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { makeStyles, useTheme } from '@mui/styles';
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
@@ -11,6 +10,7 @@ import SearchPageNewVer from './SearchPageNewVer';
 import AppIconButton from '../components/AppIconButton.jsx';
 import SearchBarOldVer from '../components/SearchBarOldVer.jsx';
 import SearchBarNewVer from '../components/SearchBarNewVer.jsx';
+import FilterDialogNewVer from '../components/FilterDialogNewVer.jsx';
 import CategoryOptionsDialogNewVer from '../components/CategoryOptionsDialogNewVer';
 import { allSearchOptions, categoryOptionsMap } from '../resources/constants.jsx';
 
@@ -52,6 +52,7 @@ function FacilitiesPage() {
 
     const [openSportDialog, setOpenSportDialog] = useState(false); // NEW VERSION
     const [openLocationDialog, setOpenLocationDialog] = useState(false); // NEW VERSION
+    const [openFilterDialog, setOpenFilterDialog] = useState(false); // NEW VERSION
 
     let listOptions = allSearchOptions;
     if (openSportDialog) {
@@ -69,7 +70,10 @@ function FacilitiesPage() {
         if (window.localStorage.getItem('recentSearchList') === null) {
             window.localStorage.setItem('recentSearchList', JSON.stringify([]));
         }
-    }, [recentSearchList, options]);
+        if (openFilterDialog && openPage) {
+            setOpenPage(false);
+        }
+    }, [recentSearchList, options, openFilterDialog, openPage]);
 
     const goToSearchResultPage = searchInput => {
         navigate(`/facilities/result?version=${versionId}&query=${searchInput}`);
@@ -109,7 +113,7 @@ function FacilitiesPage() {
         window.localStorage.setItem('recentSearchList', JSON.stringify(newRecentSearchList));
         setRecentSearchList(JSON.parse(window.localStorage.getItem('recentSearchList')));
         updateHasSearchValues(false);
-    }
+    };
 
     const updateHasSearchValues = input => {
         setHasSearchValues(input && input.length > 0);
@@ -122,7 +126,6 @@ function FacilitiesPage() {
             const newListOptions = [];
             listOptions.map(item => {
                 const result = item?.facilities?.filter(f => f.toLowerCase().includes(searchInput.toLowerCase()));
-                console.log('IS OBEJCT CRIES', item.area, item?.facilities.length, result.length);
                 if (result.length > 0) {
                     newListOptions.push({
                         area: item.area,
@@ -130,15 +133,14 @@ function FacilitiesPage() {
                     });
                 }
             });
-            console.log('##RESULT##', newListOptions);
             setOptions(newListOptions);
         }
     };
 
-    
     const openSearchPage = () => {
         setOpenPage(true);
     };
+
     const closeSearchPage = () => {
         resetSearchInput();
         setOpenPage(false);
@@ -186,6 +188,15 @@ function FacilitiesPage() {
         }
     };
 
+    const doOpenFilterDialog = type => {
+        setOpenFilterDialog(true);
+        setOpenPage(false);
+    };
+
+    const closeFilterDialog = type => {
+        setOpenFilterDialog(false);
+    };
+
     const renderHeaderNew = () => {
         return (
             <Grid item xs={12} className={`${classes.textAlignCenter} ${classes.py4}`}>
@@ -200,7 +211,7 @@ function FacilitiesPage() {
     const renderSearchNew = () => {
         return (
             <Grid item xs={12} className={`${classes.textAlignCenter}`}>
-                <SearchBarNewVer startSearch={openSearchPage} />
+                <SearchBarNewVer startSearch={openSearchPage} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />
                 <SearchPageNewVer 
                     openPage={openPage}
                     handleClosePage={closeSearchPage}
@@ -257,6 +268,7 @@ function FacilitiesPage() {
             {renderCategoryButtons()}
             {renderCategoryDialog(LOCATION_TITLE)}
             {renderCategoryDialog(SPORT_TITLE)}
+            {<FilterDialogNewVer open={openFilterDialog} handleClose={closeFilterDialog} versionId={versionId} />}
         </Grid>
     );
 }

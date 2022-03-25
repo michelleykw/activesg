@@ -63,10 +63,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-function SearchBarNewVer({ type, openFilterDialog, showFilter=true, startSearch, resetSearchInput, doSearch, searchInput, updateHasSearchValues, updateSearchOptions, isResultPage }) {
+function SearchBarNewVer({ type, openFilterDialog, closeFilterDialog, showFilter=true, startSearch, resetSearchInput, doSearch, searchInput, updateHasSearchValues, updateSearchOptions, isResultPage }) {
     const classes = useStyles();
 
     useEffect(() => {
+
     }, [searchInput]);
 
     const onInputSearch = e => {
@@ -82,7 +83,17 @@ function SearchBarNewVer({ type, openFilterDialog, showFilter=true, startSearch,
     const onResetSearchInput = () => {
         resetSearchInput();
         searchInput.current.value = "";
-    }
+    };
+
+    const getPlaceholder = () => {
+        if (type == 'Sport') {
+            return 'Search for a sport';
+        }
+        if (type == 'Location') {
+            return 'Search for a location';
+        }
+        return 'Search';
+    };
 
     const renderSearchBar = (params) => {
         return (
@@ -102,14 +113,7 @@ function SearchBarNewVer({ type, openFilterDialog, showFilter=true, startSearch,
                         {...params}
                         fullWidth
                         disabled={showFilter}
-                        placeholder={type == 'Sport' ? (
-                            'Search for a sport'
-                        ) : (type == 'Location' ? (
-                            'Search for a location'
-                            ) : (
-                                'Search'
-                            )
-                        )}
+                        placeholder={getPlaceholder()}
                         inputProps={{ 'aria-label': 'search' }}
                         inputRef={searchInput}
                         endAdornment={showFilter ? (
