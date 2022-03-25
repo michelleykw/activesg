@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 
 const useStyles = makeStyles(theme => ({
     button: {
-        backgroundColor: theme.palette.primary.main,
         borderRadius: theme.spacing(4),
         height: theme.spacing(4),
         '&:hover': {
@@ -17,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function AppButton({ href, content, onClick, icon, variant, disabled = false, type = "button", version = 'old', className }) {
+function AppButton({ href, content, onClick, icon, endIcon, variant, disabled = false, type = "button", version = 'old', className }) {
     const classes = useStyles();
 
     if (href) {
@@ -27,6 +26,7 @@ function AppButton({ href, content, onClick, icon, variant, disabled = false, ty
                 disabled={disabled}
                 variant={variant || "outlined"}
                 startIcon={icon}
+                endIcon={endIcon}
                 onClick={onClick}
                 type={type}
                 className={`${classes.button} ${className} ${classes[type]}`}
@@ -41,6 +41,7 @@ function AppButton({ href, content, onClick, icon, variant, disabled = false, ty
             disabled={disabled}
             variant={variant || "outlined"}
             startIcon={icon}
+            endIcon={endIcon}
             onClick={onClick}
             type={type}
             className={`${classes.button} ${classes[version]} ${className}`}
