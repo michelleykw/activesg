@@ -65,7 +65,12 @@ function FacilityViewPage() {
     }
 
     const handleTimeSlotClick = (selectedTimeSlot) => {
-        setSelectedTime(selectedTimeSlot);
+        if (selectedTime === '') {
+            setSelectedTime(selectedTimeSlot);
+        } else {
+            setSelectedTime('');
+        }
+
     }
 
     useEffect(() => {
