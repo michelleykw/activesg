@@ -10,6 +10,7 @@ import SearchPageNewVer from './SearchPageNewVer';
 import AppIconButton from '../components/AppIconButton.jsx';
 import SearchBarOldVer from '../components/SearchBarOldVer.jsx';
 import SearchBarNewVer from '../components/SearchBarNewVer.jsx';
+import FilterDialogOldVer from '../components/FilterDialogOldVer.jsx';
 import FilterDialogNewVer from '../components/FilterDialogNewVer.jsx';
 import CategoryOptionsDialogNewVer from '../components/CategoryOptionsDialogNewVer';
 import { allSearchOptions, categoryOptionsMap } from '../resources/constants.jsx';
@@ -146,29 +147,6 @@ function FacilitiesPage() {
         setOpenPage(false);
     };
 
-    /* OLD VERSION OF FACILITIES PAGE (1 & 2) */
-    if (isOldVersion) {
-        return (
-            <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
-                <SearchBarOldVer startSearch={openSearchPage} />
-                <SearchPageOldVer 
-                    openPage={openPage}
-                    cancelSearch={closeSearchPage}
-                    isOldVersion={isOldVersion} 
-                    recentSearchList={recentSearchList}
-                    resetSearchInput={resetSearchInput}
-                    doSearch={doSearch}
-                    removeRecentSearch={removeRecentSearch}
-                    hasSearchValues={hasSearchValues}
-                    updateHasSearchValues={updateHasSearchValues}
-                    searchOptions={options}
-                    updateSearchOptions={updateSearchOptions}
-                />
-            </Grid>
-        );
-    };
-
-    /* NEW VERSION OF FACILITIES PAGE (3 & 4) */
     const doOpenCategoryDialog = type => {
         if (type == SPORT_TITLE) {
             setOpenSportDialog(true);
@@ -196,6 +174,32 @@ function FacilitiesPage() {
     const closeFilterDialog = type => {
         setOpenFilterDialog(false);
     };
+
+    /* OLD VERSION OF FACILITIES PAGE (1 & 2) */
+    if (isOldVersion) {
+        return (
+            <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
+                <SearchBarOldVer startSearch={openSearchPage} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />
+                <SearchPageOldVer 
+                    openPage={openPage}
+                    cancelSearch={closeSearchPage}
+                    isOldVersion={isOldVersion} 
+                    recentSearchList={recentSearchList}
+                    resetSearchInput={resetSearchInput}
+                    doSearch={doSearch}
+                    removeRecentSearch={removeRecentSearch}
+                    hasSearchValues={hasSearchValues}
+                    updateHasSearchValues={updateHasSearchValues}
+                    searchOptions={options}
+                    updateSearchOptions={updateSearchOptions}
+                />
+                {<FilterDialogOldVer open={openFilterDialog} handleClose={closeFilterDialog} versionId={versionId} />}
+            </Grid>
+        );
+    };
+
+    /* NEW VERSION OF FACILITIES PAGE (3 & 4) */
+    
 
     const renderHeaderNew = () => {
         return (

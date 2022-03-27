@@ -3,6 +3,7 @@ import { makeStyles } from '@mui/styles';
 import { styled } from '@mui/material/styles';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SearchIcon from '@mui/icons-material/Search';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import { Button, Grid, InputBase } from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
@@ -54,7 +55,7 @@ const CancelButton = styled(Button)(({ theme }) => ({
     minWidth: '4rem'
   }));
 
-function SearchBarOldVer({ isSearching=false, startSearch, resetSearchInput, cancelSearch, doSearch, searchInput, hasSearchValues, updateHasSearchValues, updateSearchOptions, isResultPage, displayBack }) {
+function SearchBarOldVer({ isSearching=false, openFilterDialog, closeFilterDialog, startSearch, resetSearchInput, cancelSearch, doSearch, searchInput, hasSearchValues, updateHasSearchValues, updateSearchOptions, isResultPage, displayBack }) {
     const classes = useStyles();
     const [query, setQuery] = useState();
 
@@ -96,17 +97,22 @@ function SearchBarOldVer({ isSearching=false, startSearch, resetSearchInput, can
                 <SearchIconWrapper>
                     <SearchIcon fontSize="large" className={classes.icon} />
                 </SearchIconWrapper>
-                <StyledInputBase
-                    {...params}
-                    disabled={!isSearching}
-                    fullWidth
-                    placeholder={getPlaceholder()}
-                    inputProps={{ 'aria-label': 'search' }}
-                    inputRef={searchInput}
-                    endAdornment={isSearching && (
-                        <CancelIcon onClick={onResetSearchInput} className={`${classes.cancelIcon} ${classes.mr1}`} />
-                    )}
-                />
+                <div className={classes.alignCenter}>
+                    <StyledInputBase
+                        {...params}
+                        
+                        disabled={!isSearching}
+                        fullWidth
+                        placeholder={getPlaceholder()}
+                        inputProps={{ 'aria-label': 'search' }}
+                        inputRef={searchInput}
+                        endAdornment={!isSearching ? (
+                            <FilterListIcon fontSize="large" onClick={openFilterDialog} className={`${classes.icon} ${classes.mr1}`} />
+                        ) : (
+                            <CancelIcon onClick={onResetSearchInput} className={`${classes.cancelIcon} ${classes.mr1}`} />
+                        )}
+                    />
+                </div>
             </Search>
         );
     };
