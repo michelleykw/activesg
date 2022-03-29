@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import data from './data/data.json';
+import { sendNetworkLog } from '../logging/logging.js';
 
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
@@ -27,6 +28,7 @@ const useStyles = makeStyles(theme => ({
 function FacilityViewPage() {
     const classes = useStyles();
     const location = useLocation();
+    const navigate = useNavigate();
 
     const [facility, setFacility] = useState('');
     const [sport, setSport] = useState('');
@@ -75,12 +77,19 @@ function FacilityViewPage() {
         setShowDrawer(selectedTime != '');
     }, [selectedTime])
 
-    const DoneDrawer = ({shouldOpen}) => {
-        console.log(shouldOpen);
+    const DoneDrawer = () => {
+
+        const handleClick = () => {
+            sendNetworkLog('Clicked on: Done', 'Done Button',
+            'Selected Date: ' + selectedDate + '; ' + 'Selected Time: ' + selectedTime);
+            navigate(`/complete?version=${versionId}`);
+            localStorage.removeItem('recentSearchList');
+        }
+
         return (
             <>
                 <Drawer elevation='10vh' variant='permanent' anchor='bottom'>
-                    <Button variant="contained">Done</Button>
+                    <Button variant="contained" onClick={() => handleClick()}>Done</Button>
                 </Drawer>
             </>
         );

@@ -1,4 +1,7 @@
 import React, {useEffect, useState} from 'react';
+import { sendNetworkLog } from '../logging/logging.js';
+import { useNavigate, useLocation } from "react-router-dom";
+
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -11,9 +14,12 @@ function TimeSlotsNew ({timeSlots, selectedTime, setSelectedTime}){
     const timePeriods = ['Morning', 'Afternoon', 'Evening'];
     const [selectedTimePeriod, setSelectedTimePeriod] = useState('Morning');
 
+    const location = useLocation();
+    const versionId = new URLSearchParams(location.search).get('version') || 1;
+
     const clickTimePeriod = (timePeriod) => {
+        sendNetworkLog('Clicked on: ' + timePeriod, timePeriod + ' card', '', versionId);
         setSelectedTimePeriod(timePeriod);
-        console.log(selectedTimePeriod);
     }
 
     return (
