@@ -121,7 +121,7 @@ function FacilitiesPage() {
 
     const updateSearchOptions = searchInput => {
         if (listOptions && listOptions[0] && typeof listOptions[0] === 'string') {
-            setOptions(listOptions.filter(item => item.toLowerCase().includes(searchInput.toLowerCase())));    
+            setOptions(listOptions.filter(item => item.toLowerCase().includes(searchInput.toLowerCase())));
         } else {
             const newListOptions = [];
             listOptions.map(item => {
@@ -151,10 +151,10 @@ function FacilitiesPage() {
         return (
             <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
                 <SearchBarOldVer startSearch={openSearchPage} />
-                <SearchPageOldVer 
+                <SearchPageOldVer
                     openPage={openPage}
                     cancelSearch={closeSearchPage}
-                    isOldVersion={isOldVersion} 
+                    isOldVersion={isOldVersion}
                     recentSearchList={recentSearchList}
                     resetSearchInput={resetSearchInput}
                     doSearch={doSearch}
@@ -207,12 +207,12 @@ function FacilitiesPage() {
             </Grid>
         );
     };
-    
+
     const renderSearchNew = () => {
         return (
             <Grid item xs={12} className={`${classes.textAlignCenter}`}>
                 <SearchBarNewVer startSearch={openSearchPage} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />
-                <SearchPageNewVer 
+                <SearchPageNewVer
                     openPage={openPage}
                     handleClosePage={closeSearchPage}
                     recentSearchList={recentSearchList}
@@ -247,11 +247,11 @@ function FacilitiesPage() {
 
     const renderCategoryDialog = type => {
         return (
-            <CategoryOptionsDialogNewVer 
-                doSearch={doSearch} 
-                category={type} 
+            <CategoryOptionsDialogNewVer
+                doSearch={doSearch}
+                category={type}
                 list={options}
-                open={(type == SPORT_TITLE && openSportDialog) || (type == LOCATION_TITLE && openLocationDialog)} 
+                open={(type == SPORT_TITLE && openSportDialog) || (type == LOCATION_TITLE && openLocationDialog)}
                 handleClose={closeCategoryDialog}
                 hasSearchValues={hasSearchValues}
                 updateHasSearchValues={updateHasSearchValues}
