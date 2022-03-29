@@ -110,8 +110,7 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
     const initialValues = { 
         Availability: false,
         Location: [], // allLocationsNew,
-        // //----- UNCOMMENT: when filter object contains venue -----
-        // Venue: [],
+        Venue: [],
         Sports: [], // categoryOptionsMap.Sport,
         dateRange: [{
             startDate: new Date(),
@@ -149,15 +148,14 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
 
     const updateFilterValues = (values) => {
         let newQuery = new URLSearchParams(location.search).get('query');
+
         if (isChangeSport && isInsideList(newQuery, sportsList)) {
             setSportInput(newQuery);
         } 
 
-        // //----- UNCOMMENT: when filter object contains venue -----
-
-        // else if (isChangeVenue && isInsideList(newQuery, venueList)) {
-        //     setVenueInput(newQuery);
-        // }
+        else if (isChangeVenue && isInsideList(newQuery, venueList)) {
+            setVenueInput(newQuery);
+        }
 
         if (sportInput === "Select a Sport") {
             values.Sports = [];
@@ -165,13 +163,11 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
             values.Sports = [sportInput];
         }
 
-        // //----- UNCOMMENT: when filter object contains venue -----
-
-        // if (venueInput === "Select a Venue") {
-        //     values.Venue = [];
-        // } else {
-        //     values.Venue = [venueInput];
-        // }
+        if (venueInput === "Select a Venue") {
+            values.Venue = [];
+        } else {
+            values.Venue = [venueInput];
+        }
     }
 
     const openCategoryOptionsDialog = category => {

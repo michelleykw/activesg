@@ -31,6 +31,7 @@ function ResultPage() {
     const [available, setAvailable] = useState(true);
     const [facilityLocations, setFacilityLocations] = useState([]);
     const [sports, setSports] = useState([]);
+    const [venue, setVenue] = useState([]);
     const [dateRange, setDateRange] = useState({});
     const [filteredData, setFilteredData] = useState([]);
 
@@ -111,6 +112,7 @@ function ResultPage() {
         setAvailable(true);
         setFacilityLocations([]);
         setSports([]);
+        setVenue([]);
         setDateRange({});
     }
 
@@ -133,6 +135,7 @@ function ResultPage() {
         setAvailable(newQuery.Availability);
         setFacilityLocations(newQuery.Location);
         setSports(newQuery.Sports);
+        setVenue(newQuery.Venue);
         setDateRange(newQuery.dateRange[0]);
     }
 
