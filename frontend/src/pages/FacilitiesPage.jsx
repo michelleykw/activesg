@@ -193,7 +193,7 @@ function FacilitiesPage() {
                     searchOptions={options}
                     updateSearchOptions={updateSearchOptions}
                 />
-                {<FilterDialogOldVer open={openFilterDialog} handleClose={closeFilterDialog} versionId={versionId} />}
+                {<FilterDialogOldVer open={openFilterDialog} handleClose={closeFilterDialog} versionId={versionId} doSearch={doSearch} />}
             </Grid>
         );
     };

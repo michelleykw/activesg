@@ -40,7 +40,6 @@ const useStyles = makeStyles(theme => ({
     applyButtonBackground: {
         padding: theme.spacing(2),
         boxShadow: `0px 0px 3px ${theme.palette.background.lightGrey}`,
-        position: "fixed",
         backgroundColor: theme.palette.common.white,
         bottom: 0
     },
@@ -91,7 +90,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function FilterDialogOldVer({ open, handleClose, versionId }) {
+function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
     const classes = useStyles();
     const theme = useTheme();
     const navigate = useNavigate();
@@ -129,47 +128,42 @@ function FilterDialogOldVer({ open, handleClose, versionId }) {
         }
     };
 
-    const renderShowOrHideButton = (type, title) => {
-        return (
-            <AppButton 
-                variant='text' 
-                content={<Typography variant='h4'>{`${type} all ${title}`}</Typography>} 
-                endIcon={type === 'Show' ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
-                className={classes.button}
-                onClick={() => toggleShowAll(title)}
-            />
-        );
-    };
+    // const renderShowOrHideButton = (type, title) => {
+    //     return (
+    //         <AppButton 
+    //             variant='text' 
+    //             content={<Typography variant='h4'>{`${type} all ${title}`}</Typography>} 
+    //             endIcon={type === 'Show' ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+    //             className={classes.button}
+    //             onClick={() => toggleShowAll(title)}
+    //         />
+    //     );
+    // };
 
     const openCategoryOptionsDialog = category => {
+        console.log('--> openCategoryOptionsDialog');
         setOpenCategoryOptions(true);
         setSearchCategory(category);
     };
 
-    // const closeCategoryOptionsDialog = () => {
-    //     setOpenCategoryOptions(false);
-    //     setSearchCategory(null);
-    // };
+    const closeCategoryOptionsDialog = () => {
+        console.log('--> closeCategoryOptionsDialog');
+        setOpenCategoryOptions(false);
+        setSearchCategory(null);
+    };
 
-    // const renderSearchList = () => {
-    //     return (
-    //         <Grid container item className={classes.searchContainer}>
-    //             <SearchListOldVer list={searchOptions} search={doRecentSearch} /> 
-    //         </Grid>
-    //     );
-    // };
-
-    // const renderCategoryDialog = type => {
-    //     return (
-    //         <CategoryOptionsDialog
-    //             doSearch={doSearch}
-    //             category={type}
-    //             open={openCategoryOptions}
-    //             fullScreen
-    //             handleClose={closeCategoryOptionsDialog}
-    //         />
-    //     );
-    // };
+    const renderCategoryDialog = () => {
+        console.log('--> renderCategoryDialog');
+        return (
+            <CategoryOptionsDialog
+                doSearch={doSearch}
+                category={searchCategory}
+                open={openCategoryOptions}
+                fullScreen
+                handleClose={closeCategoryOptionsDialog}
+            />
+        );
+    };
 
     const renderSelectSection = (id, title) => {
         return (
@@ -186,6 +180,7 @@ function FilterDialogOldVer({ open, handleClose, versionId }) {
                     className={classes.selectionBox}
                     onClick={() => openCategoryOptionsDialog(title)}
                 />
+                {renderCategoryDialog()}
             </Grid>
         );
     };
@@ -201,15 +196,15 @@ function FilterDialogOldVer({ open, handleClose, versionId }) {
                     <Grid className = {classes.divider}></Grid>
                     {renderSelectSection("checkbox-group-sport", 'Sport')}
                     <Grid className = {classes.divider}></Grid>
-                    {renderSelectSection("checkbox-group-date", 'Date')}
-                    <Grid className = {classes.divider}></Grid>
-                    {/* <FormElement 
+                    {/* {renderSelectSection("checkbox-group-date", 'Date')}
+                    <Grid className = {classes.divider}></Grid> */}
+                    <FormElement 
                         type="date" 
                         ranges={values.dateRange}
                         onDateChange={item => setFieldValue('dateRange', [item.selection])}
-                    /> */}
+                    />
                 </Grid>
-                <Grid container item justifyContent="space-evenly" alignItems="center" className="my10">
+                <Grid container item justifyContent="space-evenly" alignItems="center" className={classes.applyButtonBackground}>
                     <AppButton 
                         variant='outlined' 
                         content="Reset" 
