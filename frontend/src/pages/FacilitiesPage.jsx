@@ -123,7 +123,7 @@ function FacilitiesPage() {
 
     const updateSearchOptions = searchInput => {
         if (listOptions && listOptions[0] && typeof listOptions[0] === 'string') {
-            setOptions(listOptions.filter(item => item.toLowerCase().includes(searchInput.toLowerCase())));    
+            setOptions(listOptions.filter(item => item.toLowerCase().includes(searchInput.toLowerCase())));
         } else {
             const newListOptions = [];
             listOptions.map(item => {
@@ -148,6 +148,31 @@ function FacilitiesPage() {
         setOpenPage(false);
     };
 
+    /* OLD VERSION OF FACILITIES PAGE (1 & 2) */
+    if (isOldVersion) {
+        return (
+            <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
+                <SearchBarOldVer startSearch={openSearchPage} doSearch={doSearch}/>
+                <SearchPageOldVer 
+                    openPage={openPage}
+                    cancelSearch={closeSearchPage}
+                    isOldVersion={isOldVersion} 
+                    recentSearchList={recentSearchList}
+                    resetSearchInput={resetSearchInput}
+                    doSearch={doSearch}
+                    removeRecentSearch={removeRecentSearch}
+                    hasSearchValues={hasSearchValues}
+                    updateHasSearchValues={updateHasSearchValues}
+                    searchOptions={options}
+                    updateSearchOptions={updateSearchOptions}
+                />
+            </Grid>
+        );
+    };
+
+    
+
+    /* NEW VERSION OF FACILITIES PAGE (3 & 4) */
     const doOpenCategoryDialog = type => {
         if (type == SPORT_TITLE) {
             setOpenSportDialog(true);
@@ -176,31 +201,6 @@ function FacilitiesPage() {
         setOpenFilterDialog(false);
     };
 
-    /* OLD VERSION OF FACILITIES PAGE (1 & 2) */
-    if (isOldVersion) {
-        return (
-            <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
-                <SearchBarOldVer startSearch={openSearchPage} doSearch={doSearch}/>
-                <SearchPageOldVer 
-                    openPage={openPage}
-                    cancelSearch={closeSearchPage}
-                    isOldVersion={isOldVersion} 
-                    recentSearchList={recentSearchList}
-                    resetSearchInput={resetSearchInput}
-                    doSearch={doSearch}
-                    removeRecentSearch={removeRecentSearch}
-                    hasSearchValues={hasSearchValues}
-                    updateHasSearchValues={updateHasSearchValues}
-                    searchOptions={options}
-                    updateSearchOptions={updateSearchOptions}
-                />
-            </Grid>
-        );
-    };
-
-    /* NEW VERSION OF FACILITIES PAGE (3 & 4) */
-    
-
     const renderHeaderNew = () => {
         return (
             <Grid item xs={12} className={`${classes.textAlignCenter} ${classes.py4}`}>
@@ -211,12 +211,12 @@ function FacilitiesPage() {
             </Grid>
         );
     };
-    
+
     const renderSearchNew = () => {
         return (
             <Grid item xs={12} className={`${classes.textAlignCenter}`}>
                 <SearchBarNewVer startSearch={openSearchPage} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />
-                <SearchPageNewVer 
+                <SearchPageNewVer
                     openPage={openPage}
                     handleClosePage={closeSearchPage}
                     recentSearchList={recentSearchList}
@@ -251,11 +251,11 @@ function FacilitiesPage() {
 
     const renderCategoryDialog = type => {
         return (
-            <CategoryOptionsDialogNewVer 
-                doSearch={doSearch} 
-                category={type} 
+            <CategoryOptionsDialogNewVer
+                doSearch={doSearch}
+                category={type}
                 list={options}
-                open={(type == SPORT_TITLE && openSportDialog) || (type == LOCATION_TITLE && openLocationDialog)} 
+                open={(type == SPORT_TITLE && openSportDialog) || (type == LOCATION_TITLE && openLocationDialog)}
                 handleClose={closeCategoryDialog}
                 hasSearchValues={hasSearchValues}
                 updateHasSearchValues={updateHasSearchValues}
