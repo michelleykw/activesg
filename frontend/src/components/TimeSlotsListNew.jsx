@@ -18,7 +18,7 @@ function TimeSlotsNew ({timeSlots, selectedTime, setSelectedTime}){
 
     return (
         <>
-            <Grid container direction="column" sx={{ml: 2}} minHeight='50vh'>
+            <Grid container direction="column" sx={{ml: 2}}>
                 <Box sx={{mt: 1}}>
                     <Typography inline align="left" gutterBottom variant="h6" sx={{fontWeight: 600}}>
                         Select a time

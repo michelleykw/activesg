@@ -3,6 +3,7 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import data from './data/data.json';
 
 import { makeStyles } from '@mui/styles';
+import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -15,6 +16,7 @@ import HeaderSectionNew from '../components/FacilitiesViewHeaderNew';
 import ScrollCalendar from '../components/ScrollCalendar';
 import TimeSlotsOld from '../components/TimeSlotsListOld';
 import TimeSlotsNew from '../components/TimeSlotsListNew';
+import YouMayAlsoLike from '../components/YouMayAlsoLike';
 
 const useStyles = makeStyles(theme => ({
     fullScreenHeight: {
@@ -86,7 +88,7 @@ function FacilityViewPage() {
 
     return (
         <>
-            <Grid container justifyContent="flex-start" alignItems="flex-start" className={classes.fullScreenHeight} columnSpacing={0}>
+            <Grid container justifyContent="flex-start" alignItems="flex-start" className={classes.fullScreenHeight} columnSpacing={0} sx={{mb:10}}>
                 <Grid item xs={12}>
                     <Box
                         component="img"
@@ -94,7 +96,7 @@ function FacilityViewPage() {
                         src={swimming} />
                 </Grid>
 
-                <Grid item xs={12} sx={{mt: 2, mb: 2}}>
+                <Grid item xs={12} sx={{my: 2}}>
                     {useOldResult && <HeaderSectionOld facility={facility} sport={sport}/>}
                     {!useOldResult && <HeaderSectionNew area={area} facility={facility} sport={sport} />}
                 </Grid>
@@ -118,6 +120,10 @@ function FacilityViewPage() {
                         {useOldResult && <TimeSlotsOld timeSlots={timeSlots} selectedTime={selectedTime} setSelectedTime={setSelectedTime} />}
                         {!useOldResult && <TimeSlotsNew timeSlots={timeSlots} selectedTime={selectedTime} setSelectedTime={setSelectedTime} />}
                     </Box>
+                </Grid>
+
+                <Grid item xs={12}>
+                    {!useOldResult && (<YouMayAlsoLike data={data} currFacilityName={facility} useOldResult={useOldResult} selectedDate={selectedDate} setSelectedDate={setSelectedDate} setSelectedTime={setSelectedTime} dates={availability} /> )}
                 </Grid>
             </Grid>
             {showDrawer && <DoneDrawer/>}
