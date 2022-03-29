@@ -1,11 +1,10 @@
 # Steps
 
-## Frontend
+## How to
 
-1. `cd frontend`
-2. Set up node packages: `npm install` or `npm i`
+1. Set up node packages: `npm install` or `npm i`
    - To install a particular package: `npm i <PACKAGE NAME>`
-3. Run on local 3000: `npm start`
+2. Run on local 3000: `npm start`
 
 - To view, set the window dimensions to have a maximum width of 600px.
 
