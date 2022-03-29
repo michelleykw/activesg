@@ -152,7 +152,7 @@ function FacilitiesPage() {
     if (isOldVersion) {
         return (
             <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
-                <SearchBarOldVer startSearch={openSearchPage} doSearch={doSearch}/>
+                <SearchBarOldVer startSearch={openSearchPage} doSearch={doSearch} versionId={versionId}/>
                 <SearchPageOldVer 
                     openPage={openPage}
                     cancelSearch={closeSearchPage}
