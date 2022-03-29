@@ -10,9 +10,10 @@ import SportsRugbyIcon from '@mui/icons-material/SportsRugby';
 import PoolIcon from '@mui/icons-material/Pool';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import AppIconButton from '../components/AppIconButton.jsx';
+import SearchItemNew from '../components/SearchItemNew.jsx';
 
 const useStyles = makeStyles(theme => ({
-    pxHalf: {
+    px2: {
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2)
     },
@@ -104,8 +105,6 @@ function SearchListNewVer({ type, list, search, fullScreen=false }) {
 
     /* LOCATION */
     if (type == 'Location') {
-        console.log('LOCATION', list);
-
         const renderRowWithGrouping = item => {
             const { area, facilities } = item;
             return (
@@ -124,9 +123,12 @@ function SearchListNewVer({ type, list, search, fullScreen=false }) {
     }
 
     /* GENERAL */
+    // onClick={() => search(name)}
     return (
         <Grid container justifyContent="flex-start" alignItems="center" className={fullScreen ? classes.pxHalf : classes.mt1mb8}>
-            {list && list.map(item => renderRow(item))}
+            {list && list.map(
+                (item) => <SearchItemNew name={item} onClick={() => search(item)}/>
+            )}
         </Grid>
     );
 }

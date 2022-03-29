@@ -4,7 +4,8 @@ import Grid from '@mui/material/Grid';
 import Dialog from '@mui/material/Dialog';
 import DialogHeaderNew from '../components/DialogHeaderNew';
 import SearchBarNewVer from '../components/SearchBarNewVer';
-import SearchList from '../components/SearchListOldVer';
+import RecentSearchNewVer from '../components/RecentSearchNewVer';
+import SearchListNewVer from '../components/SearchListNewVer';
 
 const useStyles = makeStyles(theme => ({
     mr1: {
@@ -59,10 +60,20 @@ function SearchPageNewVer({ openPage, handleClosePage, recentSearchList, startSe
         );
     };
 
+    const renderRecentSearch = () => {
+        return (
+            <RecentSearchNewVer
+                recentSearchList={recentSearchList}
+                removeRecentSearch={removeRecentSearch}
+                doRecentSearch={doRecentSearch}
+            />
+        );
+    };
+
     const renderSearchList = () => {
         return (
             <Grid container item className={classes.searchContainer}>
-                <SearchList list={searchOptions} search={doRecentSearch} /> 
+                <SearchListNewVer list={searchOptions} search={doRecentSearch} /> 
             </Grid>
         );
     };
@@ -76,7 +87,8 @@ function SearchPageNewVer({ openPage, handleClosePage, recentSearchList, startSe
             <DialogHeaderNew header='Search' handleClose={handleClosePage} />
             <Grid container alignItems="flex-start" justifyContent="flex-start" className={classes.mt10}>
                 {renderSearchBar()}
-                {renderSearchList()}
+                {!hasSearchValues && recentSearchList && recentSearchList.length > 0 && renderRecentSearch()}
+                {hasSearchValues && renderSearchList()}
             </Grid>
         </Dialog>
     );

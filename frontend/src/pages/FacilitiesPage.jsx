@@ -54,7 +54,7 @@ function FacilitiesPage() {
     const [openLocationDialog, setOpenLocationDialog] = useState(false); // NEW VERSION
     const [openFilterDialog, setOpenFilterDialog] = useState(false); // NEW VERSION
 
-    let listOptions = allSearchOptions;
+    let listOptions = allSearchOptions; // categoryOptionsMap['Venue'] -- use the venue list instead as the name of the facilities
     if (openSportDialog) {
         listOptions = (categoryOptionsMap[SPORT_TITLE]);
     } else if (openLocationDialog) {
