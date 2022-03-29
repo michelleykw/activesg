@@ -302,7 +302,7 @@ function ResultPage() {
 
 
                 {/* RESULTS PAGE */}
-                <Box sx={{ml:1}}>
+                <Box sx={{ml:1, width: '90vw'}}>
                     <Grid container justifyContent="flex-start" alignItems="centre" className={classes.mt1mb8}>
                         {useOldResult && filteredData && filteredData.map(item => <ResultCardOld data={item}/>)}
                         {!useOldResult && filteredData && filteredData.map(item => <ResultCardNew data={item}/>)}
@@ -314,7 +314,6 @@ function ResultPage() {
                     <Grid container alignItems='center' justifyContent='center' sx={{width: 1}} minHeight='150px'>
                         <Typography>There are no results found.</Typography>
                     </Grid>
-
                 }
 
             </Grid>
