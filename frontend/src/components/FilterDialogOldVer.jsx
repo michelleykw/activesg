@@ -107,7 +107,7 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
     }, [openCategoryOptions, searchCategory]);
 
     const initialValues = { 
-        Availability: true,
+        Availability: false,
         Location: [], // allLocationsNew,
         Sports: [], // categoryOptionsMap.Sport,
         dateRange: [{
@@ -118,6 +118,7 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
     };
 
     const applyFilter = (values) => {
+        console.log("--> apply filter");
         console.log('Filter:', values);
         handleClose();
         navigate(`/facilities/result?version=${versionId}&query=${JSON.stringify(values)}`);
@@ -172,7 +173,17 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
         );
     };
 
-    const renderSelectSection = (id, title) => {
+    // const getQuery = (type, values) => {
+    //     let newQuery = new URLSearchParams(location.search).get('query');
+    //     if (openCategoryOptions && type === 'Sport') {
+    //         values.Sports.push(newQuery);
+    //     } 
+    //     // else if (openCategoryOptions && type === 'Venue') {
+    //     //     values.Location.push(newQuery);
+    //     // } 
+    // }
+
+    const renderSelectSection = (id, title, titleInput) => {
         return (
             <Grid container item id={id}>
                 <AppButton 
@@ -180,7 +191,7 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
                     content={
                     <Grid justify="flex-start">
                         <Typography className={classes.subheading}>{title}</Typography>
-                        <Typography variant='h4' className={classes.headings}>{"Select a " + title}</Typography>
+                        <Typography variant='h4' className={classes.headings}>{titleInput}</Typography>
                     </Grid>
                     } 
                     endIcon={<NavigateNextIcon />}
@@ -188,6 +199,7 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
                     onClick={() => openCategoryOptionsDialog(title)}
                 />
                 {renderCategoryDialog()}
+                {/* {getQuery(title, values)} */}
             </Grid>
         );
     };
@@ -199,9 +211,9 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
             <Form>
                 <Grid container justify="flex-start" alignItems="flex-start">
                     <Grid className = {classes.filterHeader}>{"Filter"}</Grid>
-                    {renderSelectSection("checkbox-group-location", 'Venue')}
+                    {renderSelectSection("checkbox-group-location", 'Venue', 'Select a Venue')}
                     <Grid className = {classes.divider}></Grid>
-                    {renderSelectSection("checkbox-group-sport", 'Sport')}
+                    {renderSelectSection("checkbox-group-sport", 'Sport', 'Select a Sport')}
                     <Grid className = {classes.divider}></Grid>
                     {/* {renderSelectSection("checkbox-group-date", 'Date')}
                     <Grid className = {classes.divider}></Grid> */}

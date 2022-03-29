@@ -27,12 +27,19 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function SearchListOldVer({ list, search, fullScreen=false }) {
+function SearchListOldVer({ list, search, fullScreen=false, handleClose }) {
     const classes = useStyles();
+    console.log('--> renderCategoryDialog');
+
+    const searchAndClose = searchItem => {
+        console.log('--> searchAndClose');
+        search(searchItem);
+        handleClose();
+    };
 
     const renderRow = searchItem => {
         return (
-            <Grid container onClick={() => search(searchItem)} justifyContent="space-between" alignItems="center" className={`${classes.row}`}>
+            <Grid container onClick={() => searchAndClose(searchItem)} justifyContent="space-between" alignItems="center" className={`${classes.row}`}>
                 <Grid item xs={10} className={fullScreen ? classes.px1 : classes.px2}>
                     <Typography color="textSecondary">
                         {searchItem}
