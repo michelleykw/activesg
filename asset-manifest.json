@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/activesg/static/css/main.2ec4a35d.css",
+    "main.js": "/activesg/static/js/main.d8a41f8a.js",
+    "static/media/swimming.jpg": "/activesg/static/media/swimming.832729355fedc7a1a10c.jpg",
+    "index.html": "/activesg/index.html",
+    "main.2ec4a35d.css.map": "/activesg/static/css/main.2ec4a35d.css.map",
+    "main.d8a41f8a.js.map": "/activesg/static/js/main.d8a41f8a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2ec4a35d.css",
+    "static/js/main.d8a41f8a.js"
+  ]
+}
