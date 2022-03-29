@@ -32,7 +32,7 @@ function DatePicker(props) {
     const classes = useStyles();
     const theme = useTheme();
 
-    // const [value, setValue] = useState<Date | null>(null);
+    // const [value, setValue] = useState();
 
     return (
         <Grid container justitfyContent="center" alignItems="center">

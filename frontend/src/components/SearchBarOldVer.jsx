@@ -146,7 +146,7 @@ function SearchBarOldVer({ isSearching=false, startSearch, resetSearchInput, can
                     <CancelButton variant="text" onClick={onCancelSearch}>Cancel</CancelButton>
                 )}
             </Grid>
-            {<FilterDialogOldVer open={openFilterDialog} handleClose={closeFilterDialog} versionId={versionId} doSearch={doSearch} />}
+            {<FilterDialogOldVer open={openFilterDialog} handleClose={closeFilterDialog} versionId={new URLSearchParams(location.search).get('version')} doSearch={doSearch} />}
         </Grid>
     );
 }
