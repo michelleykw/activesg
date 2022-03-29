@@ -17,6 +17,7 @@ function NavigationBar() {
     const classes = useStyles();
     const location = useLocation();
     let navigate = useNavigate();
+    const versionId = new URLSearchParams(location.search).get('version') || 1;
 
     const pathnameIds = {
         'facilities': 0,
@@ -36,7 +37,7 @@ function NavigationBar() {
                 value={value}
                 onChange={(event, newValue) => {
                     setValue(newValue);
-                    navigate(pages[newValue].href);
+                    navigate(`${pages[newValue].href}?version=${versionId}`);
                 }}
             >
                 {
