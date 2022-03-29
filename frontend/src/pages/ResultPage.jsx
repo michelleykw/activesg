@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -6,11 +6,14 @@ import data from './data/data.json';
 import Box from '@mui/material/Box';
 import CategoryOptionsDialog from '../components/CategoryOptionsDialog';
 import { useParams, useLocation, useNavigate } from "react-router-dom";
-import SearchBarOldVer from '../components/SearchBarOldVer.jsx';
-import SearchBarNewVer from '../components/SearchBarNewVer.jsx';
-import { allSearchOptions, sportsList } from '../resources/constants';
+import { allSearchOptions, sportsList, categoryOptionsMap } from '../resources/constants';
 import ResultCardOld from '../components/ResultCardOld';
 import ResultCardNew from '../components/ResultCardNew';
+
+import AppIconButton from '../components/AppIconButton.jsx';
+import SearchBarOldVer from '../components/SearchBarOldVer.jsx';
+import SearchBarNewVer from '../components/SearchBarNewVer.jsx';
+import FilterDialogNewVer from '../components/FilterDialogNewVer.jsx';
 
 const useStyles = makeStyles(theme => ({
     fullScreenHeight: {
@@ -45,65 +48,6 @@ function ResultPage() {
     const [hasSearchValues, setHasSearchValues] = useState(false);
     const [options, setOptions] = useState(allSearchOptions);
     const [recentSearchList, setRecentSearchList] = useState(JSON.parse(window.localStorage.getItem('recentSearchList')));
-
-    const openCategoryOptionsDialog = category => {
-        setOpenCategoryOptions(true);
-    };
-
-    const closeCategoryOptionsDialog = () => {
-        setOpenCategoryOptions(false);
-        navigate(-1);
-    };
-
-    const updateSearchOptions = searchInput => {
-        setOptions(allSearchOptions.filter(item => item.toLowerCase().includes(searchInput.toLowerCase())));
-    };
-
-    const goToSearchResultPage = searchInput => {
-        navigate(`/facilities/result?version=${versionId}&query=${searchInput}`);
-    };
-
-    const updateHasSearchValues = input => {
-        setHasSearchValues(input && input.length > 0);
-    };
-
-    const updateRecentSearch = (newSearch) => {
-        if (newSearch.length > 0) {
-            updateHasSearchValues(newSearch);
-            const recentSearchList = JSON.parse(window.localStorage.getItem('recentSearchList'));
-            if (!recentSearchList.includes(newSearch)) {
-                recentSearchList.unshift(newSearch);
-            } else if (recentSearchList.includes(newSearch)) {
-                const index = recentSearchList.indexOf(newSearch);
-                recentSearchList.splice(index, 1);
-                recentSearchList.unshift(newSearch);
-            }
-            window.localStorage.setItem('recentSearchList', JSON.stringify(recentSearchList));
-            setRecentSearchList(JSON.parse(window.localStorage.getItem('recentSearchList')));
-        }
-    };
-
-    const doSearch = input => {
-        updateSearchOptions(input)
-        updateRecentSearch(input);
-        setRecentSearchList(JSON.parse(window.localStorage.getItem('recentSearchList')));
-        goToSearchResultPage(input);
-        setQuery(input);
-        closeCategoryOptionsDialog();
-    };
-
-    const renderCategoryDialog = () => {
-        return (
-            <CategoryOptionsDialog
-                doSearch={doSearch}
-                category={searchCategory}
-                open={openCategoryOptions}
-                fullScreen
-                handleClose={closeCategoryOptionsDialog}
-            />
-        );
-    };
-
 
     // RESULTS PAGE FILTER METHODS
 
@@ -174,7 +118,6 @@ function ResultPage() {
         } else {
             filterNewQuery(data);
         }
-
     }
 
     useEffect(() => {
@@ -185,6 +128,66 @@ function ResultPage() {
     useEffect(() => {
         filterData(data);
     }, [query, available, facilityLocations, sports, dateRange])
+
+
+    // ------------------ SEARCH BAR STUFF ------------------ //
+    const openCategoryOptionsDialog = category => {
+        setOpenCategoryOptions(true);
+    };
+
+    const closeCategoryOptionsDialog = () => {
+        setOpenCategoryOptions(false);
+        navigate(-1);
+    };
+
+    const updateSearchOptions = searchInput => {
+        setOptions(allSearchOptions.filter(item => item.toLowerCase().includes(searchInput.toLowerCase())));
+    };
+
+    const goToSearchResultPage = searchInput => {
+        navigate(`/facilities/result?version=${versionId}&query=${searchInput}`);
+    };
+
+    const updateHasSearchValues = input => {
+        setHasSearchValues(input && input.length > 0);
+    };
+
+    const updateRecentSearch = (newSearch) => {
+        if (newSearch.length > 0) {
+            updateHasSearchValues(newSearch);
+            const recentSearchList = JSON.parse(window.localStorage.getItem('recentSearchList'));
+            if (!recentSearchList.includes(newSearch)) {
+                recentSearchList.unshift(newSearch);
+            } else if (recentSearchList.includes(newSearch)) {
+                const index = recentSearchList.indexOf(newSearch);
+                recentSearchList.splice(index, 1);
+                recentSearchList.unshift(newSearch);
+            }
+            window.localStorage.setItem('recentSearchList', JSON.stringify(recentSearchList));
+            setRecentSearchList(JSON.parse(window.localStorage.getItem('recentSearchList')));
+        }
+    };
+
+    const doSearch = input => {
+        updateSearchOptions(input)
+        updateRecentSearch(input);
+        setRecentSearchList(JSON.parse(window.localStorage.getItem('recentSearchList')));
+        goToSearchResultPage(input);
+        setQuery(input);
+        closeCategoryOptionsDialog();
+    };
+
+    const renderCategoryDialog = () => {
+        return (
+            <CategoryOptionsDialog
+                doSearch={doSearch}
+                category={searchCategory}
+                open={openCategoryOptions}
+                fullScreen
+                handleClose={closeCategoryOptionsDialog}
+            />
+        );
+    };
 
     const closeFilterDialog = type => {
         setOpenFilterDialog(false);
@@ -197,16 +200,105 @@ function ResultPage() {
         setOpenPage(false);
     };
 
+    const searchInputNew = useRef(null);
+
+    const isOldVersion = (versionId == 1) || (versionId == 2);
+    const LOCATION_TITLE = 'Location';
+    const SPORT_TITLE = 'Sport';
+
+    let listOptions = allSearchOptions; // categoryOptionsMap['Venue'] -- use the venue list instead as the name of the facilities
+    if (openSportDialog) {
+        listOptions = (categoryOptionsMap[SPORT_TITLE]);
+    } else if (openLocationDialog) {
+        listOptions = (categoryOptionsMap[LOCATION_TITLE]);
+    }
+
+    useEffect(() => {
+        if (window.localStorage.getItem('recentSearchList') === null) {
+            window.localStorage.setItem('recentSearchList', JSON.stringify([]));
+        }
+        if (openFilterDialog && openPage) {
+            setOpenPage(false);
+        }
+    }, [recentSearchList, options, openFilterDialog, openPage]);
+
+    const resetSearchInput = () => {
+        setHasSearchValues(false);
+        setOptions(listOptions);
+    };
+
+    const removeRecentSearch = item => {
+        const recentSearchList = JSON.parse(window.localStorage.getItem('recentSearchList'));
+        const newRecentSearchList = recentSearchList.filter(e => e != item);
+        window.localStorage.setItem('recentSearchList', JSON.stringify(newRecentSearchList));
+        setRecentSearchList(JSON.parse(window.localStorage.getItem('recentSearchList')));
+        updateHasSearchValues(false);
+    };
+
+    const openSearchPage = () => {
+        setOpenPage(true);
+    };
+
+    const closeSearchPage = () => {
+        resetSearchInput();
+        setOpenPage(false);
+    };
+
+    /* OLD VERSION OF FACILITIES PAGE (1 & 2) */
+    const renderSearchOld = () => {
+        return (
+            <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
+                <SearchBarOldVer startSearch={openCategoryOptionsDialog} />
+            </Grid>
+        );
+    }
+
+    /* NEW VERSION OF FACILITIES PAGE (3 & 4) */
+    const doOpenCategoryDialog = type => {
+        if (type == SPORT_TITLE) {
+            setOpenSportDialog(true);
+            setOptions(categoryOptionsMap[SPORT_TITLE]);
+        } else if (type == LOCATION_TITLE) {
+            setOpenLocationDialog(true);
+            setOptions(categoryOptionsMap[LOCATION_TITLE]);
+        }
+    };
+
+    const closeCategoryDialog = type => {
+        setOptions(allSearchOptions);
+        if (openSportDialog) {
+            setOpenSportDialog(false);
+        } else if (openLocationDialog) {
+            setOpenLocationDialog(false);
+        }
+    };
+
+
+    const renderSearchNew = () => {
+        return (
+            <Grid item xs={12} className={`${classes.textAlignCenter}`}>
+                <SearchBarNewVer startSearch={openSearchPage} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />
+            </Grid>
+        );
+    };
+
+    const renderCategoryButton = (name, icon) => {
+        return <AppIconButton onClick={() => {doOpenCategoryDialog(name)}} name={name} icon={icon} />;
+    };
+
     return (
         <Box sx={{mt:1}}>
             <Grid container direction="column" justifyContent="centre" alignItems="flex-start" className={classes.fullScreenHeight} width='100%'>
                 {/* SEARCH BAR */}
                 <Box width="95%">
-                    {useOldSearch && (<SearchBarOldVer startSearch={openCategoryOptionsDialog} hasSearchValues={query} />)}
-                    {!useOldSearch && (<SearchBarNewVer startSearch={openCategoryOptionsDialog} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />)}
+                    {useOldSearch && renderSearchOld()}
+                    {!useOldSearch && renderSearchNew()}
                 </Box>
 
                 {renderCategoryDialog()}
+                {renderCategoryDialog(LOCATION_TITLE)}
+                {renderCategoryDialog(SPORT_TITLE)}
+                {<FilterDialogNewVer open={openFilterDialog} handleClose={closeFilterDialog} versionId={versionId} />}
 
 
                 {/* RESULTS PAGE */}
