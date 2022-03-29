@@ -81,7 +81,7 @@ function FacilityViewPage() {
 
         const handleClick = () => {
             sendNetworkLog('Clicked on: Done', 'Done Button',
-            'Selected Date: ' + selectedDate + '; ' + 'Selected Time: ' + selectedTime);
+            'Selected Date: ' + selectedDate + '; ' + 'Selected Time: ' + selectedTime, versionId);
             navigate(`/complete?version=${versionId}`);
             localStorage.removeItem('recentSearchList');
         }
