@@ -4,6 +4,8 @@ import { styled } from '@mui/material/styles';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import FilterDialogOldVer from '../components/FilterDialogOldVer.jsx';
+import AppIconButton from '../components/AppIconButton.jsx';
 import { Button, Grid, InputBase } from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
@@ -58,14 +60,16 @@ const CancelButton = styled(Button)(({ theme }) => ({
     minWidth: '4rem'
   }));
 
-function SearchBarOldVer({ isSearching=false, openFilterDialog, closeFilterDialog, startSearch, resetSearchInput, cancelSearch, doSearch, searchInput, hasSearchValues, updateHasSearchValues, updateSearchOptions, isResultPage, displayBack }) {
+function SearchBarOldVer({ isSearching=false, startSearch, resetSearchInput, cancelSearch, doSearch, searchInput, hasSearchValues, updateHasSearchValues, updateSearchOptions, isResultPage, displayBack }) {
     const classes = useStyles();
     const [query, setQuery] = useState();
+
+    const [openFilterDialog, setOpenFilterDialog] = useState(false);
 
     useEffect(() => {
         console.log(hasSearchValues);
         setQuery(hasSearchValues);
-    }, [hasSearchValues]);
+    }, [hasSearchValues, openFilterDialog]);
 
     const onInputSearch = e => {
         const searchInput = e.target.value;
@@ -94,6 +98,15 @@ function SearchBarOldVer({ isSearching=false, openFilterDialog, closeFilterDialo
         return query && query.length > 0 ? query : isSearching ? 'Enter Sport / Venue' : 'Search Facilities'
     };
 
+    const doOpenFilterDialog = () => {
+        setOpenFilterDialog(true);
+        // setOpenPage(false);
+    };
+
+    const closeFilterDialog = () => {
+        setOpenFilterDialog(false);
+    };
+
     const renderSearchBar = (params) => {
         return (
             <Search onClick={startSearch} onKeyUp={onInputSearch}>
@@ -109,20 +122,6 @@ function SearchBarOldVer({ isSearching=false, openFilterDialog, closeFilterDialo
                         placeholder={getPlaceholder()}
                         inputProps={{ 'aria-label': 'search' }}
                         inputRef={searchInput}
-                        endAdornment={!isSearching ? (
-                            <FilterListIcon fontSize="large" onClick={openFilterDialog} className={`${classes.icon} ${classes.mr1}`} />
-                        ) : (
-                            <CancelIcon onClick={onResetSearchInput} className={`${classes.cancelIcon} ${classes.mr1}`} />
-                        )}
-
-                        // //----- Correct version (need to edit ResultPage.jsx before using this) -----//
-                        // endAdornment={!isSearching && hasSearchValues ? (
-                        //     <FilterListIcon fontSize="large" onClick={openFilterDialog} className={`${classes.icon} ${classes.mr1}`} />
-                        // ) : isSearching ? (
-                        //     <CancelIcon onClick={onResetSearchInput} className={`${classes.cancelIcon} ${classes.mr1}`}/>
-                        // ) : (
-                        //     <CancelIcon className={classes.hidden}/>
-                        // )}
                     />
                 </div>
             </Search>
@@ -131,14 +130,23 @@ function SearchBarOldVer({ isSearching=false, openFilterDialog, closeFilterDialo
 
     return (
         <Grid container justifyContent="space-between" alignItems="center" className={classes.mx2}>
-            <Grid item xs={isSearching ? 10 : 12}>
+            <Grid item xs={isSearching || (!isSearching && hasSearchValues) ? 10 : 12}>
                 {renderSearchBar()}
+            </Grid>
+            <Grid item>
+                {!isSearching && hasSearchValues && (
+                    <AppIconButton 
+                        icon={<FilterListIcon className={classes.icon}/>} 
+                        onClick={doOpenFilterDialog} 
+                    />
+                )}
             </Grid>
             <Grid item>
                 {isSearching && (
                     <CancelButton variant="text" onClick={onCancelSearch}>Cancel</CancelButton>
                 )}
             </Grid>
+            {<FilterDialogOldVer open={openFilterDialog} handleClose={closeFilterDialog} versionId={1} doSearch={doSearch} />}
         </Grid>
     );
 }

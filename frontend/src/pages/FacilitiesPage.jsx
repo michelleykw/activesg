@@ -179,7 +179,7 @@ function FacilitiesPage() {
     if (isOldVersion) {
         return (
             <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
-                <SearchBarOldVer startSearch={openSearchPage} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />
+                <SearchBarOldVer startSearch={openSearchPage} />
                 <SearchPageOldVer 
                     openPage={openPage}
                     cancelSearch={closeSearchPage}
@@ -193,7 +193,6 @@ function FacilitiesPage() {
                     searchOptions={options}
                     updateSearchOptions={updateSearchOptions}
                 />
-                {<FilterDialogOldVer open={openFilterDialog} handleClose={closeFilterDialog} versionId={versionId} doSearch={doSearch} />}
             </Grid>
         );
     };
