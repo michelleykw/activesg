@@ -22,7 +22,7 @@ function ResultCardOld({data}) {
 
     return (
         <Grid item xs={6}>
-            <Card sx={{ maxWidth: '50vw', m:1}}>
+            <Card sx={{m:1}}>
                 <CardActionArea onClick={() => goToFacilityViewPage(data.name)}>
                     <CardMedia
                         component="img"
