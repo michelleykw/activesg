@@ -10,6 +10,7 @@ import FacilityViewPage from './pages/FacilityViewPage';
 import ResultPage from './pages/ResultPage';
 import FacilitiesPage from './pages/FacilitiesPage';
 import NotFound from './pages/NotFound';
+import Complete from './pages/Complete';
 
 
 const useStyles = makeStyles(theme => ({
@@ -32,6 +33,7 @@ function App() {
             <Routes>
               <Route path="/facilities/view/" element={<FacilityViewPage />} />
               <Route path="/facilities/result/" element={<ResultPage />} />
+              <Route path="/complete" element={<Complete />} />
               <Route exact path="/facilities" element={<FacilitiesPage />} />
               <Route exact path="/programmes" element={<NotFound isNotFacility />} />
               <Route exact path="/home" element={<NotFound isNotFacility />} />

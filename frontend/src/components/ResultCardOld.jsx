@@ -6,6 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import swimming from '../static/swimming.jpg';
 import { useNavigate, useLocation } from "react-router-dom";
+import { sendNetworkLog } from '../logging/logging.js';
 
 function ResultCardOld({data}) {
     const location = useLocation();
@@ -14,10 +15,9 @@ function ResultCardOld({data}) {
     const versionId = new URLSearchParams(location.search).get('version') || 1;
 
     const goToFacilityViewPage = loc => {
+        sendNetworkLog('Clicked on: ' + loc, loc + ' card', '', versionId);
         navigate(`/facilities/view?version=${versionId}&location=${loc}`);
     };
-
-    console.log(data);
 
     return (
         <Card sx={{ maxWidth: 192, m:1}}>

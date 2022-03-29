@@ -1,4 +1,7 @@
 import React from 'react';
+import { sendNetworkLog } from '../logging/logging.js';
+import { useNavigate, useLocation } from "react-router-dom";
+
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -12,8 +15,11 @@ function ScrollCalendarCardOld ({date, selectedDate, setSelectedDate, setSelecte
     const currDate = date;
     const day = new Date(date + ' 2022').toLocaleString('en-us', {weekday:'short'})
 
+    const location = useLocation();
+    const versionId = new URLSearchParams(location.search).get('version') || 1;
+
     const handleCalendarCardClick = (currDate) => {
-        console.log('Click on Calendar Card: ' + currDate);
+        sendNetworkLog('Clicked on: ' + currDate, currDate + ' card', '', versionId);
         setSelectedDate(currDate);
         setSelectedTime('');
     }

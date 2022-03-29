@@ -34,7 +34,6 @@ function ResultPage() {
     const [dateRange, setDateRange] = useState({});
     const [filteredData, setFilteredData] = useState([]);
 
-
     const [openCategoryOptions, setOpenCategoryOptions] = useState(false);
     const [searchCategory, setSearchCategory] = useState();
 
