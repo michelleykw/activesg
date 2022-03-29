@@ -77,11 +77,14 @@ const useStyles = makeStyles(theme => ({
         fontWeight: `${400} !important`,
         minHeight: theme.spacing(8),
         width: '100%',
-        // display: 'flex',
         color: `${theme.palette.text.secondary} !important`,
-        // right: theme.spacing(1),
         marginTop: `${theme.spacing(1)} !important`,
         marginBottom: `${theme.spacing(1)} !important`,
+    },
+    dateContainer: {
+        paddingTop: theme.spacing(2),
+        paddingLeft: theme.spacing(2),
+        paddingRight: theme.spacing(2),
     },
     divider: {
         backgroundColor: `${theme.palette.background.lightGrey}`,
@@ -119,6 +122,10 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
         handleClose();
         navigate(`/facilities/result?version=${versionId}&query=${JSON.stringify(values)}`);
     };
+
+    const resetFilter = (values) => {
+        values = initialValues;
+    }
 
     const toggleShowAll = title => {
         if (title === 'Location') {
@@ -198,18 +205,20 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
                     <Grid className = {classes.divider}></Grid>
                     {/* {renderSelectSection("checkbox-group-date", 'Date')}
                     <Grid className = {classes.divider}></Grid> */}
-                    <FormElement 
-                        type="date" 
-                        ranges={values.dateRange}
-                        onDateChange={item => setFieldValue('dateRange', [item.selection])}
-                    />
+                    <Grid container className={classes.dateContainer}>
+                        <FormElement 
+                            type="date" 
+                            ranges={values.dateRange}
+                            onDateChange={item => setFieldValue('dateRange', [item.selection])}
+                        />
+                    </Grid>
                 </Grid>
                 <Grid container item justifyContent="space-evenly" alignItems="center" className={classes.applyButtonBackground}>
                     <AppButton 
                         variant='outlined' 
                         content="Reset" 
-                        type="submit" 
                         className={classes.resetButton}
+                        onClick={() => resetFilter(values)}
                     />
                     <AppButton 
                         variant='filled' 

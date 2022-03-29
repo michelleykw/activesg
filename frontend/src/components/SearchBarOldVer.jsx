@@ -16,6 +16,9 @@ const useStyles = makeStyles(theme => ({
     mx2: {
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2)
+    },
+    hidden: {
+        visibility: "hidden"
     }
 }));
 
@@ -111,6 +114,15 @@ function SearchBarOldVer({ isSearching=false, openFilterDialog, closeFilterDialo
                         ) : (
                             <CancelIcon onClick={onResetSearchInput} className={`${classes.cancelIcon} ${classes.mr1}`} />
                         )}
+
+                        // //----- Correct version (need to edit ResultPage.jsx before using this) -----//
+                        // endAdornment={!isSearching && hasSearchValues ? (
+                        //     <FilterListIcon fontSize="large" onClick={openFilterDialog} className={`${classes.icon} ${classes.mr1}`} />
+                        // ) : isSearching ? (
+                        //     <CancelIcon onClick={onResetSearchInput} className={`${classes.cancelIcon} ${classes.mr1}`}/>
+                        // ) : (
+                        //     <CancelIcon className={classes.hidden}/>
+                        // )}
                     />
                 </div>
             </Search>
