@@ -76,7 +76,7 @@ function FilterDialogNewVer({ open, handleClose, versionId }) {
     const applyFilter = (values) => {
         console.log('Filter:', values);
         handleClose();
-        navigate(`/facilities/result?version=${versionId}&query=${JSON.stringify(values)}`);
+        navigate(`/activesg/facilities/result?version=${versionId}&query=${JSON.stringify(values)}`);
     };
 
     const renderCheckboxRow = (title, value) => {

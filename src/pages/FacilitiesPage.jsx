@@ -76,7 +76,7 @@ function FacilitiesPage() {
     }, [recentSearchList, options, openFilterDialog, openPage]);
 
     const goToSearchResultPage = searchInput => {
-        navigate(`/facilities/result?version=${versionId}&query=${searchInput}`);
+        navigate(`/activesg/facilities/result?version=${versionId}&query=${searchInput}`);
     };
 
     const resetSearchInput = () => {

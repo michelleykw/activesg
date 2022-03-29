@@ -37,7 +37,7 @@ function NavigationBar() {
                 value={value}
                 onChange={(event, newValue) => {
                     setValue(newValue);
-                    navigate(`${pages[newValue].href}?version=${versionId}`);
+                    navigate(`/activesg${pages[newValue].href}?version=${versionId}`);
                 }}
             >
                 {

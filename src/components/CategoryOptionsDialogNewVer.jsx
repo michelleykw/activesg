@@ -17,7 +17,6 @@ function CategoryOptionsDialogNewVer({ category, list, doSearch, open, handleClo
     const classes = useStyles();
     const theme = useTheme();
     const location = useLocation();
-    const navigate = useNavigate();
     const searchInput = useRef(null);    
 
     useEffect(() => {

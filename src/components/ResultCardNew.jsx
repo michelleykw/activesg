@@ -21,7 +21,7 @@ function ResultCardNew({data}) {
 
     const goToFacilityViewPage = loc => {
         sendNetworkLog('Clicked on: ' + loc, loc + ' card', '', versionId);
-        navigate(`/facilities/view?version=${versionId}&location=${loc}`);
+        navigate(`/activesg/facilities/view?version=${versionId}&location=${loc}`);
     };
 
     useEffect(() => {
