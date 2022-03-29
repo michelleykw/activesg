@@ -38,7 +38,7 @@ function ResultCardNew({data}) {
 
     return (
         <Grid item xs={6}>
-            <Card sx={{ maxWidth: '50vw', m:1}} style={{ border: "none", boxShadow: "none" }}>
+            <Card sx={{m:1}} style={{ border: "none", boxShadow: "none" }}>
                 <CardActionArea onClick={() => goToFacilityViewPage(data.name)}>
                     <Box
                         component="img"
@@ -49,9 +49,6 @@ function ResultCardNew({data}) {
                             {data.sport}
                         </Typography>
                         <Box direction="row" sx={{mt: 1}}>
-                            <Typography gutterBottom variant="caption" sx={{fontWeight: 600}}>
-                                {data.area + ' '}
-                            </Typography>
                             <Box direction="row" sx={{mt: 1}}>
                                 <Typography gutterBottom variant="caption" sx={{fontWeight: 600}}>
                                     {data.area + ' '}
