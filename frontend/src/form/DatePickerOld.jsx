@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, useTheme } from '@mui/styles';
 import { Grid, Typography } from '@mui/material';
 import { DateRange } from 'react-date-range';
@@ -6,6 +6,9 @@ import { addDays } from 'date-fns';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { ClassNames } from '@emotion/react';
+// import AdapterDateFns from '@mui/lab/AdapterDateFns';
+// import LocalizationProvider from '@mui/lab/LocalizationProvider';
+
 
 const useStyles = makeStyles(theme => ({
     dateRange: {
@@ -13,11 +16,7 @@ const useStyles = makeStyles(theme => ({
         color: theme.palette.text.secondary,
     },
     headings: {
-        // fontWeight: `600 !important`,
-        // paddingBottom: theme.spacing(1)
-        // backgroundColor: `${theme.palette.background.lightGrey}`,
         color: "#849095",
-        // width: '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -32,6 +31,8 @@ function DatePicker(props) {
     const { ranges, onDateChange, ...rest } = props;
     const classes = useStyles();
     const theme = useTheme();
+
+    // const [value, setValue] = useState<Date | null>(null);
 
     return (
         <Grid container justitfyContent="center" alignItems="center">
@@ -52,6 +53,25 @@ function DatePicker(props) {
                     showSelectionPreview={false}
                     className={classes.dateRange}
                 />
+
+
+                {/* Test different date picker */}
+                {/* <LocalizationProvider dateAdapter={AdapterDateFns}> */}
+                    {/* <DatePicker
+                        // label="Basic example"
+                        value={value}
+                        onChange={(newValue) => {
+                            setValue(newValue);
+                        }}
+                        ranges={[{
+                            startDate: value,
+                            endDate: value,
+                            key: 'selection'
+                        }]}
+                        // onChange={onDateChange}
+                        renderInput={(params) => <TextField {...params} />}
+                    /> */}
+                {/* </LocalizationProvider> */}
             </Grid>
         </Grid>
     );
