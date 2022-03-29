@@ -11,8 +11,8 @@ import { Form, Formik } from 'formik';
 import { addDays } from 'date-fns';
 import { categoryOptionsMap } from '../resources/constants.jsx';
 import FormElement from '../form/FormElement.jsx';
-import sportsList from '../resources/constants';
-import venueList from '../resources/constants';
+import { sportsList } from '../resources/constants.jsx';
+import { venueList } from '../resources/constants.jsx';
 import AppButton from '../components/AppButton.jsx';
 
 const useStyles = makeStyles(theme => ({
@@ -118,11 +118,15 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
         }]
     };
 
+    const isInsideList = (query, list) => {
+        return list.some(item => item === query);
+    }
+
     useEffect(() => {
         let newQuery = new URLSearchParams(location.search).get('query');
-        if (isChangeSport) {
+        if (isChangeSport && isInsideList(newQuery, sportsList)) {
             setSportInput(newQuery);
-        } else if (isChangeVenue) {
+        } else if (isChangeVenue && isInsideList(newQuery, venueList)) {
             setVenueInput(newQuery);
         }
     }, [openCategoryOptions, searchCategory, sportInput, venueInput, isChangeSport, isChangeVenue]);
