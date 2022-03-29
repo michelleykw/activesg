@@ -4,15 +4,13 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import data from './data/data.json';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import { CardActionArea } from '@mui/material';
-import swimming from '../static/swimming.jpg';
 import CategoryOptionsDialog from '../components/CategoryOptionsDialog';
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import SearchBarOldVer from '../components/SearchBarOldVer.jsx';
+import SearchBarNewVer from '../components/SearchBarNewVer.jsx';
 import { allSearchOptions, sportsList } from '../resources/constants';
+import ResultCardOld from '../components/ResultCardOld';
+import ResultCardNew from '../components/ResultCardNew';
 
 const useStyles = makeStyles(theme => ({
     fullScreenHeight: {
@@ -26,13 +24,18 @@ function ResultPage() {
     const navigate = useNavigate();
 
     const versionId = new URLSearchParams(location.search).get('version') || 1;
-    const isOldVersion = (versionId == 1) || (versionId == 2);
+    const useOldSearch = (versionId == 1) || (versionId == 2);
+    const useOldResult = (versionId == 2) || (versionId == 4);
 
     const [filteredData, setFilteredData] = useState([]);
     const [query, setQuery] = useState('');
 
     const [openCategoryOptions, setOpenCategoryOptions] = useState(false);
     const [searchCategory, setSearchCategory] = useState();
+
+    const [openSportDialog, setOpenSportDialog] = useState(false); // NEW VERSION
+    const [openLocationDialog, setOpenLocationDialog] = useState(false); // NEW VERSION
+    const [openFilterDialog, setOpenFilterDialog] = useState(false); // NEW VERSION
 
     const [openPage, setOpenPage] = useState(false);
     const [hasSearchValues, setHasSearchValues] = useState(false);
@@ -44,7 +47,6 @@ function ResultPage() {
     };
 
     const closeCategoryOptionsDialog = () => {
-        console.log('close');
         setOpenCategoryOptions(false);
         navigate(-1);
     };
@@ -122,54 +124,45 @@ function ResultPage() {
         filterData(data);
     }, [query])
 
-    const goToFacilityViewPage = loc => {
-        navigate(`/facilities/view?version=${versionId}&location=${loc}`);
+    const closeFilterDialog = type => {
+        setOpenFilterDialog(false);
+        navigate(-1);
+
     };
 
-    const renderCard = data => {
-        return (
-            <Card sx={{ maxWidth: 192, m:1}}>
-                <CardActionArea onClick={() => goToFacilityViewPage(data.name)}>
-                    <CardMedia
-                        component="img"
-                        height="90"
-                        src = {swimming}
-                        alt={data.sport}
-                    />
-                    <CardContent>
-                    <Typography variant="caption" color="text.secondary">
-                        {data.sport}
-                    </Typography>
-                    <Typography gutterBottom variant="caption" component="div">
-                        {data.name}
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary">
-                        0.0km
-                    </Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        );
-    }
+    const doOpenFilterDialog = type => {
+        setOpenFilterDialog(true);
+        setOpenPage(false);
+    };
 
     return (
         <Box sx={{mt:1}}>
             <Grid container direction="column" justifyContent="centre" alignItems="flex-start" className={classes.fullScreenHeight} width='95%'>
+                {/* SEARCH BAR */}
                 <Box width="95%">
-                    {isOldVersion && (
-                        <SearchBarOldVer startSearch={openCategoryOptionsDialog} hasSearchValues={query} />
-                    )}
+                    {useOldSearch && (<SearchBarOldVer startSearch={openCategoryOptionsDialog} hasSearchValues={query} />)}
+                    {!useOldSearch && (<SearchBarNewVer startSearch={openCategoryOptionsDialog} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />)}
                 </Box>
 
+                {renderCategoryDialog()}
+
+
+                {/* RESULTS PAGE */}
                 <Box sx={{ml:1}}>
                     <Grid container justifyContent="flex-start" alignItems="centre" className={classes.mt1mb8}>
-                        {filteredData && filteredData.map(item => renderCard(item))}
+                        {useOldResult && filteredData && filteredData.map(item => <ResultCardOld data={item}/>)}
+                        {!useOldResult && filteredData && filteredData.map(item => <ResultCardNew data={item}/>)}
                     </Grid>
                 </Box>
 
 
-                {(!filteredData || filteredData.length === 0) && <Typography>There are no results found.</Typography>}
-                {renderCategoryDialog()}
+                {(!filteredData || filteredData.length === 0) &&
+                    <Grid container alignItems='center' justifyContent='center' sx={{width: 1}} minHeight='150px'>
+                        <Typography>There are no results found.</Typography>
+                    </Grid>
+
+                }
+
             </Grid>
         </Box>
     );
