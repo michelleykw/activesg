@@ -25,7 +25,8 @@ function NavigationBar() {
         'home': 2,
         'buypass': 3,
         'gameon': 4,
-        '': 2
+        '': 2,
+        undefined: 2
     };
 
     const currPage = location.pathname.split('/')[2];
