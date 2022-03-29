@@ -1,5 +1,6 @@
 import React from 'react';
 import DatePicker from './DatePicker';
+import DatePickerOld from './DatePickerOld';
 import CheckboxInput from './CheckboxInput';
 import ToggleInput from './ToggleInput';
 
@@ -12,6 +13,8 @@ function FormElement(props) {
             return <ToggleInput {...rest} />
         case 'date':
             return <DatePicker {...rest} />
+        case 'dateOld':
+            return <DatePickerOld {...rest} />
         default:
             return null
     }

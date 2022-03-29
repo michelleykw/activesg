@@ -247,7 +247,7 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
                     <Grid className = {classes.divider}></Grid> */}
                     <Grid container className={classes.dateContainer}>
                         <FormElement 
-                            type="date" 
+                            type="dateOld" 
                             ranges={values.dateRange}
                             onDateChange={item => setFieldValue('dateRange', [item.selection])}
                         />
