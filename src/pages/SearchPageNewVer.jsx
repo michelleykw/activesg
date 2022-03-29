@@ -6,6 +6,7 @@ import DialogHeaderNew from '../components/DialogHeaderNew';
 import SearchBarNewVer from '../components/SearchBarNewVer';
 import RecentSearchNewVer from '../components/RecentSearchNewVer';
 import SearchListNewVer from '../components/SearchListNewVer';
+import { sendNetworkLog } from '../logging/logging.js';
 
 const useStyles = makeStyles(theme => ({
     mr1: {
@@ -32,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function SearchPageNewVer({ openPage, handleClosePage, recentSearchList, startSearch, resetSearchInput, doSearch, removeRecentSearch, hasSearchValues, updateHasSearchValues, searchOptions, updateSearchOptions }) {
+function SearchPageNewVer({ versionId, openPage, handleClosePage, recentSearchList, startSearch, resetSearchInput, doSearch, removeRecentSearch, hasSearchValues, updateHasSearchValues, searchOptions, updateSearchOptions }) {
     const classes = useStyles();
     const theme = useTheme();
     const searchInput = useRef(null);
@@ -43,6 +44,7 @@ function SearchPageNewVer({ openPage, handleClosePage, recentSearchList, startSe
     const doRecentSearch = item => {
         doSearch(item);
         searchInput.current.value = item;
+        sendNetworkLog('Clicked on: Recent Search Item', `Recent Search Item - ${item}`, `Search: ${item}`, versionId);
     };
 
     const renderSearchBar = () => {
