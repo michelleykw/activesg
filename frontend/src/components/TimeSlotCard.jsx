@@ -28,17 +28,18 @@ function TimeSlotCards ({dataArr, selectedTime, setSelectedTime}) {
 
     return (
         <>
-            <Card sx={{padding: '12px', justifyContent: 'center'}} style={{ boxShadow: "none" }}>
+            <Card sx={{padding: '7px', justifyContent: 'center'}} style={{ boxShadow: "none" }}>
                 <Box sx={{
                     borderColor: 'error.main',
                     borderRadius: 2,
                     padding: '8px',
+                    width: '26vw',
                     backgroundColor: selectedTime === time ? 'error.main' : 'white',
                     color: selectedTime === time ? 'white' : 'black',}} border={1}>
                     <CardActionArea onClick={() => handleTimeSlotClick(time)}>
                         <CardContent sx={{padding: '0', justifyItems:'center'}}>
                             <Grid container direction="column" justify="center" alignItems="center">
-                                <Typography>{time}</Typography>
+                                <Typography variant='body2'>{time}</Typography>
                                 <Typography variant='caption'>{availability} left</Typography>
                             </Grid>
                         </CardContent>

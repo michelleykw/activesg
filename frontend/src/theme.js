@@ -5,6 +5,13 @@ const settings = {
         primary: {
             main: '#E95050'
         },
+        secondary: {
+            main: '#25A969'
+        },
+        greyChip: {
+            main: '#777777',
+            contrastText: '#ffffff'
+        },
         sucess: {
             main: '#15A89E'
         },
@@ -16,7 +23,7 @@ const settings = {
         background: {
             lightGrey: '#ECECEC',
             midGrey: '#D4D4D4',
-            darkGrey: '#444444'
+            darkGrey: '#444444',
         }
     },
     typography: {

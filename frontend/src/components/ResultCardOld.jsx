@@ -1,6 +1,7 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
@@ -20,27 +21,29 @@ function ResultCardOld({data}) {
     };
 
     return (
-        <Card sx={{ maxWidth: 192, m:1}}>
-            <CardActionArea onClick={() => goToFacilityViewPage(data.name)}>
-                <CardMedia
-                    component="img"
-                    height="90"
-                    src = {swimming}
-                    alt={data.sport}
-                />
-                <CardContent>
-                <Typography variant="caption" color="text.secondary">
-                    {data.sport}
-                </Typography>
-                <Typography gutterBottom variant="caption" component="div">
-                    {data.name}
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
-                    0.0km
-                </Typography>
-                </CardContent>
-            </CardActionArea>
-        </Card>
+        <Grid item xs={6}>
+            <Card sx={{ maxWidth: '50vw', m:1}}>
+                <CardActionArea onClick={() => goToFacilityViewPage(data.name)}>
+                    <CardMedia
+                        component="img"
+                        height="90"
+                        src = {swimming}
+                        alt={data.sport}
+                    />
+                    <CardContent>
+                    <Typography variant="caption" color="text.secondary">
+                        {data.sport}
+                    </Typography>
+                    <Typography gutterBottom variant="caption" component="div">
+                        {data.name}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                        0.0km
+                    </Typography>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+        </Grid>
     );
 }
 

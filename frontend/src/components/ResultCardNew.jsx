@@ -4,13 +4,14 @@ import { sendNetworkLog } from '../logging/logging.js';
 
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
 import { CardActionArea } from '@mui/material';
 import swimming from '../static/swimming.jpg';
 
-function ResultCardOld({data}) {
+function ResultCardNew({data}) {
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -36,32 +37,38 @@ function ResultCardOld({data}) {
 
 
     return (
-        <Card sx={{ maxWidth: '40vw', m:1}} style={{ border: "none", boxShadow: "none" }}>
-            <CardActionArea onClick={() => goToFacilityViewPage(data.name)}>
-                <Box
-                    component="img"
-                    sx={{width: 1, maxHeight: '120px', borderRadius: 2.5}}
-                    src={swimming} />
-                <CardContent>
-                    <Typography variant="caption" color="white" sx={{padding: '4px', bgcolor: 'text.disabled', borderRadius: 2}}>
-                        {data.sport}
-                    </Typography>
-                    <Box direction="row" sx={{mt: 1}}>
-                        <Typography gutterBottom variant="caption" sx={{fontWeight: 600}}>
-                            {data.area + ' '}
+        <Grid item xs={6}>
+            <Card sx={{ maxWidth: '50vw', m:1}} style={{ border: "none", boxShadow: "none" }}>
+                <CardActionArea onClick={() => goToFacilityViewPage(data.name)}>
+                    <Box
+                        component="img"
+                        sx={{width: 1, maxHeight: '120px', borderRadius: 2.5}}
+                        src={swimming} />
+                    <CardContent>
+                        <Typography variant="caption" color="white" sx={{padding: '4px', bgcolor: 'text.disabled', borderRadius: 2}}>
+                            {data.sport}
                         </Typography>
-                        <Typography gutterBottom variant="caption">
-                            • {data.name}
+                        <Box direction="row" sx={{mt: 1}}>
+                            <Typography gutterBottom variant="caption" sx={{fontWeight: 600}}>
+                                {data.area + ' '}
+                            </Typography>
+                            <Box direction="row" sx={{mt: 1}}>
+                                <Typography gutterBottom variant="caption" sx={{fontWeight: 600}}>
+                                    {data.area + ' '}
+                                </Typography>
+                                <Typography gutterBottom variant="caption">
+                                    • {data.name}
+                                </Typography>
+                            </Box>
+                        </Box>
+                        <Typography variant="caption" color="success.main">
+                            {slotsLeft} slots available
                         </Typography>
-                    </Box>
-
-                    <Typography variant="caption" color="success.main">
-                        {slotsLeft} slots available
-                    </Typography>
-                </CardContent>
-            </CardActionArea>
-        </Card>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+        </Grid>
     );
 }
 
-export default ResultCardOld;
+export default ResultCardNew;

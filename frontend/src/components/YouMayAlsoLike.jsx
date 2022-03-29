@@ -5,21 +5,11 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import ScrollCalendarCardOld from '../components/CalendarCardOld';
-import ScrollCalendarCardNew from '../components/CalendarCardNew';
-
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import { CardActionArea } from '@mui/material';
-import swimming from '../static/swimming.jpg';
+import ResultCardNew from '../components/ResultCardNew';
 
 function YouMayAlsoLike({data, currFacilityName, useOldResult, selectedDate, setSelectedDate, setSelectedTime, dates}) {
 
     const [randomFac, setRandomFac] = useState([]);
-    const navigate = useNavigate();
-    const location = useLocation();
-    const versionId = new URLSearchParams(location.search).get('version') || 1;
 
     useEffect(() => {
         if (data.length > 0) {
@@ -33,36 +23,6 @@ function YouMayAlsoLike({data, currFacilityName, useOldResult, selectedDate, set
         }
     }, [data])
 
-    const goToFacilityViewPage = loc => {
-        navigate(`/facilities/view?version=${versionId}&location=${loc}`);
-    };
-
-    const renderCard = data => {
-        return (
-            <Card sx={{ maxWidth: 192, m:1}}>
-                <CardActionArea onClick={() => goToFacilityViewPage(data.name)}>
-                    <CardMedia
-                        component="img"
-                        height="90"
-                        src = {swimming}
-                        alt={data.sport}
-                    />
-                    <CardContent>
-                    <Typography variant="caption" color="text.secondary">
-                        {data.sport}
-                    </Typography>
-                    <Typography gutterBottom variant="caption" component="div">
-                        {data.name}
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary">
-                        0.0km
-                    </Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        );
-    }
-
     return (
         <Grid container direction="column" sx={{ml: 2}}>
             <Box sx={{mt: 1}}>
@@ -74,7 +34,7 @@ function YouMayAlsoLike({data, currFacilityName, useOldResult, selectedDate, set
             </Box>
 
             <Grid container direction="row" alignItems="flex-start" justifyContent="flex-start" maxHeight='90px'>
-                {randomFac.length > 0 && (randomFac.map(item => renderCard(item)))}
+                {randomFac.map(item => < ResultCardNew data={item} />)}
             </Grid>
         </Grid>
     )
