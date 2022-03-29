@@ -157,7 +157,7 @@ function ResultPage() {
             <Grid container direction="column" justifyContent="centre" alignItems="flex-start" className={classes.fullScreenHeight} width='95%'>
                 <Box width="95%">
                     {isOldVersion && (
-                        <SearchBarOldVer startSearch={openCategoryOptionsDialog} hasSearchValues={query} />
+                        <SearchBarOldVer startSearch={openCategoryOptionsDialog} hasSearchValues={query} doSearch={doSearch}/>
                     )}
                 </Box>
 

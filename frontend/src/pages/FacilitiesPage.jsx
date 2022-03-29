@@ -77,6 +77,7 @@ function FacilitiesPage() {
     }, [recentSearchList, options, openFilterDialog, openPage]);
 
     const goToSearchResultPage = searchInput => {
+        console.log('--> FacilitiesPage: goToSearchResultPage');
         navigate(`/facilities/result?version=${versionId}&query=${searchInput}`);
     };
 
@@ -179,7 +180,7 @@ function FacilitiesPage() {
     if (isOldVersion) {
         return (
             <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
-                <SearchBarOldVer startSearch={openSearchPage} />
+                <SearchBarOldVer startSearch={openSearchPage} doSearch={doSearch}/>
                 <SearchPageOldVer 
                     openPage={openPage}
                     cancelSearch={closeSearchPage}
