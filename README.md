@@ -5,6 +5,7 @@
 1. Set up node packages: `npm install` or `npm i`
    - To install a particular package: `npm i <PACKAGE NAME>`
 2. Run on local 3000: `npm start`
+3. When done, commit and push and `npm run deploy`
 
 - To view, set the window dimensions to have a maximum width of 600px.
 
