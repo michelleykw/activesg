@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { makeStyles, useTheme } from '@mui/styles';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { makeStyles } from '@mui/styles';
 import { Dialog, Grid } from '@mui/material';
 import { categoryOptionsMap } from '../resources/constants.jsx';
 import DialogHeaderNew from '../components/DialogHeaderNew';
@@ -15,8 +14,6 @@ const useStyles = makeStyles(theme => ({
 
 function CategoryOptionsDialogNewVer({ category, list, doSearch, open, handleClose, hasSearchValues, updateHasSearchValues, updateSearchOptions, resetSearchInput }) {
     const classes = useStyles();
-    const theme = useTheme();
-    const location = useLocation();
     const searchInput = useRef(null);    
 
     useEffect(() => {
@@ -26,7 +23,7 @@ function CategoryOptionsDialogNewVer({ category, list, doSearch, open, handleClo
 
     const handleCloseDialog = () => {
         resetSearchInput();
-        handleClose();
+        handleClose(category);
     };
 
     const doRecentSearch = item => {

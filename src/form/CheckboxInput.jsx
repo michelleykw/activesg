@@ -1,7 +1,9 @@
 import React from 'react';
+import { useLocation } from "react-router-dom";
 import { makeStyles } from '@mui/styles';
 import { Grid, Typography } from '@mui/material';
 import { Field } from 'formik';
+import { sendNetworkLog } from '../logging/logging.js';
 
 const useStyles = makeStyles(theme => ({
     row: {
@@ -19,11 +21,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function CheckboxInput(props) {
-    const { label, title, value, ...rest } = props;
+    const { title, value, ...rest } = props;
     const classes = useStyles();
+    const location = useLocation();
+
+    const onClick = () => {
+        const versionId = new URLSearchParams(location.search).get('version');
+        sendNetworkLog(`Clicked on: ${title} Checkbox (Filters) - ${value}`, `${title} Checkbox (Filters) - ${value}`, `Filter by ${title} - ${value}`, versionId);
+    };
 
     return (
-        <Grid container item className={`${classes.row}`}>
+        <Grid container item className={`${classes.row}`} onClick={onClick}>
             <label className={classes.fullWidth}>
                 <Grid container item justifyContent="space-between" alignItems="center">
                     <Grid item>
