@@ -107,15 +107,6 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
     const [openCategoryOptions, setOpenCategoryOptions] = useState(false);
     const [searchCategory, setSearchCategory] = useState();
 
-    useEffect(() => {
-        let newQuery = new URLSearchParams(location.search).get('query');
-        if (isChangeSport) {
-            setSportInput(newQuery);
-        } else if (isChangeVenue) {
-            setVenueInput(newQuery);
-        }
-    }, [openCategoryOptions, searchCategory, sportInput, venueInput, isChangeSport, isChangeVenue]);
-
     const initialValues = { 
         Availability: false,
         Location: [], // allLocationsNew,
@@ -127,8 +118,20 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
         }]
     };
 
+    useEffect(() => {
+        let newQuery = new URLSearchParams(location.search).get('query');
+        if (isChangeSport) {
+            setSportInput(newQuery);
+        } else if (isChangeVenue) {
+            setVenueInput(newQuery);
+        }
+    }, [openCategoryOptions, searchCategory, sportInput, venueInput, isChangeSport, isChangeVenue]);
+
     const applyFilter = (values) => {
         console.log("--> apply filter");
+        updateFilterValues(values);
+        console.log("--> done updateFilterValues");
+
         console.log('Filter:', values);
         handleClose();
         navigate(`/facilities/result?version=${versionId}&query=${JSON.stringify(values)}`);
@@ -136,6 +139,20 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
 
     const resetFilter = (values) => {
         values = initialValues;
+    }
+
+    const updateFilterValues = (values) => {
+        let newQuery = new URLSearchParams(location.search).get('query');
+        if (isChangeSport) {
+            setSportInput(newQuery);
+        }
+        if (sportInput === "Select a Sport") {
+            values.Sports = [];
+        } else {
+            values.Sports = [sportInput];
+        }
+
+        // values.Venue = [venueInput];
     }
 
     const openCategoryOptionsDialog = category => {
@@ -203,9 +220,9 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
             <Form>
                 <Grid container justify="flex-start" alignItems="flex-start">
                     <Grid className = {classes.filterHeader}>{"Filter"}</Grid>
-                    {renderSelectSection("checkbox-group-location", 'Venue')}
+                    {renderSelectSection("venue-selection", 'Venue')}
                     <Grid className = {classes.divider}></Grid>
-                    {renderSelectSection("checkbox-group-sport", 'Sport')}
+                    {renderSelectSection("sport-selection", 'Sport')}
                     <Grid className = {classes.divider}></Grid>
                     {/* {renderSelectSection("checkbox-group-date", 'Date')}
                     <Grid className = {classes.divider}></Grid> */}
