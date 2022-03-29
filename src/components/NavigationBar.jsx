@@ -27,7 +27,8 @@ function NavigationBar() {
         'gameon': 4,
         '': 2
     };
-    const currPage = location.pathname.split('/')[1];
+
+    const currPage = location.pathname.split('/')[2];
     const [value, setValue] = useState(pathnameIds[currPage]);
 
     return (
