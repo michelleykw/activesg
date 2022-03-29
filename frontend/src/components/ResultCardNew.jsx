@@ -1,4 +1,7 @@
 import React, {useState, useEffect} from 'react';
+import { useNavigate, useLocation } from "react-router-dom";
+import { sendNetworkLog } from '../logging/logging.js';
+
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
@@ -7,7 +10,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
 import { CardActionArea } from '@mui/material';
 import swimming from '../static/swimming.jpg';
-import { useNavigate, useLocation } from "react-router-dom";
 
 function ResultCardNew({data}) {
     const location = useLocation();
@@ -18,6 +20,7 @@ function ResultCardNew({data}) {
     const [slotsLeft, setSlotsLeft] = useState(0);
 
     const goToFacilityViewPage = loc => {
+        sendNetworkLog('Clicked on: ' + loc, loc + ' card', '', versionId);
         navigate(`/facilities/view?version=${versionId}&location=${loc}`);
     };
 
@@ -35,7 +38,7 @@ function ResultCardNew({data}) {
 
     return (
         <Grid item xs={6}>
-            <Card sx={{ maxWidth: 192, m:1}} style={{ border: "none", boxShadow: "none" }}>
+            <Card sx={{ maxWidth: '50vw', m:1}} style={{ border: "none", boxShadow: "none" }}>
                 <CardActionArea onClick={() => goToFacilityViewPage(data.name)}>
                     <Box
                         component="img"
@@ -49,11 +52,15 @@ function ResultCardNew({data}) {
                             <Typography gutterBottom variant="caption" sx={{fontWeight: 600}}>
                                 {data.area + ' '}
                             </Typography>
-                            <Typography gutterBottom variant="caption">
-                                • {data.name}
-                            </Typography>
+                            <Box direction="row" sx={{mt: 1}}>
+                                <Typography gutterBottom variant="caption" sx={{fontWeight: 600}}>
+                                    {data.area + ' '}
+                                </Typography>
+                                <Typography gutterBottom variant="caption">
+                                    • {data.name}
+                                </Typography>
+                            </Box>
                         </Box>
-
                         <Typography variant="caption" color="success.main">
                             {slotsLeft} slots available
                         </Typography>

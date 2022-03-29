@@ -27,8 +27,12 @@ function ResultPage() {
     const useOldSearch = (versionId == 1) || (versionId == 2);
     const useOldResult = (versionId == 2) || (versionId == 4);
 
-    const [filteredData, setFilteredData] = useState([]);
     const [query, setQuery] = useState('');
+    const [available, setAvailable] = useState(true);
+    const [facilityLocations, setFacilityLocations] = useState([]);
+    const [sports, setSports] = useState([]);
+    const [dateRange, setDateRange] = useState({});
+    const [filteredData, setFilteredData] = useState([]);
 
     const [openCategoryOptions, setOpenCategoryOptions] = useState(false);
     const [searchCategory, setSearchCategory] = useState();
@@ -100,8 +104,22 @@ function ResultPage() {
         );
     };
 
-    const getQuery = () => {
-        const newQuery = new URLSearchParams(location.search).get('query');
+
+    // RESULTS PAGE FILTER METHODS
+
+    const resetNewQueries = () => {
+        setAvailable(true);
+        setFacilityLocations([]);
+        setSports([]);
+        setDateRange({});
+    }
+
+    const resetOldQueries = () => {
+        setQuery('');
+    }
+
+    const handleStringQuery = (newQuery) => {
+        resetNewQueries();
         if (sportsList.includes(newQuery)) {
             setSearchCategory('Sport');
         } else {
@@ -110,9 +128,53 @@ function ResultPage() {
         setQuery(newQuery);
     }
 
-    const filterData = (data) => {
+    const handleObjectQuery = (newQuery) => {
+        resetOldQueries();
+        setAvailable(newQuery.Availability);
+        setFacilityLocations(newQuery.Location);
+        setSports(newQuery.Sports);
+        setDateRange(newQuery.dateRange[0]);
+    }
+
+    const getQuery = () => {
+        let newQuery = new URLSearchParams(location.search).get('query');
+        try{
+            newQuery = JSON.parse(newQuery);
+            handleObjectQuery(newQuery);
+        } catch (error) {
+            handleStringQuery(newQuery);
+        }
+    }
+
+    const filterOldQuery = (data) => {
         const tempData = data.filter(data => data.sport === query || data.name === query);
         setFilteredData(tempData);
+    }
+
+    const filterNewQuery = (data) => {
+        let tempData = data;
+        const isAccepted = (item) => {
+            let isLocationOK = facilityLocations.length > 0 ? facilityLocations.find(ele => ele === item.area) : true;
+            if (isLocationOK === undefined) {
+                isLocationOK = false;
+            }
+            const isSportOK = sports.length > 0 ? sports.includes(item.sport) : true;
+
+            const isAvailable = available;
+
+            return isLocationOK && isSportOK && isAvailable;
+        }
+        tempData = data.filter(data => isAccepted(data));
+        setFilteredData(tempData);
+    }
+
+    const filterData = (data) => {
+        if (query !== '') {
+            filterOldQuery(data);
+        } else {
+            filterNewQuery(data);
+        }
+
     }
 
     useEffect(() => {
@@ -122,7 +184,7 @@ function ResultPage() {
 
     useEffect(() => {
         filterData(data);
-    }, [query])
+    }, [query, available, facilityLocations, sports, dateRange])
 
     const closeFilterDialog = type => {
         setOpenFilterDialog(false);
