@@ -10,7 +10,7 @@ import { sendNetworkLog } from '../logging/logging.js';
 
 const useStyles = makeStyles(theme => ({
     navigation: {
-        minWidth: '5.5rem !important'
+        minWidth: '5rem !important'
     }
 }));
 
@@ -34,7 +34,7 @@ function NavigationBar() {
     const [value, setValue] = useState(pathnameIds[currPage]);
 
     return (
-        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={2}>
+        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={2}>
             <BottomNavigation
                 showLabels
                 value={value}
@@ -44,13 +44,14 @@ function NavigationBar() {
                     setValue(newValue);
                     navigate(`/activesg${href}?version=${versionId}`);
                 }}
+                sx={{paddingX: 2}}
             >
                 {
                     pages.map(page => {
                         return (
-                            <BottomNavigationAction 
-                                label={<Typography variant='caption'>{page.label}</Typography>} 
-                                icon={page.icon} 
+                            <BottomNavigationAction
+                                label={<Typography variant='caption' sx={{fontSize: 11}}>{page.label}</Typography>}
+                                icon={page.icon}
                                 className={classes.navigation}
                             />
                         );
