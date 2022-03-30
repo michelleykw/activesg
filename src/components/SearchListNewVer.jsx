@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useLocation } from "react-router-dom";
 import { makeStyles } from '@mui/styles';
 import { Grid, Typography } from '@mui/material';
 import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
@@ -11,6 +12,7 @@ import PoolIcon from '@mui/icons-material/Pool';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import AppIconButton from '../components/AppIconButton.jsx';
 import SearchItemNew from '../components/SearchItemNew.jsx';
+import { sendNetworkLog } from '../logging/logging.js';
 
 const useStyles = makeStyles(theme => ({
     px2: {
@@ -25,10 +27,6 @@ const useStyles = makeStyles(theme => ({
     px1: {
         paddingLeft: theme.spacing(1),
         paddingRight: theme.spacing(1)
-    },
-    px2: {
-        paddingLeft: theme.spacing(1.5),
-        paddingRight:  theme.spacing(1.5)
     },
     row: {
         paddingBottom:  theme.spacing(1.5),
@@ -50,10 +48,15 @@ const useStyles = makeStyles(theme => ({
 
 function SearchListNewVer({ type, list, search, fullScreen=false }) {
     const classes = useStyles();
+    const location = useLocation();
+    const versionId = new URLSearchParams(location.search).get('version');
 
     const renderRow = searchItem => {
         return (
-            <Grid container onClick={() => search(searchItem)} justifyContent="space-between" alignItems="center" className={`${classes.row}`}>
+            <Grid container onClick={() => {
+                search(searchItem);
+                sendNetworkLog(`Clicked on: Search List Item (${type})`, `Search List Item (${type})`, `Item: ${searchItem}`, versionId);
+            }} justifyContent="space-between" alignItems="center" className={`${classes.row}`}>
                 <Grid item xs={10} className={!type && (fullScreen ? classes.px1 : classes.px2)}>
                     <Typography color="textSecondary" variant={type ? 'h3' : 'body1'}>
                         {searchItem}
@@ -88,13 +91,16 @@ function SearchListNewVer({ type, list, search, fullScreen=false }) {
             const { name, icon } = item;
             return (
                 <Grid item xs={3} className={classes.py2}>
-                    <AppIconButton name={name} icon={icon} onClick={() => search(name)} />
+                    <AppIconButton name={name} icon={icon} onClick={() => {
+                        search(name);
+                        sendNetworkLog(`Clicked on: Search List Sport IconButton (${type})`, `Search List Sport IconButton (${type})`, `Item: ${name}`, versionId);
+                    }} />
                 </Grid>
             );
         };
 
         return (
-            <Grid container justifyContent="flex-start" alignItems="center" className={fullScreen ? classes.pxHalf : classes.mt1mb8}>
+            <Grid container justifyContent="flex-start" alignItems="center" className={fullScreen ? classes.px2 : classes.mt1mb8}>
                 {renderSectionTitle('Popular Sports')}
                 {popularSportList.map(renderSportButton)}
                 {renderSectionTitle('All Sports')}
@@ -116,18 +122,20 @@ function SearchListNewVer({ type, list, search, fullScreen=false }) {
         };
 
         return (
-            <Grid container justifyContent="flex-start" alignItems="center" className={fullScreen ? classes.pxHalf : classes.mt1mb8}>
+            <Grid container justifyContent="flex-start" alignItems="center" className={fullScreen ? classes.px2 : classes.mt1mb8}>
                 {list && list.map(item => renderRowWithGrouping(item))}
             </Grid>
         );
     }
 
     /* GENERAL */
-    // onClick={() => search(name)}
     return (
-        <Grid container justifyContent="flex-start" alignItems="center" className={fullScreen ? classes.pxHalf : classes.mt1mb8}>
+        <Grid container justifyContent="flex-start" alignItems="center" className={fullScreen ? classes.px2 : classes.mt1mb8}>
             {list && list.map(
-                (item) => <SearchItemNew name={item} onClick={() => search(item)}/>
+                (item) => <SearchItemNew name={item} onClick={() => {
+                    search(item);
+                    sendNetworkLog('Clicked on: Search List Item (General)', 'Search List Item (General)', `Item: ${item}`, versionId);
+                }}/>
             )}
         </Grid>
     );

@@ -6,6 +6,7 @@ import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { pages } from '../resources/constants';
 import { Typography } from '@mui/material';
+import { sendNetworkLog } from '../logging/logging.js';
 
 const useStyles = makeStyles(theme => ({
     navigation: {
@@ -38,8 +39,10 @@ function NavigationBar() {
                 showLabels
                 value={value}
                 onChange={(event, newValue) => {
+                    const { href } = pages[newValue];
+                    sendNetworkLog(`Clicked on: Navigation Bar - ${href}`, `Navigation Bar - ${href}`, `Navigate from ${currPage} to ${href}`, versionId);
                     setValue(newValue);
-                    navigate(`/activesg${pages[newValue].href}?version=${versionId}`);
+                    navigate(`/activesg${href}?version=${versionId}`);
                 }}
             >
                 {

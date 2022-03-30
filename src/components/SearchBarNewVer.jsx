@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useLocation } from "react-router-dom";
 import { makeStyles } from '@mui/styles';
 import { styled } from '@mui/material/styles';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -7,6 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import { Button, Grid, InputBase } from '@mui/material';
+import { sendNetworkLog } from '../logging/logging.js';
 
 const useStyles = makeStyles(theme => ({
     icon: {
@@ -65,6 +67,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function SearchBarNewVer({ type, openFilterDialog, closeFilterDialog, showFilter=true, startSearch, resetSearchInput, doSearch, searchInput, updateHasSearchValues, updateSearchOptions, isResultPage }) {
     const classes = useStyles();
+    const location = useLocation();
+    const versionId = new URLSearchParams(location.search).get('version');
 
     useEffect(() => {
 
@@ -77,12 +81,14 @@ function SearchBarNewVer({ type, openFilterDialog, closeFilterDialog, showFilter
 
         if (e.keyCode == 13) {
             doSearch(searchInput);
+            sendNetworkLog(`Search for: ${searchInput}`, `Search Bar`, '', versionId);
         }
     };
 
     const onResetSearchInput = () => {
         resetSearchInput();
         searchInput.current.value = "";
+        sendNetworkLog('Clicked on: Cross Icon (Search Bar)', 'Cross Icon (Search Bar)', 'Clearing Search Bar Field', versionId);
     };
 
     const getPlaceholder = () => {

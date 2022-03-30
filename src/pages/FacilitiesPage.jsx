@@ -13,7 +13,7 @@ import SearchBarNewVer from '../components/SearchBarNewVer.jsx';
 import FilterDialogNewVer from '../components/FilterDialogNewVer.jsx';
 import CategoryOptionsDialogNewVer from '../components/CategoryOptionsDialogNewVer';
 import { allSearchOptions, categoryOptionsMap } from '../resources/constants.jsx';
-
+import { sendNetworkLog } from '../logging/logging.js';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -113,6 +113,7 @@ function FacilitiesPage() {
         window.localStorage.setItem('recentSearchList', JSON.stringify(newRecentSearchList));
         setRecentSearchList(JSON.parse(window.localStorage.getItem('recentSearchList')));
         updateHasSearchValues(false);
+        sendNetworkLog('Clicked on: Clear Icon (Recent Search)', 'Clear Icon (Recent Search)', `Clear Recent Search for: ${item}`, versionId);
     };
 
     const updateHasSearchValues = input => {
@@ -139,11 +140,13 @@ function FacilitiesPage() {
 
     const openSearchPage = () => {
         setOpenPage(true);
+        sendNetworkLog('Clicked on: Search Bar', 'Search Bar', 'Opening Search Page from Facilities Page', versionId);
     };
 
     const closeSearchPage = () => {
         resetSearchInput();
         setOpenPage(false);
+        sendNetworkLog('Clicked on: Close Icon (Search Page)', 'Close Icon (Search Page)', 'Closing Search Page back to Facilities Page', versionId);
     };
 
     /* OLD VERSION OF FACILITIES PAGE (1 & 2) */
@@ -152,6 +155,7 @@ function FacilitiesPage() {
             <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
                 <SearchBarOldVer startSearch={openSearchPage} />
                 <SearchPageOldVer
+                    versionId={versionId}
                     openPage={openPage}
                     cancelSearch={closeSearchPage}
                     isOldVersion={isOldVersion}
@@ -170,6 +174,7 @@ function FacilitiesPage() {
 
     /* NEW VERSION OF FACILITIES PAGE (3 & 4) */
     const doOpenCategoryDialog = type => {
+        sendNetworkLog(`Clicked on: Category Icon Button - ${type}`, `Category Icon Button - ${type}`, `Opening ${type} Dialog`, versionId);
         if (type == SPORT_TITLE) {
             setOpenSportDialog(true);
             setOptions(categoryOptionsMap[SPORT_TITLE]);
@@ -180,6 +185,7 @@ function FacilitiesPage() {
     };
 
     const closeCategoryDialog = type => {
+        sendNetworkLog(`Clicked on: Back Icon (${type} Dialog)`, `Back Icon (${type} Dialog)`, `Closing ${type} Dialog`, versionId);
         setOptions(allSearchOptions);
         if (openSportDialog) {
             setOpenSportDialog(false);
@@ -189,11 +195,13 @@ function FacilitiesPage() {
     };
 
     const doOpenFilterDialog = type => {
+        sendNetworkLog('Clicked on: Filter Icon on Search Bar', 'Filter Icon', 'Opening Filter Dialog', versionId);
         setOpenFilterDialog(true);
         setOpenPage(false);
     };
 
     const closeFilterDialog = type => {
+        sendNetworkLog('Clicked on: Back Icon (Filter Dialog)', 'Back Icon (Filter Dialog)', 'Closing Filter Dialog', versionId);
         setOpenFilterDialog(false);
     };
 
@@ -213,6 +221,7 @@ function FacilitiesPage() {
             <Grid item xs={12} className={`${classes.textAlignCenter}`}>
                 <SearchBarNewVer startSearch={openSearchPage} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />
                 <SearchPageNewVer
+                    versionId={versionId}
                     openPage={openPage}
                     handleClosePage={closeSearchPage}
                     recentSearchList={recentSearchList}
@@ -229,7 +238,10 @@ function FacilitiesPage() {
     };
 
     const renderCategoryButton = (name, icon) => {
-        return <AppIconButton onClick={() => {doOpenCategoryDialog(name)}} name={name} icon={icon} />;
+        return <AppIconButton onClick={() => {
+            doOpenCategoryDialog(name);
+            sendNetworkLog('Clicked on: Category Icon Button', `Category Button (${name})`, '', versionId);
+        }} name={name} icon={icon} />;
     };
 
     const renderCategoryButtons = () => {
