@@ -12,6 +12,10 @@ const settings = {
             main: '#777777',
             contrastText: '#ffffff'
         },
+        red: {
+            main: '#CA1E1E',
+            contrastText: '#ffffff'
+        },
         sucess: {
             main: '#15A89E'
         },
