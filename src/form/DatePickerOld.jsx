@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
         color: "#849095",
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'left',
         paddingTop: theme.spacing(1),
         paddingBottom: theme.spacing(1),
         paddingLeft: theme.spacing(1),
