@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     px2: {
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
-    }, 
+    },
     pb3: {
         paddingBottom: theme.spacing(3)
     },
@@ -62,7 +62,7 @@ function FilterDialogNewVer({ open, handleClose, versionId }) {
         'Ang Mo Kio', 'Bishan', 'Clementi', 'Hougang', 'Jurong East', 'Pasir Ris', 'Punggol', 'Sengkang', 'Woodlands', 'Yio Chu Kang'
     ];
 
-    const initialValues = { 
+    const initialValues = {
         Availability: true,
         Location: [], // allLocationsNew,
         Sports: [], // categoryOptionsMap.Sport,
@@ -102,9 +102,9 @@ function FilterDialogNewVer({ open, handleClose, versionId }) {
 
     const renderShowOrHideButton = (type, title) => {
         return (
-            <AppButton 
-                variant='text' 
-                content={<Typography variant='h4'>{`${type} all ${title}`}</Typography>} 
+            <AppButton
+                variant='text'
+                content={<Typography variant='h4'>{`${type} all ${title}`}</Typography>}
                 endIcon={type === 'Show' ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
                 className={classes.button}
                 onClick={() => toggleShowAll(title)}
@@ -140,30 +140,30 @@ function FilterDialogNewVer({ open, handleClose, versionId }) {
 
     const renderForm = formikBag => {
         const { touched, errors, values, setFieldValue } = formikBag;
-        console.log('Formik', values);
+        // console.log('Formik', values);
         return (
             <Form>
                 <Grid container justify="flex-start" alignItems="flex-start" className={classes.px2}>
-                    <FormElement 
-                        type="toggle" 
-                        toggle={values.Availability} 
+                    <FormElement
+                        type="toggle"
+                        toggle={values.Availability}
                         header='Availability'
                         subheader='Show only available locations'
-                        handleToggle={(e, r) => setFieldValue('Availability', r)} 
+                        handleToggle={(e, r) => setFieldValue('Availability', r)}
                     />
                     {renderCheckboxSection("checkbox-group-location", 'Location', allLocationsNew)}
                     {renderCheckboxSection("checkbox-group-sport", 'Sports', categoryOptionsMap.Sport)}
-                    <FormElement 
-                        type="date" 
+                    <FormElement
+                        type="date"
                         ranges={values.dateRange}
                         onDateChange={item => setFieldValue('dateRange', [item.selection])}
                     />
                 </Grid>
                 <Grid container item justifyContent="center" alignItems="center" className={classes.applyButtonBackground}>
-                    <AppButton 
-                        variant='filled' 
-                        content="Apply" 
-                        type="submit" 
+                    <AppButton
+                        variant='filled'
+                        content="Apply"
+                        type="submit"
                         className={classes.applyButton}
                     />
                 </Grid>
@@ -179,7 +179,7 @@ function FilterDialogNewVer({ open, handleClose, versionId }) {
         >
             <DialogHeaderNew header='Filter' handleClose={handleClose} />
             <Grid container className={classes.my10}>
-                <Formik initialValues={initialValues} onSubmit={applyFilter}> 
+                <Formik initialValues={initialValues} onSubmit={applyFilter}>
                     {formikBag => renderForm(formikBag)}
                 </Formik>
             </Grid>
