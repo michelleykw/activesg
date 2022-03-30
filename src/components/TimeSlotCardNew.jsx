@@ -30,9 +30,10 @@ function TimeSlotCards ({dataArr, selectedTime, setSelectedTime}) {
         <>
             <Card sx={{padding: '1px', justifyContent: 'center'}} style={{ boxShadow: "none" }}>
                 <Box sx={{
+                    width: '25vw',
                     borderRadius: 3,
                     padding: '4px',
-                    mr: 1,
+                    mr: 1,mb: 1,
                     backgroundColor: selectedTime === time ? 'error.main' : '#ECECEC',
                     color: selectedTime === time ? 'white' : 'black',}} border={0}>
                     <CardActionArea onClick={() => handleTimeSlotClick(time)}>
