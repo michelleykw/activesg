@@ -121,7 +121,7 @@ function SearchBarOldVer({ isSearching=false, startSearch, resetSearchInput, can
                 <div className={classes.alignCenter}>
                     <StyledInputBase
                         {...params}
-                        
+
                         disabled={!isSearching}
                         fullWidth
                         placeholder={getPlaceholder()}
@@ -135,14 +135,14 @@ function SearchBarOldVer({ isSearching=false, startSearch, resetSearchInput, can
 
     return (
         <Grid container justifyContent="space-between" alignItems="center" className={classes.mx2}>
-            <Grid item xs={isSearching || (!isSearching && hasSearchValues) ? 10 : 12}>
+            <Grid item xs={isSearching || isResultPage ? 10 : 12}>
                 {renderSearchBar()}
             </Grid>
             <Grid item>
-                {!isSearching && hasSearchValues && (
-                    <AppIconButton 
-                        icon={<FilterListIcon className={classes.icon}/>} 
-                        onClick={doOpenFilterDialog} 
+                {isResultPage && (
+                    <AppIconButton
+                        icon={<FilterListIcon className={classes.icon}/>}
+                        onClick={doOpenFilterDialog}
                     />
                 )}
             </Grid>

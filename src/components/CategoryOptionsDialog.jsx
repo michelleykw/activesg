@@ -42,8 +42,8 @@ function CategoryOptionsDialog({ category, doSearch, open, fullScreen=false, han
             open={open}
             onClose={handleClose}
         >
-            {renderDialogHeader()}   
-            <SearchListOldVer fullScreen={fullScreen} list={categoryOptionsMap[category]} search={doSearch} handleClose={handleClose} /> 
+            {renderDialogHeader()}
+            <SearchListOldVer fullScreen={fullScreen} list={categoryOptionsMap[category]} search={doSearch} handleClose={handleClose} />
       </Dialog>
     );
 }

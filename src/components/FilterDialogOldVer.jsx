@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { makeStyles, useTheme } from '@mui/styles';
 import { Dialog, Grid, Typography } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     px2: {
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
-    }, 
+    },
     pb3: {
         paddingBottom: theme.spacing(3)
     },
@@ -96,7 +96,10 @@ const useStyles = makeStyles(theme => ({
 function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
     const classes = useStyles();
     const theme = useTheme();
+    const location = useLocation();
     const navigate = useNavigate();
+
+    const [query, setNewQuery] = useState('');
     const [showAllLocations, setShowAllLocations] = useState(false);
     const [showAllSports, setShowAllSports] = useState(false);
     const [sportInput, setSportInput] = useState("Select a Sport");
@@ -107,7 +110,7 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
     const [openCategoryOptions, setOpenCategoryOptions] = useState(false);
     const [searchCategory, setSearchCategory] = useState();
 
-    const initialValues = { 
+    const initialValues = {
         Availability: false,
         Location: [], // allLocationsNew,
         Venue: [],
@@ -125,12 +128,24 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
 
     useEffect(() => {
         let newQuery = new URLSearchParams(location.search).get('query');
-        if (isChangeSport && isInsideList(newQuery, sportsList)) {
+        setNewQuery(newQuery);
+        if (isChangeSport && sportsList.find(ele => ele === newQuery)) {
             setSportInput(newQuery);
-        } else if (isChangeVenue && isInsideList(newQuery, venueList)) {
+        }
+        if (isChangeVenue && venueList.find(ele => ele === newQuery)) {
             setVenueInput(newQuery);
         }
-    }, [openCategoryOptions, searchCategory, sportInput, venueInput, isChangeSport, isChangeVenue]);
+    }, [location])
+
+    useEffect(() => {
+        let newQuery = new URLSearchParams(location.search).get('query');
+        if (isChangeSport && sportsList.find(ele => ele === newQuery)) {
+            setSportInput(newQuery);
+        }
+        if (isChangeVenue && venueList.find(ele => ele === newQuery)) {
+            setVenueInput(newQuery);
+        }
+    }, [query, openCategoryOptions, searchCategory, sportInput, venueInput, isChangeSport, isChangeVenue, location]);
 
     const applyFilter = (values) => {
         console.log("--> apply filter");
@@ -139,7 +154,7 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
 
         console.log('Filter:', values);
         handleClose();
-        navigate(`/activesg/facilities/result?version=${versionId}&query=${JSON.stringify(values)}`);
+        // navigate(`/activesg/facilities/result?version=${versionId}&query=${JSON.stringify(values)}`);
     };
 
     const resetFilter = (values) => {
@@ -151,7 +166,7 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
 
         if (isChangeSport && isInsideList(newQuery, sportsList)) {
             setSportInput(newQuery);
-        } 
+        }
 
         else if (isChangeVenue && isInsideList(newQuery, venueList)) {
             setVenueInput(newQuery);
@@ -178,18 +193,19 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
             setIsChangeSport(true);
         } else if (category === "Venue") {
             setIsChangeVenue(true);
-        } 
+        }
     };
 
     const closeCategoryOptionsDialog = () => {
         console.log('--> closeCategoryOptionsDialog');
         setOpenCategoryOptions(false);
         setSearchCategory(null);
-        if (category === "Sport") {
+        if (searchCategory === "Sport") {
             setIsChangeSport(false);
-        } else if (category === "Venue") {
+        } else if (searchCategory === "Venue") {
             setIsChangeVenue(false);
-        } 
+        }
+
     };
 
     const renderCategoryDialog = () => {
@@ -208,17 +224,17 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
     const renderSelectSection = (id, title) => {
         return (
             <Grid container item id={id}>
-                <AppButton 
-                    variant='text' 
+                <AppButton
+                    variant='text'
                     content={
                     <Grid justify="flex-start">
                         <Typography className={classes.subheading}>{title}</Typography>
                         <Typography variant='h4' className={classes.headings}>{
-                            title === "Sport" 
-                                ? sportInput 
+                            title === "Sport"
+                                ? sportInput
                                 : venueInput}</Typography>
                     </Grid>
-                    } 
+                    }
                     endIcon={<NavigateNextIcon />}
                     className={classes.selectionBox}
                     onClick={() => openCategoryOptionsDialog(title)}
@@ -242,24 +258,24 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
                     {/* {renderSelectSection("checkbox-group-date", 'Date')}
                     <Grid className = {classes.divider}></Grid> */}
                     <Grid container className={classes.dateContainer}>
-                        <FormElement 
-                            type="dateOld" 
+                        <FormElement
+                            type="dateOld"
                             ranges={values.dateRange}
                             onDateChange={item => setFieldValue('dateRange', [item.selection])}
                         />
                     </Grid>
                 </Grid>
                 <Grid container item justifyContent="space-evenly" alignItems="center" className={classes.applyButtonBackground}>
-                    <AppButton 
-                        variant='outlined' 
-                        content="Reset" 
+                    <AppButton
+                        variant='outlined'
+                        content="Reset"
                         className={classes.resetButton}
                         onClick={() => resetFilter(values)}
                     />
-                    <AppButton 
-                        variant='filled' 
-                        content="Apply" 
-                        type="submit" 
+                    <AppButton
+                        variant='filled'
+                        content="Apply"
+                        type="submit"
                         className={classes.applyButton}
                     />
                 </Grid>
@@ -267,13 +283,16 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
         );
     }
 
+    console.log(sportInput)
+    console.log(venueInput)
+
     return (
         <Dialog
             open={open}
             onClose={handleClose}
         >
             <Grid container>
-                <Formik initialValues={initialValues} onSubmit={applyFilter}> 
+                <Formik initialValues={initialValues} onSubmit={applyFilter}>
                     {formikBag => renderForm(formikBag)}
                 </Formik>
             </Grid>

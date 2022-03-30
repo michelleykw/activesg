@@ -97,9 +97,9 @@ function ResultPage() {
 
     const filterOldQuery = () => {
         let tempData = [...data];
-        tempData = data.filter(data => data.sport === query || data.name === query);
+        tempData = tempData.filter(item => item.sport === query || item.name === query);
         setFilteredData(tempData);
-        // console.log(filteredData);
+        console.log(filteredData);
     }
 
     const filterNewQuery = () => {
@@ -191,7 +191,7 @@ function ResultPage() {
     };
 
     const doSearch = input => {
-        // console.log('doSearch', input);
+        console.log('doSearch', input);
         updateSearchOptions(input)
         updateRecentSearch(input);
         setRecentSearchList(JSON.parse(window.localStorage.getItem('recentSearchList')));
@@ -274,7 +274,7 @@ function ResultPage() {
         console.log("--> renderSearchOld");
         return (
             <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
-                <SearchBarOldVer startSearch={openCategoryOptionsDialog} />
+                <SearchBarOldVer startSearch={openCategoryOptionsDialog} isResultPage={true} doSearch={doSearch}/>
                 <SearchPageOldVer
                     openPage={openPage}
                     cancelSearch={closeSearchPage}
