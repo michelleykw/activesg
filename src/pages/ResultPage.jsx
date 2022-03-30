@@ -271,6 +271,7 @@ function ResultPage() {
 
     /* OLD VERSION OF FACILITIES PAGE (1 & 2) */
     const renderSearchOld = () => {
+        console.log("--> renderSearchOld");
         return (
             <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
                 <SearchBarOldVer startSearch={openCategoryOptionsDialog} />
