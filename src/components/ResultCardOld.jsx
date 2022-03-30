@@ -6,6 +6,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import swimming from '../static/swimming.jpg';
+import hockey from '../static/hockey.jpeg';
+import badminton from '../static/badminton.jpg';
+
 import { useNavigate, useLocation } from "react-router-dom";
 import { sendNetworkLog } from '../logging/logging.js';
 
@@ -20,6 +23,18 @@ function ResultCardOld({data}) {
         navigate(`/activesg/facilities/view?version=${versionId}&location=${loc}`);
     };
 
+    const pic = () => {
+        if (data.sport === 'Swim'){
+            return swimming;
+        } else if (data.sport === 'Badminton') {
+            return badminton;
+        } else if (data.sport === 'Hockey') {
+            return hockey;
+        } else {
+            return swimming; // default
+        }
+    }
+
     return (
         <Grid item xs={6}>
             <Card sx={{m:1}}>
@@ -27,7 +42,7 @@ function ResultCardOld({data}) {
                     <CardMedia
                         component="img"
                         height="90"
-                        src = {swimming}
+                        src = {pic()}
                         alt={data.sport}
                     />
                     <CardContent  sx={{minHeight: '20vh'}}>

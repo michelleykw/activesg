@@ -10,6 +10,9 @@ import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
 import { CardActionArea } from '@mui/material';
 import swimming from '../static/swimming.jpg';
+import hockey from '../static/hockey.jpeg';
+import badminton from '../static/badminton.jpg';
+
 
 function ResultCardNew({data}) {
     const location = useLocation();
@@ -35,6 +38,18 @@ function ResultCardNew({data}) {
         }
     }, [data])
 
+    const pic = () => {
+        if (data.sport === 'Swim'){
+            return swimming;
+        } else if (data.sport === 'Badminton') {
+            return badminton;
+        } else if (data.sport === 'Hockey') {
+            return hockey;
+        } else {
+            return swimming; // default
+        }
+    }
+
 
     return (
         <Grid item xs={6}>
@@ -43,7 +58,7 @@ function ResultCardNew({data}) {
                     <Box
                         component="img"
                         sx={{width: 1, maxHeight: '120px', borderRadius: 2.5}}
-                        src={swimming} />
+                        src={pic()} />
                     <CardContent sx={{mx: -1.7, my: -1}}>
                         <Typography variant="caption" color="white" sx={{padding: '4px', bgcolor: 'text.disabled', borderRadius: 2, fontSize: 12}}>
                             {data.sport}

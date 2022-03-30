@@ -12,6 +12,9 @@ import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 
 import swimming from '../static/swimming.jpg';
+import hockey from '../static/hockey.jpeg';
+import badminton from '../static/badminton.jpg';
+
 import HeaderSectionOld from '../components/FacilitiesViewHeaderOld';
 import HeaderSectionNew from '../components/FacilitiesViewHeaderNew';
 import ScrollCalendar from '../components/ScrollCalendar';
@@ -95,6 +98,18 @@ function FacilityViewPage() {
         );
     };
 
+    const pic = () => {
+        if (sport === 'Swim'){
+            return swimming;
+        } else if (sport === 'Badminton') {
+            return badminton;
+        } else if (sport === 'Hockey') {
+            return hockey;
+        } else {
+            return swimming; // default
+        }
+    }
+
     return (
         <>
             <Grid container justifyContent="flex-start" alignItems="flex-start" className={classes.fullScreenHeight} columnSpacing={0} sx={{mb:10}}>
@@ -102,7 +117,7 @@ function FacilityViewPage() {
                     <Box
                         component="img"
                         sx={{width: 1, maxHeight: '150px'}}
-                        src={swimming} />
+                        src={pic()} />
                 </Grid>
 
                 <Grid item xs={12} sx={{my: 2}}>
