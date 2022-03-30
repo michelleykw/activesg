@@ -110,11 +110,11 @@ function ResultPage() {
                 isLocationOK = false;
             }
             const isSportOK = sports.length > 0 ? sports.includes(item.sport) : true;
-            const isVenueOK = venue.length > 0 ? venue.includes(item.name) : true;
+            // const isVenueOK = venue.length > 0 ? venue.includes(item.name) : true;
 
             const isAvailable = available;
 
-            return isLocationOK && isSportOK && isVenueOK && isAvailable;
+            return isLocationOK && isSportOK && isAvailable;
         }
         tempData = tempData.filter(data => isAccepted(data));
         setFilteredData(tempData);
