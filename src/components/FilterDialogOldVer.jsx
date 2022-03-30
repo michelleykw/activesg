@@ -76,10 +76,13 @@ const useStyles = makeStyles(theme => ({
     selectionBox: {
         fontWeight: `${400} !important`,
         minHeight: theme.spacing(8),
+        textAlign: "left",
+        justifyContent: "flex-start",
         width: '100%',
         color: `${theme.palette.text.secondary} !important`,
         marginTop: `${theme.spacing(1)} !important`,
         marginBottom: `${theme.spacing(1)} !important`,
+        paddingLeft: theme.spacing(3)
     },
     dateContainer: {
         paddingTop: theme.spacing(2),
@@ -207,21 +210,20 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
     const renderSelectSection = (id, title) => {
         return (
             <Grid container item id={id}>
-                <AppButton
-                    variant='text'
-                    content={
-                    <Grid justify="flex-start">
+
+                <Grid container item xs={12} className={classes.selectionBox} onClick={() => openCategoryOptionsDialog(title)}>
+                    <Grid item justify="flex-start"  xs={10}>
                         <Typography className={classes.subheading}>{title}</Typography>
                         <Typography variant='h4' className={classes.headings}>{
                             title === "Sport"
                                 ? sportInput
                                 : venueInput}</Typography>
                     </Grid>
-                    }
-                    endIcon={<NavigateNextIcon />}
-                    className={classes.selectionBox}
-                    onClick={() => openCategoryOptionsDialog(title)}
-                />
+                    {/* <Grid item xs={2} alignItems="center">
+                        <NavigateNextIcon />
+                    </Grid> */}
+                </Grid>
+
                 {renderCategoryDialog()}
             </Grid>
         );
