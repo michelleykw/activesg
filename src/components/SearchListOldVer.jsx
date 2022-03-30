@@ -61,7 +61,7 @@ function SearchListOldVer({ list, search, fullScreen=false, handleClose }) {
     };
 
     return (
-        <Grid container justifyContent="flex-start" alignItems="center" className={fullScreen ? classes.pxHalf : classes.mt1mb8}>
+        <Grid container justifyContent="flex-start" alignItems="center" className={fullScreen ? classes.pxHalf : classes.mt1mb8} sx={{mt: 5}}>
             {list && list.map(item => renderRow(item))}
         </Grid>
     );
