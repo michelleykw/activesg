@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
         paddingRight: theme.spacing(2)
     },
     alignCenter: {
-        
+
     }
 }));
 
@@ -31,7 +31,7 @@ const Search = styled('div')(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: theme.spacing(3),
-    outline: `1px solid ${theme.palette.background.lightGrey}`,
+    // outline: `1px solid ${theme.palette.background.lightGrey}`,
     background: theme.palette.background.lightGrey,
     width: '100%',
     minHeight: theme.spacing(6)

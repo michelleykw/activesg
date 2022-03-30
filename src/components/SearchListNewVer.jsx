@@ -78,8 +78,8 @@ function SearchListNewVer({ type, list, search, fullScreen=false }) {
     if (type == 'Sport') {
         const popularSportList = [
             {name: 'Basketball', icon: <SportsBasketballIcon fontSize='large' className={classes.mHalf} />},
-            {name: 'Floorball', icon: <SportsHockeyIcon fontSize='large' className={classes.mHalf} />},
             {name: 'Gym', icon: <FitnessCenterIcon fontSize='large' className={classes.mHalf} />},
+            {name: 'Floorball', icon: <SportsHockeyIcon fontSize='large' className={classes.mHalf} />},
             {name: 'Rugby', icon: <SportsRugbyIcon fontSize='large' className={classes.mHalf} />},
             {name: 'Soccer', icon: <SportsSoccerIcon fontSize='large' className={classes.mHalf} />},
             {name: 'Swim', icon: <PoolIcon fontSize='large' className={classes.mHalf} />},
