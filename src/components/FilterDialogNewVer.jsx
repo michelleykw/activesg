@@ -107,7 +107,7 @@ function FilterDialogNewVer({ open, handleClose, versionId }) {
         return (
             <AppButton
                 variant='text'
-                content={<Typography variant='h4'>{`${type} all ${name}`}</Typography>}
+                content={<Typography variant='h4'>{`${type} all ${title === 'Sports' ? title : title + 's'}`}</Typography>}
                 endIcon={type === 'Show' ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
                 className={classes.button}
                 onClick={() => toggleShowAll(title)}
