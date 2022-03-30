@@ -228,8 +228,6 @@ function FacilitiesPage() {
         return (
             <Grid item xs={12} className={`${classes.textAlignCenter}`}>
                 <SearchBarNewVer startSearch={openSearchPage} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />
-                <YouMayAlsoLike title={'For Me'} currFacilityName={''} data={data} useOldResult={useOldResult}/>
-                <YouMayAlsoLike title={'Near Me'} currFacilityName={''} data={data} useOldResult={useOldResult}/>
 
                 <SearchPageNewVer
                     versionId={versionId}
@@ -292,6 +290,9 @@ function FacilitiesPage() {
             {renderCategoryDialog(LOCATION_TITLE)}
             {renderCategoryDialog(SPORT_TITLE)}
             {<FilterDialogNewVer open={openFilterDialog} handleClose={closeFilterDialog} versionId={versionId} />}
+            <YouMayAlsoLike title={'For Me'} currFacilityName={''} data={data} useOldResult={useOldResult}/>
+            <YouMayAlsoLike title={'Near Me'} currFacilityName={''} data={data} useOldResult={useOldResult}/>
+
         </Grid>
     );
 }
