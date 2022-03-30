@@ -12,6 +12,7 @@ import PoolIcon from '@mui/icons-material/Pool';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import AppIconButton from '../components/AppIconButton.jsx';
 import SearchItemNew from '../components/SearchItemNew.jsx';
+import BadmintonIcon from '../resources/BadmintonIcon.jsx';
 import { sendNetworkLog } from '../logging/logging.js';
 
 const useStyles = makeStyles(theme => ({
@@ -77,7 +78,7 @@ function SearchListNewVer({ type, list, search, fullScreen=false, hasSearchValue
     /* SPORTS */
     if (type == 'Sport') {
         const popularSportList = [
-            {name: 'Basketball', icon: <SportsBasketballIcon fontSize='large' className={classes.mHalf} />},
+            {name: 'Badminton', icon: <BadmintonIcon fontSize='large' className={classes.mHalf} />},
             {name: 'Gym', icon: <FitnessCenterIcon fontSize='large' className={classes.mHalf} />},
             {name: 'Floorball', icon: <SportsHockeyIcon fontSize='large' className={classes.mHalf} />},
             {name: 'Rugby', icon: <SportsRugbyIcon fontSize='large' className={classes.mHalf} />},
