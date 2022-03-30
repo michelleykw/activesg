@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function SearchListNewVer({ type, list, search, fullScreen=false }) {
+function SearchListNewVer({ type, list, search, fullScreen=false, hasSearchValues }) {
     const classes = useStyles();
     const location = useLocation();
     const versionId = new URLSearchParams(location.search).get('version');
@@ -101,8 +101,8 @@ function SearchListNewVer({ type, list, search, fullScreen=false }) {
 
         return (
             <Grid container justifyContent="flex-start" alignItems="center" className={fullScreen ? classes.px2 : classes.mt1mb8}>
-                {renderSectionTitle('Popular Sports')}
-                {popularSportList.map(renderSportButton)}
+                {!hasSearchValues && renderSectionTitle('Popular Sports')}
+                {!hasSearchValues && popularSportList.map(renderSportButton)}
                 {renderSectionTitle('All Sports')}
                 {list && list.map(item => renderRow(item))}
             </Grid>
