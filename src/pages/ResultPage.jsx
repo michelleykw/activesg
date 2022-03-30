@@ -162,10 +162,11 @@ function ResultPage() {
                 isLocationOK = false;
             }
             const isSportOK = sports.length > 0 ? sports.includes(item.sport) : true;
+            const isVenueOK = venue.length > 0 ? venue.includes(item.name) : true;
 
             const isAvailable = available;
 
-            return isLocationOK && isSportOK && isAvailable;
+            return isLocationOK && isSportOK && isVenueOK && isAvailable;
         }
         tempData = data.filter(data => isAccepted(data));
         setFilteredData(tempData);
@@ -187,7 +188,7 @@ function ResultPage() {
 
     useEffect(() => {
         filterData(data);
-    }, [query, available, facilityLocations, sports, dateRange])
+    }, [query, available, facilityLocations, sports, venue, dateRange])
 
     const closeFilterDialog = type => {
         setOpenFilterDialog(false);

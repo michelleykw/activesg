@@ -139,7 +139,7 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
 
         console.log('Filter:', values);
         handleClose();
-        navigate(`/facilities/result?version=${versionId}&query=${JSON.stringify(values)}`);
+        navigate(`/activesg/facilities/result?version=${versionId}&query=${JSON.stringify(values)}`);
     };
 
     const resetFilter = (values) => {

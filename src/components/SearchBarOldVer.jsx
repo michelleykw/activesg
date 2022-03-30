@@ -62,7 +62,7 @@ const CancelButton = styled(Button)(({ theme }) => ({
     minWidth: '4rem'
   }));
 
-function SearchBarOldVer({ isSearching=false, startSearch, resetSearchInput, cancelSearch, doSearch, searchInput, hasSearchValues, updateHasSearchValues, updateSearchOptions, isResultPage, displayBack, versionId }) {
+function SearchBarOldVer({ isSearching=false, startSearch, resetSearchInput, cancelSearch, doSearch, searchInput, hasSearchValues, updateHasSearchValues, updateSearchOptions, isResultPage, displayBack }) {
     const classes = useStyles();
     const location = useLocation();
     const [query, setQuery] = useState();
@@ -151,7 +151,7 @@ function SearchBarOldVer({ isSearching=false, startSearch, resetSearchInput, can
                     <CancelButton variant="text" onClick={onCancelSearch}>Cancel</CancelButton>
                 )}
             </Grid>
-            {<FilterDialogOldVer open={openFilterDialog} handleClose={closeFilterDialog} versionId={new URLSearchParams(location.search).get('version')} doSearch={doSearch} />}
+            {<FilterDialogOldVer open={openFilterDialog} handleClose={closeFilterDialog} versionId={versionId} doSearch={doSearch} />}
         </Grid>
     );
 }
