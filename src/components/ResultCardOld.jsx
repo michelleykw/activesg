@@ -30,7 +30,7 @@ function ResultCardOld({data}) {
                         src = {swimming}
                         alt={data.sport}
                     />
-                    <CardContent  sx={{minHeight: '18vh'}}>
+                    <CardContent  sx={{minHeight: '20vh'}}>
                     <Typography variant="caption" color="text.secondary">
                         {data.sport}
                     </Typography>

@@ -7,8 +7,6 @@ import Box from '@mui/material/Box';
 import CategoryOptionsDialog from '../components/CategoryOptionsDialog';
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { allSearchOptions, sportsList, categoryOptionsMap } from '../resources/constants';
-import ResultCardOld from '../components/ResultCardOld';
-import ResultCardNew from '../components/ResultCardNew';
 
 import AppIconButton from '../components/AppIconButton.jsx';
 import SearchBarOldVer from '../components/SearchBarOldVer.jsx';
@@ -17,6 +15,7 @@ import SearchPageOldVer from './SearchPageOldVer';
 import SearchPageNewVer from './SearchPageNewVer';
 import FilterDialogNewVer from '../components/FilterDialogNewVer.jsx';
 import ResultCardList from '../components/ResultCardList';
+import DialogHeaderNew from '../components/DialogHeaderNew';
 
 const useStyles = makeStyles(theme => ({
     fullScreenHeight: {
@@ -332,15 +331,20 @@ function ResultPage() {
         );
     };
 
+    const headerBack = () => {
+        navigate(-1);
+    }
+
     const renderCategoryButton = (name, icon) => {
         return <AppIconButton onClick={() => {doOpenCategoryDialog(name)}} name={name} icon={icon} />;
     };
 
     return (
-        <Box sx={{mt:1, mb:6}}>
+        <Box sx={{mt:1, mb:8}}>
             <Grid container direction="column" justifyContent="centre" alignItems="flex-start" alignContent='center' className={classes.fullScreenHeight} width='100%'>
+                <DialogHeaderNew header={'Results'} handleClose={headerBack}/>
                 {/* SEARCH BAR */}
-                <Box width="95%">
+                <Box width="95%" sx={{mt: 7}}>
                     {/* {useOldSearch && (<SearchBarOldVer startSearch={openCategoryOptionsDialog} hasSearchValues={query} doSearch={doSearch} />)}
                     {!useOldSearch && (<SearchBarNewVer startSearch={openCategoryOptionsDialog} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />)} */}
 

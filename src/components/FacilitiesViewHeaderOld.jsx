@@ -22,7 +22,7 @@ function HeaderSectionOld ({facility, sport}) {
                     </Box>
                     <Box sx={{mr: 2, alignContent: 'stretch' }} >
                         <Typography variant="caption" sx={{mb:1}}>More </Typography>
-                        <KeyboardArrowDownIcon />
+                        <KeyboardArrowDownIcon sx={{marginBottom:-1}}/>
                     </Box>
                 </Grid>
             </Grid>
