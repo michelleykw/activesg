@@ -16,6 +16,7 @@ import SearchPageNewVer from './SearchPageNewVer';
 import FilterDialogNewVer from '../components/FilterDialogNewVer.jsx';
 import ResultCardList from '../components/ResultCardList';
 import DialogHeaderNew from '../components/DialogHeaderNew';
+import { sendNetworkLog } from '../logging/logging.js';
 
 const useStyles = makeStyles(theme => ({
     fullScreenHeight: {
@@ -332,6 +333,7 @@ function ResultPage() {
     };
 
     const headerBack = () => {
+        sendNetworkLog('Clicked on: Back Button on Result Page', 'Back Button on Result Page', '', versionId);
         navigate(-1);
     }
 
