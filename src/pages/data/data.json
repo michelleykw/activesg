@@ -110,6 +110,93 @@
         "area": "Queenstown",
         "availability": [{
             "date": "15 April",
+            "time": [{"0800": 13}, {"0900": 39}, {"1000": 14}]
+        }, {
+            "date": "16 April",
+            "time": [{"1900": 29}, {"2000": 0}, {"2100": 10}]
+        }, {
+            "date": "18 April",
+            "time": [{"1900": 13}, {"2000": 8}, {"2100": 10}]
+        }]
+    },
+    {
+        "name": "Bukit Panjang Primary School Hall",
+        "sport": "Badminton",
+        "availability": [{
+            "date": "18 April",
+            "time": [{"0800": 13}, {"0900": 41}, {"1000": 0}]
+        }, {
+            "date": "21 April",
+            "time": [{"1400": 22}, {"1500": 9}, {"1600": 10}]
+        }, {
+            "date": "22 April",
+            "time": [{"1300": 28}, {"1400": 13}]
+        }]
+    },
+    {
+        "name": "Clementi Sports Hall",
+        "sport": "Badminton",
+        "availability": [{
+            "date": "6 April",
+            "time": [{"0700": 13}, {"0800": 41}, {"0900": 0}, {"1000": 0}, {"1100": 0}]
+        }, {
+            "date": "7 April",
+            "time": [{"0700": 26}, {"0800": 31}, {"0900": 7}, {"1000": 0}, {"1100": 0}]
+        }, {
+            "date": "22 April",
+            "time": [{"1300": 28}, {"1400": 13}]
+        }]
+    },
+    {
+        "name": "Bishan Sports Hall",
+        "sport": "Badminton",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"0800": 11}, {"0900": 5}, {"1000": 0}, {"1300": 0}, {"1400": 0}, {"1500": 15}]
+        }, {
+            "date": "5 April",
+            "time": [{"0800": 9}, {"0900": 7}, {"1000": 3}, {"1100": 0}, {"1400": 22}, {"1500": 14}]
+        }, {
+            "date": "6 April",
+            "time": [{"1300": 27}, {"1400": 13}]
+        }, {
+            "date": "7 April",
+            "time": [{"1000": 9}, {"1100": 10}, {"1400": 21}, {"1500": 12}]
+        }]
+    },
+    {
+        "name": "Jurong East Sports Hall",
+        "sport": "Badminton",
+        "availability": [{
+            "date": "15 April",
+            "time": [{"0800": 17}, {"0900": 41}, {"1000": 24}]
+        }, {
+            "date": "16 April",
+            "time": [{"1900": 29}, {"2000": 0}, {"2100": 10}]
+        }]
+    },
+    {
+        "name": "Ang Mo Kio Primary School Hall",
+        "sport": "Badminton",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"0800": 9}, {"0900": 17}, {"1000": 8}, {"1300": 2}, {"1400": 0}, {"1500": 15}]
+        }, {
+            "date": "5 April",
+            "time": [{"0800": 13}, {"0900": 9}, {"1000": 3}, {"1100": 0}, {"1400": 25}, {"1500": 17}]
+        }, {
+            "date": "6 April",
+            "time": [{"1300": 27}, {"1400": 13}, {"1700": 18}]
+        }, {
+            "date": "7 April",
+            "time": [{"1000": 15}, {"1100": 9}, {"1400": 21}, {"1500": 12}]
+        }]
+    },
+    {
+        "name": "Queenstown Primary School Hall",
+        "sport": "Badminton",
+        "availability": [{
+            "date": "15 April",
             "time": [{"0800": 17}, {"0900": 41}, {"1000": 24}]
         }, {
             "date": "16 April",

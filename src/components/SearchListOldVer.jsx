@@ -30,17 +30,27 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function SearchListOldVer({ list, search, fullScreen=false }) {
+function SearchListOldVer({ list, search, fullScreen=false, handleClose }) {
     const classes = useStyles();
+
+    // const searchAndClose = searchItem => {
+    //     console.log('--> searchAndClose');
+    //     search(searchItem);
+    //     handleClose();
+    // };
+
     const location = useLocation();
+
+    const handleRowClick = (searchItem) => {
+        search(searchItem);
+        const versionId = new URLSearchParams(location.search).get('version');
+        sendNetworkLog('Clicked on: Search List Item (General)', 'Search List Item (General)', `Item: ${searchItem}`, versionId);
+        handleClose();
+    }
 
     const renderRow = searchItem => {
         return (
-            <Grid container onClick={() => {
-                search(searchItem);
-                const versionId = new URLSearchParams(location.search).get('version');
-                sendNetworkLog('Clicked on: Search List Item (General)', 'Search List Item (General)', `Item: ${searchItem}`, versionId);
-            }} justifyContent="space-between" alignItems="center" className={`${classes.row}`}>
+            <Grid container onClick={() => {handleRowClick(searchItem)}} justifyContent="space-between" alignItems="center" className={`${classes.row}`}>
                 <Grid item xs={10} className={fullScreen ? classes.px1 : classes.px2}>
                     <Typography color="textSecondary">
                         {searchItem}

@@ -10,6 +10,7 @@ import SearchPageNewVer from './SearchPageNewVer';
 import AppIconButton from '../components/AppIconButton.jsx';
 import SearchBarOldVer from '../components/SearchBarOldVer.jsx';
 import SearchBarNewVer from '../components/SearchBarNewVer.jsx';
+import FilterDialogOldVer from '../components/FilterDialogOldVer.jsx';
 import FilterDialogNewVer from '../components/FilterDialogNewVer.jsx';
 import CategoryOptionsDialogNewVer from '../components/CategoryOptionsDialogNewVer';
 import { allSearchOptions, categoryOptionsMap } from '../resources/constants.jsx';
@@ -153,12 +154,12 @@ function FacilitiesPage() {
     if (isOldVersion) {
         return (
             <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
-                <SearchBarOldVer startSearch={openSearchPage} />
+                <SearchBarOldVer startSearch={openSearchPage} doSearch={doSearch}/>
                 <SearchPageOldVer
                     versionId={versionId}
                     openPage={openPage}
                     cancelSearch={closeSearchPage}
-                    isOldVersion={isOldVersion}
+                    isOldVersion={isOldVersion} 
                     recentSearchList={recentSearchList}
                     resetSearchInput={resetSearchInput}
                     doSearch={doSearch}
@@ -171,6 +172,8 @@ function FacilitiesPage() {
             </Grid>
         );
     };
+
+    
 
     /* NEW VERSION OF FACILITIES PAGE (3 & 4) */
     const doOpenCategoryDialog = type => {

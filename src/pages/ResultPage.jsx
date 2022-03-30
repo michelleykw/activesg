@@ -37,6 +37,7 @@ function ResultPage() {
     const [available, setAvailable] = useState(true);
     const [facilityLocations, setFacilityLocations] = useState([]);
     const [sports, setSports] = useState([]);
+    const [venue, setVenue] = useState([]);
     const [dateRange, setDateRange] = useState({});
     const [filteredData, setFilteredData] = useState([]);
 
@@ -57,6 +58,7 @@ function ResultPage() {
         setAvailable(true);
         setFacilityLocations([]);
         setSports([]);
+        setVenue([]);
         setDateRange({});
     }
 
@@ -79,6 +81,7 @@ function ResultPage() {
         setAvailable(newQuery.Availability);
         setFacilityLocations(newQuery.Location);
         setSports(newQuery.Sports);
+        setVenue(newQuery.Venue);
         setDateRange(newQuery.dateRange[0]);
     }
 
@@ -94,9 +97,9 @@ function ResultPage() {
 
     const filterOldQuery = () => {
         let tempData = [...data];
-        tempData = data.filter(data => data.sport === query || data.name === query);
+        tempData = tempData.filter(item => item.sport === query || item.name === query);
         setFilteredData(tempData);
-        // console.log(filteredData);
+        console.log(filteredData);
     }
 
     const filterNewQuery = () => {
@@ -107,10 +110,11 @@ function ResultPage() {
                 isLocationOK = false;
             }
             const isSportOK = sports.length > 0 ? sports.includes(item.sport) : true;
+            const isVenueOK = venue.length > 0 ? venue.includes(item.name) : true;
 
             const isAvailable = available;
 
-            return isLocationOK && isSportOK && isAvailable;
+            return isLocationOK && isSportOK && isVenueOK && isAvailable;
         }
         tempData = tempData.filter(data => isAccepted(data));
         setFilteredData(tempData);
@@ -144,7 +148,7 @@ function ResultPage() {
 
     useEffect(() => {
         filterData();
-    }, [available, facilityLocations, sports, dateRange])
+    }, [available, facilityLocations, sports, venue, dateRange])
 
 
     // ------------------ SEARCH BAR STUFF ------------------ //
@@ -187,7 +191,7 @@ function ResultPage() {
     };
 
     const doSearch = input => {
-        // console.log('doSearch', input);
+        console.log('doSearch', input);
         updateSearchOptions(input)
         updateRecentSearch(input);
         setRecentSearchList(JSON.parse(window.localStorage.getItem('recentSearchList')));
@@ -267,9 +271,10 @@ function ResultPage() {
 
     /* OLD VERSION OF FACILITIES PAGE (1 & 2) */
     const renderSearchOld = () => {
+        console.log("--> renderSearchOld");
         return (
             <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
-                <SearchBarOldVer startSearch={openCategoryOptionsDialog} />
+                <SearchBarOldVer startSearch={openCategoryOptionsDialog} isResultPage={true} doSearch={doSearch}/>
                 <SearchPageOldVer
                     openPage={openPage}
                     cancelSearch={closeSearchPage}
@@ -336,6 +341,9 @@ function ResultPage() {
             <Grid container direction="column" justifyContent="centre" alignItems="flex-start" className={classes.fullScreenHeight} width='100%'>
                 {/* SEARCH BAR */}
                 <Box width="95%">
+                    {/* {useOldSearch && (<SearchBarOldVer startSearch={openCategoryOptionsDialog} hasSearchValues={query} doSearch={doSearch} />)}
+                    {!useOldSearch && (<SearchBarNewVer startSearch={openCategoryOptionsDialog} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />)} */}
+
                     {useOldSearch && renderSearchOld()}
                     {!useOldSearch && renderSearchNew()}
                 </Box>

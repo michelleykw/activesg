@@ -4,6 +4,9 @@ import { makeStyles } from '@mui/styles';
 import { styled } from '@mui/material/styles';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SearchIcon from '@mui/icons-material/Search';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import FilterDialogOldVer from '../components/FilterDialogOldVer.jsx';
+import AppIconButton from '../components/AppIconButton.jsx';
 import { Button, Grid, InputBase } from '@mui/material';
 import { sendNetworkLog } from '../logging/logging.js';
 
@@ -17,6 +20,9 @@ const useStyles = makeStyles(theme => ({
     mx2: {
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2)
+    },
+    hidden: {
+        visibility: "hidden"
     }
 }));
 
@@ -62,10 +68,12 @@ function SearchBarOldVer({ isSearching=false, startSearch, resetSearchInput, can
     const [query, setQuery] = useState();
     const versionId = new URLSearchParams(location.search).get('version');
 
+    const [openFilterDialog, setOpenFilterDialog] = useState(false);
+
     useEffect(() => {
         console.log(hasSearchValues);
         setQuery(hasSearchValues);
-    }, [hasSearchValues]);
+    }, [hasSearchValues, openFilterDialog]);
 
     const onInputSearch = e => {
         const searchInput = e.target.value;
@@ -95,37 +103,55 @@ function SearchBarOldVer({ isSearching=false, startSearch, resetSearchInput, can
         return query && query.length > 0 ? query : isSearching ? 'Enter Sport / Venue' : 'Search Facilities'
     };
 
+    const doOpenFilterDialog = () => {
+        setOpenFilterDialog(true);
+        // setOpenPage(false);
+    };
+
+    const closeFilterDialog = () => {
+        setOpenFilterDialog(false);
+    };
+
     const renderSearchBar = (params) => {
         return (
             <Search onClick={startSearch} onKeyUp={onInputSearch}>
                 <SearchIconWrapper>
                     <SearchIcon fontSize="large" className={classes.icon} />
                 </SearchIconWrapper>
-                <StyledInputBase
-                    {...params}
-                    disabled={!isSearching}
-                    fullWidth
-                    placeholder={getPlaceholder()}
-                    inputProps={{ 'aria-label': 'search' }}
-                    inputRef={searchInput}
-                    endAdornment={isSearching && (
-                        <CancelIcon onClick={onResetSearchInput} className={`${classes.cancelIcon} ${classes.mr1}`} />
-                    )}
-                />
+                <div className={classes.alignCenter}>
+                    <StyledInputBase
+                        {...params}
+
+                        disabled={!isSearching}
+                        fullWidth
+                        placeholder={getPlaceholder()}
+                        inputProps={{ 'aria-label': 'search' }}
+                        inputRef={searchInput}
+                    />
+                </div>
             </Search>
         );
     };
 
     return (
         <Grid container justifyContent="space-between" alignItems="center" className={classes.mx2}>
-            <Grid item xs={isSearching ? 10 : 12}>
+            <Grid item xs={isSearching || isResultPage ? 10 : 12}>
                 {renderSearchBar()}
+            </Grid>
+            <Grid item>
+                {isResultPage && (
+                    <AppIconButton
+                        icon={<FilterListIcon className={classes.icon}/>}
+                        onClick={doOpenFilterDialog}
+                    />
+                )}
             </Grid>
             <Grid item>
                 {isSearching && (
                     <CancelButton variant="text" onClick={onCancelSearch}>Cancel</CancelButton>
                 )}
             </Grid>
+            {<FilterDialogOldVer open={openFilterDialog} handleClose={closeFilterDialog} versionId={versionId} doSearch={doSearch} />}
         </Grid>
     );
 }

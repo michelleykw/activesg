@@ -45,6 +45,7 @@ function SearchPageOldVer({ versionId, openPage, handleClosePage, isOldVersion, 
     }, [recentSearchList, hasSearchValues, searchOptions, openCategoryOptions, searchCategory]);
 
     const doRecentSearch = item => {
+        console.log('doRecentSearch');
         doSearch(item);
         searchInput.current.value = item;
         sendNetworkLog('Clicked on: Recent Search Item', `Recent Search Item - ${item}`, `Search: ${item}`, versionId);
@@ -62,7 +63,7 @@ function SearchPageOldVer({ versionId, openPage, handleClosePage, isOldVersion, 
 
     const renderSearchBarOldVer = () => {
         return (
-            <SearchBarOldVer 
+            <SearchBarOldVer
                 isSearching
                 startSearch={startSearch}
                 resetSearchInput={resetSearchInput}
@@ -114,7 +115,7 @@ function SearchPageOldVer({ versionId, openPage, handleClosePage, isOldVersion, 
     const renderSearchList = () => {
         return (
             <Grid container item className={classes.searchContainer}>
-                <SearchListOldVer list={searchOptions} search={doRecentSearch} /> 
+                <SearchListOldVer list={searchOptions} search={doSearch} />
             </Grid>
         );
     };
@@ -141,7 +142,7 @@ function SearchPageOldVer({ versionId, openPage, handleClosePage, isOldVersion, 
                 {isOldVersion && renderSearchBarOldVer()}
                 {!hasSearchValues && isOldVersion && renderCategoryButtons()}
                 {!hasSearchValues && recentSearchList && recentSearchList.length > 0 && renderRecentSearch()}
-                {hasSearchValues && renderSearchList()}
+                {hasSearchValues && (doSearch != undefined) && renderSearchList()}
                 {renderCategoryDialog()}
             </Grid>
         </Dialog>
