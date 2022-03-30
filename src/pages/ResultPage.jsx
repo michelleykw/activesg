@@ -337,8 +337,8 @@ function ResultPage() {
     };
 
     return (
-        <Box sx={{ml: 1, mt:1, mb:6}}>
-            <Grid container direction="column" justifyContent="centre" alignItems="flex-start" className={classes.fullScreenHeight} width='100%'>
+        <Box sx={{mt:1, mb:6}}>
+            <Grid container direction="column" justifyContent="centre" alignItems="flex-start" alignContent='center' className={classes.fullScreenHeight} width='100%'>
                 {/* SEARCH BAR */}
                 <Box width="95%">
                     {/* {useOldSearch && (<SearchBarOldVer startSearch={openCategoryOptionsDialog} hasSearchValues={query} doSearch={doSearch} />)}

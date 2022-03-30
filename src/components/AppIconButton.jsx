@@ -19,15 +19,15 @@ function AppButton({ name, icon, onClick }) {
     const classes = useStyles();
 
     return (
-        <Grid 
-            container item xs={12} 
-            direction='column' alignItems='center' justifyContent='space-evenly' 
+        <Grid
+            container item xs={12}
+            direction='column' alignItems='center' justifyContent='space-evenly'
             onClick={onClick}
         >
             <IconButton aria-label={name} className={classes.categoryIcon}>
                 {icon}
             </IconButton>
-            <Typography color="textSecondary" className={`${classes.textAlignCenter} ${classes.pt1}`}>{name}</Typography>
+            <Typography color="textSecondary" variant="body2" className={`${classes.textAlignCenter} ${classes.pt1}`}>{name}</Typography>
         </Grid>
     );
 }
