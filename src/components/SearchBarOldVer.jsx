@@ -58,7 +58,7 @@ const CancelButton = styled(Button)(({ theme }) => ({
     textTransform: 'capitalize',
     fontWeight: 400,
     fontSize: '1.125rem',
-    padding: 0,
+    paddingLeft: theme.spacing(1),
     minWidth: '4rem'
   }));
 
@@ -146,7 +146,7 @@ function SearchBarOldVer({ isSearching=false, startSearch, resetSearchInput, can
                     />
                 )}
             </Grid>
-            <Grid item>
+            <Grid item xs={2}>
                 {isSearching && (
                     <CancelButton variant="text" onClick={onCancelSearch}>Cancel</CancelButton>
                 )}
