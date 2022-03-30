@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -6,11 +6,17 @@ import data from './data/data.json';
 import Box from '@mui/material/Box';
 import CategoryOptionsDialog from '../components/CategoryOptionsDialog';
 import { useParams, useLocation, useNavigate } from "react-router-dom";
-import SearchBarOldVer from '../components/SearchBarOldVer.jsx';
-import SearchBarNewVer from '../components/SearchBarNewVer.jsx';
-import { allSearchOptions, sportsList } from '../resources/constants';
+import { allSearchOptions, sportsList, categoryOptionsMap } from '../resources/constants';
 import ResultCardOld from '../components/ResultCardOld';
 import ResultCardNew from '../components/ResultCardNew';
+
+import AppIconButton from '../components/AppIconButton.jsx';
+import SearchBarOldVer from '../components/SearchBarOldVer.jsx';
+import SearchBarNewVer from '../components/SearchBarNewVer.jsx';
+import SearchPageOldVer from './SearchPageOldVer';
+import SearchPageNewVer from './SearchPageNewVer';
+import FilterDialogNewVer from '../components/FilterDialogNewVer.jsx';
+import ResultCardList from '../components/ResultCardList';
 
 const useStyles = makeStyles(theme => ({
     fullScreenHeight: {
@@ -47,67 +53,7 @@ function ResultPage() {
     const [options, setOptions] = useState(allSearchOptions);
     const [recentSearchList, setRecentSearchList] = useState(JSON.parse(window.localStorage.getItem('recentSearchList')));
 
-    const openCategoryOptionsDialog = category => {
-        setOpenCategoryOptions(true);
-    };
-
-    const closeCategoryOptionsDialog = () => {
-        setOpenCategoryOptions(false);
-        navigate(-1);
-    };
-
-    const updateSearchOptions = searchInput => {
-        setOptions(allSearchOptions.filter(item => item.toLowerCase().includes(searchInput.toLowerCase())));
-    };
-
-    const goToSearchResultPage = searchInput => {
-        navigate(`/activesg/facilities/result?version=${versionId}&query=${searchInput}`);
-    };
-
-    const updateHasSearchValues = input => {
-        setHasSearchValues(input && input.length > 0);
-    };
-
-    const updateRecentSearch = (newSearch) => {
-        if (newSearch.length > 0) {
-            updateHasSearchValues(newSearch);
-            const recentSearchList = JSON.parse(window.localStorage.getItem('recentSearchList'));
-            if (!recentSearchList.includes(newSearch)) {
-                recentSearchList.unshift(newSearch);
-            } else if (recentSearchList.includes(newSearch)) {
-                const index = recentSearchList.indexOf(newSearch);
-                recentSearchList.splice(index, 1);
-                recentSearchList.unshift(newSearch);
-            }
-            window.localStorage.setItem('recentSearchList', JSON.stringify(recentSearchList));
-            setRecentSearchList(JSON.parse(window.localStorage.getItem('recentSearchList')));
-        }
-    };
-
-    const doSearch = input => {
-        updateSearchOptions(input)
-        updateRecentSearch(input);
-        setRecentSearchList(JSON.parse(window.localStorage.getItem('recentSearchList')));
-        goToSearchResultPage(input);
-        setQuery(input);
-        closeCategoryOptionsDialog();
-    };
-
-    const renderCategoryDialog = () => {
-        return (
-            <CategoryOptionsDialog
-                doSearch={doSearch}
-                category={searchCategory}
-                open={openCategoryOptions}
-                fullScreen
-                handleClose={closeCategoryOptionsDialog}
-            />
-        );
-    };
-
-
     // RESULTS PAGE FILTER METHODS
-
     const resetNewQueries = () => {
         setAvailable(true);
         setFacilityLocations([]);
@@ -149,13 +95,15 @@ function ResultPage() {
         }
     }
 
-    const filterOldQuery = (data) => {
-        const tempData = data.filter(data => data.sport === query || data.name === query);
+    const filterOldQuery = () => {
+        let tempData = [...data];
+        tempData = data.filter(data => data.sport === query || data.name === query);
         setFilteredData(tempData);
+        // console.log(filteredData);
     }
 
-    const filterNewQuery = (data) => {
-        let tempData = data;
+    const filterNewQuery = () => {
+        let tempData = [...data];
         const isAccepted = (item) => {
             let isLocationOK = facilityLocations.length > 0 ? facilityLocations.find(ele => ele === item.area) : true;
             if (isLocationOK === undefined) {
@@ -168,32 +116,108 @@ function ResultPage() {
 
             return isLocationOK && isSportOK && isVenueOK && isAvailable;
         }
-        tempData = data.filter(data => isAccepted(data));
+        tempData = tempData.filter(data => isAccepted(data));
         setFilteredData(tempData);
+        // console.log(filteredData);
     }
 
-    const filterData = (data) => {
+    const filterData = () => {
         if (query !== '') {
-            filterOldQuery(data);
+            // console.log('hi am here');
+            filterOldQuery();
         } else {
-            filterNewQuery(data);
+            filterNewQuery();
         }
-
     }
 
     useEffect(() => {
         getQuery();
-        filterData(data);
+        filterData();
     }, [])
 
     useEffect(() => {
-        filterData(data);
-    }, [query, available, facilityLocations, sports, venue, dateRange])
+        getQuery();
+        filterData();
+    }, [location])
 
-    const closeFilterDialog = type => {
+    useEffect(() => {
+        // console.log('queryChanged');
+        // console.log(query);
+        filterData();
+    }, [query])
+
+    useEffect(() => {
+        filterData();
+    }, [available, facilityLocations, sports, venue, dateRange])
+
+
+    // ------------------ SEARCH BAR STUFF ------------------ //
+    const openCategoryOptionsDialog = category => {
+        setOpenCategoryOptions(true);
+    };
+
+    const closeCategoryOptionsDialog = () => {
+        // console.log('closeCategoryOptions');
+        setOpenCategoryOptions(false);
+        // navigate(-1);
+    };
+
+    const updateSearchOptions = searchInput => {
+        setOptions(allSearchOptions.filter(item => item.toLowerCase().includes(searchInput.toLowerCase())));
+    };
+
+    const goToSearchResultPage = searchInput => {
+        navigate(`/activesg/facilities/result?version=${versionId}&query=${searchInput}`);
+    };
+
+    const updateHasSearchValues = input => {
+        setHasSearchValues(input && input.length > 0);
+    };
+
+    const updateRecentSearch = (newSearch) => {
+        if (newSearch.length > 0) {
+            updateHasSearchValues(newSearch);
+            const recentSearchList = JSON.parse(window.localStorage.getItem('recentSearchList'));
+            if (!recentSearchList.includes(newSearch)) {
+                recentSearchList.unshift(newSearch);
+            } else if (recentSearchList.includes(newSearch)) {
+                const index = recentSearchList.indexOf(newSearch);
+                recentSearchList.splice(index, 1);
+                recentSearchList.unshift(newSearch);
+            }
+            window.localStorage.setItem('recentSearchList', JSON.stringify(recentSearchList));
+            setRecentSearchList(JSON.parse(window.localStorage.getItem('recentSearchList')));
+        }
+    };
+
+    const doSearch = input => {
+        // console.log('doSearch', input);
+        updateSearchOptions(input)
+        updateRecentSearch(input);
+        setRecentSearchList(JSON.parse(window.localStorage.getItem('recentSearchList')));
+        goToSearchResultPage(input);
+        setQuery(input);
+        closeCategoryOptionsDialog();
+        // closeCategoryDialog();
+        // closeFilterDialog();
+        closeSearchPage();
+    };
+
+    const renderCategoryDialog = () => {
+        return (
+            <CategoryOptionsDialog
+                doSearch={doSearch}
+                category={searchCategory}
+                open={openCategoryOptions}
+                fullScreen
+                handleClose={closeCategoryOptionsDialog}
+            />
+        );
+    };
+
+    const closeFilterDialog = searchInput => {
         setOpenFilterDialog(false);
-        navigate(-1);
-
+        resetOldQueries();
     };
 
     const doOpenFilterDialog = type => {
@@ -201,32 +225,142 @@ function ResultPage() {
         setOpenPage(false);
     };
 
+    const searchInputNew = useRef(null);
+
+    const LOCATION_TITLE = 'Location';
+    const SPORT_TITLE = 'Sport';
+
+    let listOptions = allSearchOptions; // categoryOptionsMap['Venue'] -- use the venue list instead as the name of the facilities
+    if (openSportDialog) {
+        listOptions = (categoryOptionsMap[SPORT_TITLE]);
+    } else if (openLocationDialog) {
+        listOptions = (categoryOptionsMap[LOCATION_TITLE]);
+    }
+
+    useEffect(() => {
+        if (window.localStorage.getItem('recentSearchList') === null) {
+            window.localStorage.setItem('recentSearchList', JSON.stringify([]));
+        }
+        if (openFilterDialog && openPage) {
+            setOpenPage(false);
+        }
+    }, [recentSearchList, options, openFilterDialog, openPage]);
+
+    const resetSearchInput = () => {
+        setHasSearchValues(false);
+        setOptions(listOptions);
+    };
+
+    const removeRecentSearch = item => {
+        const recentSearchList = JSON.parse(window.localStorage.getItem('recentSearchList'));
+        const newRecentSearchList = recentSearchList.filter(e => e != item);
+        window.localStorage.setItem('recentSearchList', JSON.stringify(newRecentSearchList));
+        setRecentSearchList(JSON.parse(window.localStorage.getItem('recentSearchList')));
+        updateHasSearchValues(false);
+    };
+
+    const openSearchPage = () => {
+        setOpenPage(true);
+    };
+
+    const closeSearchPage = () => {
+        // console.log('closing...');
+        resetSearchInput();
+        setOpenPage(false);
+    };
+
+    /* OLD VERSION OF FACILITIES PAGE (1 & 2) */
+    const renderSearchOld = () => {
+        return (
+            <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
+                <SearchBarOldVer startSearch={openCategoryOptionsDialog} />
+                <SearchPageOldVer
+                    openPage={openPage}
+                    cancelSearch={closeSearchPage}
+                    isOldVersion={useOldSearch}
+                    recentSearchList={recentSearchList}
+                    resetSearchInput={resetSearchInput}
+                    doSearch={doSearch}
+                    removeRecentSearch={removeRecentSearch}
+                    hasSearchValues={hasSearchValues}
+                    updateHasSearchValues={updateHasSearchValues}
+                    searchOptions={options}
+                    updateSearchOptions={updateSearchOptions}
+                />
+            </Grid>
+        );
+    }
+
+    /* NEW VERSION OF FACILITIES PAGE (3 & 4) */
+    const doOpenCategoryDialog = type => {
+        if (type == SPORT_TITLE) {
+            setOpenSportDialog(true);
+            setOptions(categoryOptionsMap[SPORT_TITLE]);
+        } else if (type == LOCATION_TITLE) {
+            setOpenLocationDialog(true);
+            setOptions(categoryOptionsMap[LOCATION_TITLE]);
+        }
+    };
+
+    const closeCategoryDialog = type => {
+        setOptions(allSearchOptions);
+        if (openSportDialog) {
+            setOpenSportDialog(false);
+        } else if (openLocationDialog) {
+            setOpenLocationDialog(false);
+        }
+    };
+
+    const renderSearchNew = () => {
+        return (
+            <Grid item xs={12} className={`${classes.textAlignCenter}`}>
+                <SearchBarNewVer startSearch={openSearchPage} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />
+                <SearchPageNewVer
+                    openPage={openPage}
+                    handleClosePage={closeSearchPage}
+                    recentSearchList={recentSearchList}
+                    resetSearchInput={resetSearchInput}
+                    doSearch={doSearch}
+                    removeRecentSearch={removeRecentSearch}
+                    hasSearchValues={hasSearchValues}
+                    updateHasSearchValues={updateHasSearchValues}
+                    searchOptions={options}
+                    updateSearchOptions={updateSearchOptions}
+                />
+            </Grid>
+        );
+    };
+
+    const renderCategoryButton = (name, icon) => {
+        return <AppIconButton onClick={() => {doOpenCategoryDialog(name)}} name={name} icon={icon} />;
+    };
+
     return (
         <Box sx={{mt:1}}>
             <Grid container direction="column" justifyContent="centre" alignItems="flex-start" className={classes.fullScreenHeight} width='100%'>
                 {/* SEARCH BAR */}
                 <Box width="95%">
-                    {useOldSearch && (<SearchBarOldVer startSearch={openCategoryOptionsDialog} hasSearchValues={query} doSearch={doSearch} />)}
-                    {!useOldSearch && (<SearchBarNewVer startSearch={openCategoryOptionsDialog} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />)}
+                    {/* {useOldSearch && (<SearchBarOldVer startSearch={openCategoryOptionsDialog} hasSearchValues={query} doSearch={doSearch} />)}
+                    {!useOldSearch && (<SearchBarNewVer startSearch={openCategoryOptionsDialog} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />)} */}
+
+                    {useOldSearch && renderSearchOld()}
+                    {!useOldSearch && renderSearchNew()}
                 </Box>
 
-                {renderCategoryDialog()}
+                {/* {renderCategoryDialog()} */}
+                {renderCategoryDialog(LOCATION_TITLE)}
+                {renderCategoryDialog(SPORT_TITLE)}
+                {<FilterDialogNewVer open={openFilterDialog} handleClose={closeFilterDialog} versionId={versionId} />}
 
 
                 {/* RESULTS PAGE */}
-                <Box sx={{ml:1}}>
-                    <Grid container justifyContent="flex-start" alignItems="centre" className={classes.mt1mb8}>
-                        {useOldResult && filteredData && filteredData.map(item => <ResultCardOld data={item}/>)}
-                        {!useOldResult && filteredData && filteredData.map(item => <ResultCardNew data={item}/>)}
-                    </Grid>
-                </Box>
+                <ResultCardList useOldResult={useOldResult} filteredData={filteredData} />
 
 
                 {(!filteredData || filteredData.length === 0) &&
                     <Grid container alignItems='center' justifyContent='center' sx={{width: 1}} minHeight='150px'>
                         <Typography>There are no results found.</Typography>
                     </Grid>
-
                 }
 
             </Grid>
