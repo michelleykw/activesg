@@ -20,6 +20,11 @@ import DialogHeaderNew from '../components/DialogHeaderNew';
 const useStyles = makeStyles(theme => ({
     fullScreenHeight: {
         minHeight: "100vh"
+    },
+    resultCount: {
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(1),
+        paddingLeft: theme.spacing(2)
     }
 }));
 
@@ -339,6 +344,25 @@ function ResultPage() {
         return <AppIconButton onClick={() => {doOpenCategoryDialog(name)}} name={name} icon={icon} />;
     };
 
+    const renderFilterTags = () => {
+        console.log('query', query);
+        console.log('available', available);
+        console.log('facilityLocations', facilityLocations);
+        console.log('sports', sports);
+        console.log('venue', venue);
+        console.log('dateRange', dateRange);
+        console.log('filteredData', filteredData);
+    };
+
+    const renderResultsCount = () => {
+        const count = filteredData.length;
+        return (
+            <Typography variant='h4' className={classes.resultCount}>
+                {count} result{count > 0 ? 's' : ''} found
+            </Typography>
+        )
+    };
+
     return (
         <Box sx={{mt:1, mb:8}}>
             <Grid container direction="column" justifyContent="centre" alignItems="flex-start" alignContent='center' className={classes.fullScreenHeight} width='100%'>
@@ -350,6 +374,8 @@ function ResultPage() {
 
                     {useOldSearch && renderSearchOld()}
                     {!useOldSearch && renderSearchNew()}
+                    {!useOldSearch && renderFilterTags()}
+                    {!useOldSearch && renderResultsCount()}
                 </Box>
 
                 {/* {renderCategoryDialog()} */}
