@@ -337,7 +337,7 @@ function ResultPage() {
     };
 
     return (
-        <Box sx={{mt:1}}>
+        <Box sx={{mt:1, mb:6}}>
             <Grid container direction="column" justifyContent="centre" alignItems="flex-start" className={classes.fullScreenHeight} width='100%'>
                 {/* SEARCH BAR */}
                 <Box width="95%">
