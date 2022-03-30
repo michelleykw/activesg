@@ -78,6 +78,7 @@ const useStyles = makeStyles(theme => ({
         minHeight: theme.spacing(8),
         textAlign: "left",
         justifyContent: "flex-start",
+        alignContent: "center",
         width: '100%',
         color: `${theme.palette.text.secondary} !important`,
         marginTop: `${theme.spacing(1)} !important`,
@@ -219,9 +220,9 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
                                 ? sportInput
                                 : venueInput}</Typography>
                     </Grid>
-                    {/* <Grid item xs={2} alignItems="center">
+                    <Grid container item xs={2} alignItems="center">
                         <NavigateNextIcon />
-                    </Grid> */}
+                    </Grid>
                 </Grid>
 
                 {renderCategoryDialog()}
@@ -234,7 +235,7 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
         console.log('Formik', values);
         return (
             <Form>
-                <Grid container justify="flex-start" alignItems="flex-start">
+                <Grid container justify="flex-start" alignItems="flex-start" fullWidth={true}>
                     <Grid className = {classes.filterHeader}>{"Filter"}</Grid>
                     {renderSelectSection("venue-selection", 'Venue')}
                     <Grid className = {classes.divider}></Grid>
