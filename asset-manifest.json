@@ -1,15 +1,16 @@
 {
   "files": {
     "main.css": "/activesg/static/css/main.2ec4a35d.css",
-    "main.js": "/activesg/static/js/main.aac6e10d.js",
+    "main.js": "/activesg/static/js/main.9fae990f.js",
     "static/media/badminton.jpg": "/activesg/static/media/badminton.aadddaba5650649c55be.jpg",
     "static/media/swimming.jpg": "/activesg/static/media/swimming.832729355fedc7a1a10c.jpg",
+    "static/media/hockey.jpeg": "/activesg/static/media/hockey.4e4b0419826cd0d25043.jpeg",
     "index.html": "/activesg/index.html",
     "main.2ec4a35d.css.map": "/activesg/static/css/main.2ec4a35d.css.map",
-    "main.aac6e10d.js.map": "/activesg/static/js/main.aac6e10d.js.map"
+    "main.9fae990f.js.map": "/activesg/static/js/main.9fae990f.js.map"
   },
   "entrypoints": [
     "static/css/main.2ec4a35d.css",
-    "static/js/main.aac6e10d.js"
+    "static/js/main.9fae990f.js"
   ]
 }
