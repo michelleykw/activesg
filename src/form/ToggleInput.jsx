@@ -29,7 +29,7 @@ function ToggleInput(props) {
                 <Grid container item justifyContent="space-between" alignItems="center">
                     <Grid item>
                         <Typography variant='h2' className={classes.headings}>{header}</Typography>
-                        <Typography color="textSecondary" variant='h4'>{subheader}</Typography>
+                        <Typography color="textSecondary" variant='body1'>{subheader}</Typography>
                     </Grid>
                     <Grid item>
                         <Switch

@@ -35,7 +35,7 @@ function CheckboxInput(props) {
             <label className={classes.fullWidth}>
                 <Grid container item justifyContent="space-between" alignItems="center">
                     <Grid item>
-                        <Typography color="textSecondary" variant='body'>{value}</Typography>
+                        <Typography color="textSecondary" variant='body1'>{value}</Typography>
                     </Grid>
                     <Grid item>
                         <Field id={title} name={title} value={value} type="checkbox" className={classes.checkbox}/>
