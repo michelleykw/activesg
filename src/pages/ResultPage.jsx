@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@mui/styles';
+import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import data from './data/data.json';
@@ -16,15 +17,27 @@ import SearchPageNewVer from './SearchPageNewVer';
 import FilterDialogNewVer from '../components/FilterDialogNewVer.jsx';
 import ResultCardList from '../components/ResultCardList';
 import DialogHeaderNew from '../components/DialogHeaderNew';
+import { sendNetworkLog } from '../logging/logging.js';
 
 const useStyles = makeStyles(theme => ({
     fullScreenHeight: {
         minHeight: "100vh"
     },
     resultCount: {
-        paddingTop: theme.spacing(2),
+        paddingTop: theme.spacing(1.5),
         paddingBottom: theme.spacing(1),
         paddingLeft: theme.spacing(2)
+    },
+    chipStyle: {
+        fontWeight: 600,
+        marginLeft: `${theme.spacing(0.5)} !important`,
+        marginRight: `${theme.spacing(0.5)} !important`,
+        marginBottom: `${theme.spacing(0.5)} !important`,
+    },
+    tagContainerStyle: {
+        paddingTop: theme.spacing(2),
+        paddingLeft: theme.spacing(1.5),
+        paddingRight: theme.spacing(1.5)
     }
 }));
 
@@ -103,7 +116,7 @@ function ResultPage() {
         let tempData = [...data];
         tempData = tempData.filter(item => item.sport === query || item.name === query);
         setFilteredData(tempData);
-        console.log(filteredData);
+        // console.log(filteredData);
     }
 
     const filterNewQuery = () => {
@@ -344,21 +357,51 @@ function ResultPage() {
         return <AppIconButton onClick={() => {doOpenCategoryDialog(name)}} name={name} icon={icon} />;
     };
 
+    const refreshFilter = (locations, sports) => {
+        const newQuery = {
+            Availability: available,
+            Location: locations, 
+            Sports: sports,
+            dateRange: [dateRange]
+        };
+        navigate(`/activesg/facilities/result?version=${versionId}&query=${JSON.stringify(newQuery)}`);
+    };
+
+    const handleDeleteLocation = area => {
+        const newLocations = facilityLocations.filter(item => item !== area);
+        sendNetworkLog(`Clicked on: Delete Location Tag (Result Page)`, `Location Tag - ${area}`, `New Location Filter - ${JSON.stringify(newLocations)}`, versionId);
+        refreshFilter(newLocations, sports);
+    };
+
+    const handleDeleteSport = sport => {
+        const newSports = sports.filter(item => item !== sport);
+        sendNetworkLog(`Clicked on: Delete Sport Tag (Result Page) - ${sport}`, `Sport Tag - ${sport}`, `New Sport Filter - ${JSON.stringify(newSports)}`, versionId);
+        refreshFilter(facilityLocations, newSports);
+    };
+
+    const renderTag = (label, onDelete) => {
+        return (
+            <Chip label={label} color='red' className={classes.chipStyle} onDelete={() => onDelete(label)} />
+        );
+    };
+
     const renderFilterTags = () => {
-        console.log('query', query);
-        console.log('available', available);
-        console.log('facilityLocations', facilityLocations);
-        console.log('sports', sports);
-        console.log('venue', venue);
-        console.log('dateRange', dateRange);
-        console.log('filteredData', filteredData);
+        // console.log('sports', sports);
+        // console.log('facilityLocations', facilityLocations);
+        // console.log('dateRange', dateRange);
+        return (
+            <Grid container className={classes.tagContainerStyle}>
+                {facilityLocations.map(area => renderTag(area, handleDeleteLocation))}
+                {sports.map(sport => renderTag(sport, handleDeleteSport))}
+            </Grid>
+        );
     };
 
     const renderResultsCount = () => {
         const count = filteredData.length;
         return (
             <Typography variant='h4' className={classes.resultCount}>
-                {count} result{count > 0 ? 's' : ''} found
+                {count} result{count > 1 ? 's' : ''} found
             </Typography>
         )
     };
