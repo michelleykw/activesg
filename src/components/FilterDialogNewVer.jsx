@@ -103,10 +103,11 @@ function FilterDialogNewVer({ open, handleClose, versionId }) {
     };
 
     const renderShowOrHideButton = (type, title) => {
+        const name = (title === 'Sports' ? 'Sports' : 'Locations');
         return (
             <AppButton
                 variant='text'
-                content={<Typography variant='h4'>{`${type} all ${title}`}</Typography>}
+                content={<Typography variant='h4'>{`${type} all ${name}`}</Typography>}
                 endIcon={type === 'Show' ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
                 className={classes.button}
                 onClick={() => toggleShowAll(title)}
