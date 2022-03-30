@@ -148,5 +148,290 @@
             "date": "18 April",
             "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
         }]
+    },
+    {
+        "name": "ActiveSG Gym at Ang Mo Kio CC",
+        "sport": "Gym",
+        "area": "Ang Mo Kio",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "ActiveSG Gym at Toa Payoh West CC",
+        "sport": "Hockey (Night)",
+        "area": "Toa Payoh",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "Kuo Chuan Presbyterian Primary School Hall",
+        "sport": "Badminton",
+        "area": "Bishan",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "Clementi Town Secondary School Field",
+        "sport": "Soccer",
+        "area": "Clementi",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "Clementi Town Secondary School Hall",
+        "sport": "Badminton",
+        "area": "Clementi",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "Hougang ActiveSG Gym",
+        "sport": "Gym",
+        "area": "Hougang",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "Jurong East Sports Hall",
+        "sport": "Table Tennis",
+        "area": "Jurong East",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "Jurong East Sports Hall",
+        "sport": "Pickleball",
+        "area": "Jurong East",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "Jurong East Sports Hall",
+        "sport": "Badminton",
+        "area": "Jurong East",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "Jurong East Petanque Courts",
+        "sport": "Petanque",
+        "area": "Jurong East",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "Punggol Secondary School Field",
+        "sport": "Soccer",
+        "area": "Punggol",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "Sengkang - Behind Competition Pool Gallery",
+        "sport": "Outdoor",
+        "area": "Sengkang",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "Woodlands ActiveSG Gym",
+        "sport": "Gym",
+        "area": "Woodlands",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "Woodlands ActiveSG Gym",
+        "sport": "Gym",
+        "area": "Woodlands",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "WWoodlands Stadium Gallery",
+        "sport": "Organised Programme",
+        "area": "Woodlands",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "Woodlands Swimming Complex",
+        "sport": "Swim",
+        "area": "Woodlands",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "Yio Chu Kang Squash Centre",
+        "sport": "Squash",
+        "area": "Yio Chu Kang",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "Yio Chu Kang Swimming Complex",
+        "sport": "Swim",
+        "area": "Yio Chu Kang",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
+    },
+    {
+        "name": "Yio Chu Kang Tennis Centre",
+        "sport": "Tennis",
+        "area": "Yio Chu Kang",
+        "availability": [{
+            "date": "4 April",
+            "time": [{"1900": 34}, {"2000": 18}, {"2100": 10}]
+        }, {
+            "date": "5 April",
+            "time": [{"1900": 29}, {"2000": 7}, {"2100": 13}]
+        }, {
+            "date": "6 April",
+            "time": [{"1900": 28}, {"2000": 4}, {"2100": 0}]
+        }]
     }
 ]
