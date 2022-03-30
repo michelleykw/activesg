@@ -128,17 +128,6 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
 
     useEffect(() => {
         let newQuery = new URLSearchParams(location.search).get('query');
-        setNewQuery(newQuery);
-        if (isChangeSport && sportsList.find(ele => ele === newQuery)) {
-            setSportInput(newQuery);
-        }
-        if (isChangeVenue && venueList.find(ele => ele === newQuery)) {
-            setVenueInput(newQuery);
-        }
-    }, [location])
-
-    useEffect(() => {
-        let newQuery = new URLSearchParams(location.search).get('query');
         if (isChangeSport && sportsList.find(ele => ele === newQuery)) {
             setSportInput(newQuery);
         }
@@ -200,12 +189,6 @@ function FilterDialogOldVer({ open, handleClose, versionId, doSearch }) {
         console.log('--> closeCategoryOptionsDialog');
         setOpenCategoryOptions(false);
         setSearchCategory(null);
-        if (searchCategory === "Sport") {
-            setIsChangeSport(false);
-        } else if (searchCategory === "Venue") {
-            setIsChangeVenue(false);
-        }
-
     };
 
     const renderCategoryDialog = () => {
