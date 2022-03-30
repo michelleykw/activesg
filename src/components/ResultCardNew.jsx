@@ -57,7 +57,7 @@ function ResultCardNew({data}) {
                 <CardActionArea onClick={() => goToFacilityViewPage(data.name)}>
                     <Box
                         component="img"
-                        sx={{width: 1, maxHeight: '120px', borderRadius: 2.5}}
+                        sx={{width: 1, maxHeight: '100px', borderRadius: 2.5}}
                         src={pic()} />
                     <CardContent sx={{mx: -1.7, my: -1}}>
                         <Typography variant="caption" color="white" sx={{padding: '4px', bgcolor: 'text.disabled', borderRadius: 2, fontSize: 12}}>
