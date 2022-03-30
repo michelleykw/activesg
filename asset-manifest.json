@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/activesg/static/css/main.2ec4a35d.css",
-    "main.js": "/activesg/static/js/main.2f0aa811.js",
+    "main.js": "/activesg/static/js/main.aac6e10d.js",
     "static/media/badminton.jpg": "/activesg/static/media/badminton.aadddaba5650649c55be.jpg",
     "static/media/swimming.jpg": "/activesg/static/media/swimming.832729355fedc7a1a10c.jpg",
     "index.html": "/activesg/index.html",
     "main.2ec4a35d.css.map": "/activesg/static/css/main.2ec4a35d.css.map",
-    "main.2f0aa811.js.map": "/activesg/static/js/main.2f0aa811.js.map"
+    "main.aac6e10d.js.map": "/activesg/static/js/main.aac6e10d.js.map"
   },
   "entrypoints": [
     "static/css/main.2ec4a35d.css",
-    "static/js/main.2f0aa811.js"
+    "static/js/main.aac6e10d.js"
   ]
 }
