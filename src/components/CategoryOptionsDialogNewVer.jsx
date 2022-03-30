@@ -49,7 +49,7 @@ function CategoryOptionsDialogNewVer({ category, list, doSearch, open, handleClo
                     resetSearchInput={resetSearchInput}
                     updateSearchOptions={updateSearchOptions}
                 />
-                <SearchListNewVer list={list} search={doRecentSearch} fullScreen type={category} /> 
+                <SearchListNewVer list={list} search={doRecentSearch} hasSearchValues={hasSearchValues} fullScreen type={category} /> 
             </Grid>
       </Dialog>
     );
