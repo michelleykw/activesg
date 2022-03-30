@@ -39,7 +39,7 @@ function TimeSlotCards ({dataArr, selectedTime, setSelectedTime}) {
                     <CardActionArea onClick={() => handleTimeSlotClick(time)}>
                         <CardContent sx={{padding: '0', justifyItems:'center'}}>
                             <Grid container direction="column" justify="center" alignItems="center">
-                                <Typography variant='body2'>{time}</Typography>
+                                <Typography variant='caption'>{time}</Typography>
                                 <Typography variant='caption'>{availability} left</Typography>
                             </Grid>
                         </CardContent>
