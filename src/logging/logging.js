@@ -15,13 +15,9 @@
 
 // Note: UUID and timestamp are automatically generated/ retrieved.
 
-import { v4 as uuidv4 } from 'uuid';
 
 function getUUID() {
-    if (window.localStorage.getItem('UUID') === null) {
-        window.localStorage.setItem('UUID', uuidv4());
-    }
-    return window.localStorage.getItem('UUID');
+    return window.localStorage.getItem('MTurkID');
 }
 
 function getCurrentTimeStamp() {
