@@ -58,7 +58,7 @@ function SearchListNewVer({ type, list, search, fullScreen=false }) {
                 sendNetworkLog(`Clicked on: Search List Item (${type})`, `Search List Item (${type})`, `Item: ${searchItem}`, versionId);
             }} justifyContent="space-between" alignItems="center" className={`${classes.row}`}>
                 <Grid item xs={10} className={!type && (fullScreen ? classes.px1 : classes.px2)}>
-                    <Typography color="textSecondary" variant={type ? 'h3' : 'body1'}>
+                    <Typography color="textSecondary" variant={'body1'}>
                         {searchItem}
                     </Typography>
                 </Grid>
