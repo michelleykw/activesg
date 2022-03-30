@@ -24,7 +24,7 @@ function YouMayAlsoLike({data, currFacilityName, useOldResult, selectedDate, set
     }, [data])
 
     return (
-        <Grid container direction="column" sx={{ml: 2}}>
+        <Grid container direction="column" sx={{ml: 2, mb:25}}>
             <Box sx={{mt: 1}}>
                 {!useOldResult && (
                     <Typography inline align="left" gutterBottom variant="h6" sx={{fontWeight: 600}}>
@@ -33,7 +33,7 @@ function YouMayAlsoLike({data, currFacilityName, useOldResult, selectedDate, set
                 )}
             </Box>
 
-            <Grid container direction="row" alignItems="flex-start" justifyContent="flex-start" maxHeight='90px'>
+            <Grid container direction="row" alignItems="flex-start" justifyContent="flex-start" maxHeight='90px' maxWidth='90vw'>
                 {randomFac.map(item => < ResultCardNew data={item} />)}
             </Grid>
         </Grid>

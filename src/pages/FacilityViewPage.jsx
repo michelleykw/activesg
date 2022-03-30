@@ -88,8 +88,8 @@ function FacilityViewPage() {
 
         return (
             <>
-                <Drawer elevation='10vh' variant='permanent' anchor='bottom'>
-                    <Button variant="contained" onClick={() => handleClick()}>Done</Button>
+                <Drawer elevation='20vh' variant='permanent' anchor='bottom'>
+                    <Button sx={{height: '10vh'}}variant="contained" onClick={() => handleClick()}>Done</Button>
                 </Drawer>
             </>
         );

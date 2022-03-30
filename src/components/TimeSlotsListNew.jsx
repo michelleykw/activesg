@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import TimeSlotCards from './TimeSlotCard';
+import TimeSlotCards from './TimeSlotCardNew';
 import CardContent from '@mui/material/CardContent';
 import { CardActionArea } from '@mui/material';
 
@@ -50,10 +50,10 @@ function TimeSlotsNew ({timeSlots, selectedTime, setSelectedTime}){
                     ))}
                 </Grid>
 
-                <Grid container direction="row"  justifyContent="space-between" alignItems="center" sx={{maxWidth: '90%'}}>
+                <Grid container direction="row"  justifyContent="space-between" alignItems="center" sx={{maxWidth: '90%', mt: 1}}>
                     {timeSlots.length > 0 &&
                         timeSlots.filter(item => Object.values(item) > 0).map(item => <TimeSlotCards dataArr={item} selectedTime={selectedTime} setSelectedTime={setSelectedTime}/>)}
-                    {timeSlots.length === 0 && <Typography>There are no slots available.</Typography>}
+                    {timeSlots.length === 0 && <Typography sx={{my: 3}}>There are no slots available.</Typography>}
                 </Grid>
             </Grid>
         </>

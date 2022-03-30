@@ -44,21 +44,21 @@ function ResultCardNew({data}) {
                         component="img"
                         sx={{width: 1, maxHeight: '120px', borderRadius: 2.5}}
                         src={swimming} />
-                    <CardContent>
-                        <Typography variant="caption" color="white" sx={{padding: '4px', bgcolor: 'text.disabled', borderRadius: 2}}>
+                    <CardContent sx={{mx: -1.7, my: -1}}>
+                        <Typography variant="caption" color="white" sx={{padding: '4px', bgcolor: 'text.disabled', borderRadius: 2, fontSize: 12}}>
                             {data.sport}
                         </Typography>
                         <Box direction="row" sx={{mt: 1}}>
                             <Box direction="row" sx={{mt: 1}}>
-                                <Typography gutterBottom variant="caption" sx={{fontWeight: 600}}>
+                                <Typography gutterBottom variant="caption" sx={{fontWeight: 600, fontSize: 16}}>
                                     {data.area + ' '}
                                 </Typography>
-                                <Typography gutterBottom variant="caption">
+                                <Typography gutterBottom variant="caption" sx={{fontSize: 16}}>
                                     • {data.name}
                                 </Typography>
                             </Box>
                         </Box>
-                        <Typography variant="caption" color="success.main">
+                        <Typography variant="caption" color="success.main" sx={{fontSize: 14}}>
                             {slotsLeft} slots available
                         </Typography>
                     </CardContent>

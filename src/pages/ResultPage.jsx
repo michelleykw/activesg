@@ -359,7 +359,7 @@ function ResultPage() {
 
 
                 {(!filteredData || filteredData.length === 0) &&
-                    <Grid container alignItems='center' justifyContent='center' sx={{width: 1}} minHeight='150px'>
+                    <Grid container alignItems='center' justifyContent='center' sx={{width: 1, my: 3}} minHeight='150px'>
                         <Typography>There are no results found.</Typography>
                     </Grid>
                 }

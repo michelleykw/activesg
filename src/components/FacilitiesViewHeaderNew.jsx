@@ -10,7 +10,7 @@ function HeaderSectionNew ({area, facility, sport}) {
     return (
         <>
             <Grid container alignItems="flex-start">
-                <Box sx={{ml:1, mb: 2, width: 1}}>
+                <Box sx={{ml:2, mb: 2, width: 1}}>
                     <Typography variant="h3">{area} • {facility} </Typography>
                 </Box>
                 <Grid container direction="row" justifyContent="space-between" alignItems="flex-start">
