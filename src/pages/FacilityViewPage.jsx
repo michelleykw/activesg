@@ -112,7 +112,7 @@ function FacilityViewPage() {
 
     return (
         <>
-        <Box sx={{mb:8}}>
+        <Box sx={{mb: 5}}>
             <Grid container justifyContent="flex-start" alignItems="flex-start" className={classes.fullScreenHeight} columnSpacing={0}>
                 <Grid item xs={12}>
                     <Box

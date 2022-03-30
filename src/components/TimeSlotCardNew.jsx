@@ -28,7 +28,7 @@ function TimeSlotCards ({dataArr, selectedTime, setSelectedTime}) {
 
     return (
         <>
-            <Card sx={{padding: '1px', justifyContent: 'center'}} style={{ boxShadow: "none" }}>
+            <Card sx={{justifyContent: 'center'}} style={{ boxShadow: "none" }}>
                 <Box sx={{
                     width: '25vw',
                     borderRadius: 3,

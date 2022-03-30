@@ -25,7 +25,7 @@ function YouMayAlsoLike({data, currFacilityName, useOldResult, title}) {
     }, [data])
 
     return (
-        <Grid container direction="column" sx={{ml: 2, mb:30}}>
+        <Grid container direction="column" sx={{ml: 2, mb:25}}>
             <Box sx={{mt: 1}}>
                 <Typography inline align="left" gutterBottom variant="h6" sx={{fontWeight: 600}}>
                     {title}
