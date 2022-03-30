@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { makeStyles, useTheme } from '@mui/styles';
+import data from './data/data.json';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -15,6 +16,7 @@ import FilterDialogNewVer from '../components/FilterDialogNewVer.jsx';
 import CategoryOptionsDialogNewVer from '../components/CategoryOptionsDialogNewVer';
 import { allSearchOptions, categoryOptionsMap } from '../resources/constants.jsx';
 import { sendNetworkLog } from '../logging/logging.js';
+import YouMayAlsoLike from '../components/YouMayAlsoLike';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -48,6 +50,7 @@ function FacilitiesPage() {
     const searchInputNew = useRef(null);
 
     const isOldVersion = (versionId == 1) || (versionId == 2);
+    const useOldResult = (versionId == 2) || (versionId == 4);
     const LOCATION_TITLE = 'Location';
     const SPORT_TITLE = 'Sport';
 
@@ -155,11 +158,13 @@ function FacilitiesPage() {
         return (
             <Grid container alignItems="flex-start" justifyContent="center" className={classes.container}>
                 <SearchBarOldVer startSearch={openSearchPage} doSearch={doSearch}/>
+                <YouMayAlsoLike title={'For Me'} currFacilityName={''} data={data} useOldResult={useOldResult}/>
+                <YouMayAlsoLike title={'Near Me'} currFacilityName={''} data={data} useOldResult={useOldResult}/>
                 <SearchPageOldVer
                     versionId={versionId}
                     openPage={openPage}
                     cancelSearch={closeSearchPage}
-                    isOldVersion={isOldVersion} 
+                    isOldVersion={isOldVersion}
                     recentSearchList={recentSearchList}
                     resetSearchInput={resetSearchInput}
                     doSearch={doSearch}
@@ -173,7 +178,7 @@ function FacilitiesPage() {
         );
     };
 
-    
+
 
     /* NEW VERSION OF FACILITIES PAGE (3 & 4) */
     const doOpenCategoryDialog = type => {
@@ -223,6 +228,9 @@ function FacilitiesPage() {
         return (
             <Grid item xs={12} className={`${classes.textAlignCenter}`}>
                 <SearchBarNewVer startSearch={openSearchPage} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />
+                <YouMayAlsoLike title={'For Me'} currFacilityName={''} data={data} useOldResult={useOldResult}/>
+                <YouMayAlsoLike title={'Near Me'} currFacilityName={''} data={data} useOldResult={useOldResult}/>
+
                 <SearchPageNewVer
                     versionId={versionId}
                     openPage={openPage}

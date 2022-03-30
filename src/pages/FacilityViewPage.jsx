@@ -91,8 +91,8 @@ function FacilityViewPage() {
 
         return (
             <>
-                <Drawer elevation='20vh' variant='permanent' anchor='bottom'>
-                    <Button sx={{height: '10vh'}}variant="contained" onClick={() => handleClick()}>Done</Button>
+                <Drawer variant='permanent' anchor='bottom'>
+                    <Button variant="contained" onClick={() => handleClick()}>Done</Button>
                 </Drawer>
             </>
         );
@@ -112,7 +112,8 @@ function FacilityViewPage() {
 
     return (
         <>
-            <Grid container justifyContent="flex-start" alignItems="flex-start" className={classes.fullScreenHeight} columnSpacing={0} sx={{mb:10}}>
+        <Box sx={{mb:8}}>
+            <Grid container justifyContent="flex-start" alignItems="flex-start" className={classes.fullScreenHeight} columnSpacing={0}>
                 <Grid item xs={12}>
                     <Box
                         component="img"
@@ -147,10 +148,11 @@ function FacilityViewPage() {
                 </Grid>
 
                 <Grid item xs={12}>
-                    {!useOldResult && (<YouMayAlsoLike data={data} currFacilityName={facility} useOldResult={useOldResult} selectedDate={selectedDate} setSelectedDate={setSelectedDate} setSelectedTime={setSelectedTime} dates={availability} /> )}
+                    {!useOldResult && (<YouMayAlsoLike title={'You may also like'} data={data} currFacilityName={facility} useOldResult={useOldResult} selectedDate={selectedDate} setSelectedDate={setSelectedDate} setSelectedTime={setSelectedTime} dates={availability} /> )}
                 </Grid>
             </Grid>
             {showDrawer && <DoneDrawer/>}
+            </Box>
         </>
     );
 }
