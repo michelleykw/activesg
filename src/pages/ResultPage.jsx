@@ -412,7 +412,7 @@ function ResultPage() {
             <Grid container direction="column" justifyContent="centre" alignItems="flex-start" alignContent='center' className={classes.fullScreenHeight} width='100%'>
                 <DialogHeaderNew header={'Results'} handleClose={headerBack}/>
                 {/* SEARCH BAR */}
-                <Box width="95%" sx={{mt: 7}}>
+                <Box width="95%" sx={{mt: 7, mb: 1}}>
                     {/* {useOldSearch && (<SearchBarOldVer startSearch={openCategoryOptionsDialog} hasSearchValues={query} doSearch={doSearch} />)}
                     {!useOldSearch && (<SearchBarNewVer startSearch={openCategoryOptionsDialog} closeFilterDialog={closeFilterDialog} openFilterDialog={doOpenFilterDialog} />)} */}
 
