@@ -9,6 +9,7 @@ import SearchBarOldVer from '../components/SearchBarOldVer';
 import SearchListOldVer from '../components/SearchListOldVer';
 import sportsList from '../resources/constants';
 import venueList from '../resources/constants';
+import { sendNetworkLog } from '../logging/logging.js';
 
 const useStyles = makeStyles(theme => ({
     mr1: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function SearchPageOldVer({ openPage, handleClosePage, isOldVersion, recentSearchList, startSearch, resetSearchInput, cancelSearch, doSearch, removeRecentSearch, hasSearchValues, updateHasSearchValues, searchOptions, updateSearchOptions }) {
+function SearchPageOldVer({ versionId, openPage, handleClosePage, isOldVersion, recentSearchList, startSearch, resetSearchInput, cancelSearch, doSearch, removeRecentSearch, hasSearchValues, updateHasSearchValues, searchOptions, updateSearchOptions }) {
     const classes = useStyles();
     const searchInput = useRef(null);
 
@@ -46,6 +47,7 @@ function SearchPageOldVer({ openPage, handleClosePage, isOldVersion, recentSearc
     const doRecentSearch = item => {
         doSearch(item);
         searchInput.current.value = item;
+        sendNetworkLog('Clicked on: Recent Search Item', `Recent Search Item - ${item}`, `Search: ${item}`, versionId);
     };
 
     const openCategoryOptionsDialog = category => {
@@ -80,11 +82,17 @@ function SearchPageOldVer({ openPage, handleClosePage, isOldVersion, recentSearc
                 <AppButton
                     content="Sports"
                     className={`${classes.px2} ${classes.mr1}`}
-                    onClick={() => openCategoryOptionsDialog('Sport')}
+                    onClick={() => {
+                        openCategoryOptionsDialog('Sport');
+                        sendNetworkLog('Clicked on: Category Icon Button', `Category Button (Sport)`, '', versionId);
+                    }}
                 />
                 <AppButton
                     content="Venue"
-                    onClick={() => openCategoryOptionsDialog('Venue')}
+                    onClick={() => {
+                        openCategoryOptionsDialog('Venue');
+                        sendNetworkLog('Clicked on: Category Icon Button', `Category Button (Location)`, '', versionId);
+                    }}
                     className={`${classes.px2} ${classes.mr1}`}
                 />
             </Grid>

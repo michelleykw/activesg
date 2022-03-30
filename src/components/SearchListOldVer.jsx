@@ -1,6 +1,9 @@
 import React from 'react';
+import { useLocation } from "react-router-dom";
 import { makeStyles } from '@mui/styles';
 import { Grid, Typography } from '@mui/material';
+import { sendNetworkLog } from '../logging/logging.js';
+
 
 const useStyles = makeStyles(theme => ({
     pxHalf: {
@@ -29,17 +32,23 @@ const useStyles = makeStyles(theme => ({
 
 function SearchListOldVer({ list, search, fullScreen=false, handleClose }) {
     const classes = useStyles();
-    console.log('--> renderCategoryDialog');
 
-    const searchAndClose = searchItem => {
-        console.log('--> searchAndClose');
-        search(searchItem);
-        handleClose();
-    };
+    // const searchAndClose = searchItem => {
+    //     console.log('--> searchAndClose');
+    //     search(searchItem);
+    //     handleClose();
+    // };
+
+    const location = useLocation();
 
     const renderRow = searchItem => {
         return (
-            <Grid container onClick={() => searchAndClose(searchItem)} justifyContent="space-between" alignItems="center" className={`${classes.row}`}>
+            <Grid container onClick={() => {
+                search(searchItem);
+                const versionId = new URLSearchParams(location.search).get('version');
+                sendNetworkLog('Clicked on: Search List Item (General)', 'Search List Item (General)', `Item: ${searchItem}`, versionId);
+                handleClose();
+            }} justifyContent="space-between" alignItems="center" className={`${classes.row}`}>
                 <Grid item xs={10} className={fullScreen ? classes.px1 : classes.px2}>
                     <Typography color="textSecondary">
                         {searchItem}

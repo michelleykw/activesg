@@ -6,6 +6,7 @@ import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { pages } from '../resources/constants';
 import { Typography } from '@mui/material';
+import { sendNetworkLog } from '../logging/logging.js';
 
 const useStyles = makeStyles(theme => ({
     navigation: {
@@ -25,9 +26,11 @@ function NavigationBar() {
         'home': 2,
         'buypass': 3,
         'gameon': 4,
-        '': 2
+        '': 2,
+        undefined: 2
     };
-    const currPage = location.pathname.split('/')[1];
+
+    const currPage = location.pathname.split('/')[2];
     const [value, setValue] = useState(pathnameIds[currPage]);
 
     return (
@@ -36,8 +39,10 @@ function NavigationBar() {
                 showLabels
                 value={value}
                 onChange={(event, newValue) => {
+                    const { href } = pages[newValue];
+                    sendNetworkLog(`Clicked on: Navigation Bar - ${href}`, `Navigation Bar - ${href}`, `Navigate from ${currPage} to ${href}`, versionId);
                     setValue(newValue);
-                    navigate(`${pages[newValue].href}?version=${versionId}`);
+                    navigate(`/activesg${href}?version=${versionId}`);
                 }}
             >
                 {

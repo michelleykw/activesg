@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from "react-router-dom";
 import { makeStyles } from '@mui/styles';
 import { styled } from '@mui/material/styles';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -7,6 +8,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import FilterDialogOldVer from '../components/FilterDialogOldVer.jsx';
 import AppIconButton from '../components/AppIconButton.jsx';
 import { Button, Grid, InputBase } from '@mui/material';
+import { sendNetworkLog } from '../logging/logging.js';
 
 const useStyles = makeStyles(theme => ({
     icon: {
@@ -62,7 +64,9 @@ const CancelButton = styled(Button)(({ theme }) => ({
 
 function SearchBarOldVer({ isSearching=false, startSearch, resetSearchInput, cancelSearch, doSearch, searchInput, hasSearchValues, updateHasSearchValues, updateSearchOptions, isResultPage, displayBack, versionId }) {
     const classes = useStyles();
+    const location = useLocation();
     const [query, setQuery] = useState();
+    const versionId = new URLSearchParams(location.search).get('version');
 
     const [openFilterDialog, setOpenFilterDialog] = useState(false);
 
@@ -75,23 +79,24 @@ function SearchBarOldVer({ isSearching=false, startSearch, resetSearchInput, can
         const searchInput = e.target.value;
         setQuery(searchInput);
         updateHasSearchValues(searchInput);
-        console.log('##onInputSearch (searchInput):', searchInput);
         updateSearchOptions(searchInput);
 
         if (e.keyCode == 13) {
             doSearch(searchInput);
-
+            sendNetworkLog(`Search for: ${searchInput}`, `Search Bar`, '', versionId);
         }
     };
 
     const onCancelSearch = e => {
         cancelSearch();
         searchInput.current.value = "";
+        sendNetworkLog('Clicked on: Cancel Search (Search Bar)', 'Cancel Search (Search Bar)', 'Cancel search and close search page dialog', versionId);
     };
 
     const onResetSearchInput = () => {
         resetSearchInput();
         searchInput.current.value = "";
+        sendNetworkLog('Clicked on: Cross Icon (Search Bar)', 'Cross Icon (Search Bar)', 'Clearing Search Bar Field', versionId);
     };
 
     const getPlaceholder = () => {

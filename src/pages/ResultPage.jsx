@@ -61,7 +61,7 @@ function ResultPage() {
     };
 
     const goToSearchResultPage = searchInput => {
-        navigate(`/facilities/result?version=${versionId}&query=${searchInput}`);
+        navigate(`/activesg/facilities/result?version=${versionId}&query=${searchInput}`);
     };
 
     const updateHasSearchValues = input => {

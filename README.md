@@ -1,19 +1,20 @@
-# Steps
+# User Tasks
 
-## Frontend
+1. Book a `Badminton Court` at `Bishan Sports Hall` between Monday to Wednesday in the `afternoon`. If unavailable, find the next best suitable time slot.
+2. Book a `Hockey Pitch` over the `weekend` in the `morning`. If unavailable, find the next best suitable time slot.
 
-1. `cd frontend`
-2. Set up node packages: `npm install` or `npm i`
-   - To install a particular package: `npm i <PACKAGE NAME>`
-3. Run on local 3000: `npm start`
+# View the website!
 
-- To view, set the window dimensions to have a maximum width of 600px.
+- [Version 1](https://michelleykw.github.io/activesg/?version=1)
+- [Version 2](https://michelleykw.github.io/activesg/?version=2)
+- [Version 3](https://michelleykw.github.io/activesg/?version=3)
+- [Version 4](https://michelleykw.github.io/activesg/?version=4)
 
-# Pages
+## Pages
 
-- `/facilities` : All Facilities Page
-- `/facilities/result` : Search Result Page
-- `/facilities/view` : Specific Facility View
+- `/activesg/facilities` : All Facilities Page
+- `/activesg/facilities/result` : Search Result Page
+- `/activesg/facilities/view` : Specific Facility View
 
 ## Version Numbers
 
@@ -24,7 +25,13 @@
 
 - Example: `url?version=1`
 
-# User Tasks
+# Steps
 
-1. Book a `Badminton Court` at `Bishan Sports Hall` between Monday to Wednesday in the `afternoon`. If unavailable, find the next best suitable time slot.
-2. Book a `Hockey Pitch` over the `weekend` in the `morning`. If unavailable, find the next best suitable time slot.
+## How to
+
+1. Set up node packages: `npm install` or `npm i`
+   - To install a particular package: `npm i <PACKAGE NAME>`
+2. Run on local 3000: `npm start`
+3. When done, commit and push and `npm run deploy` (Remember to have `npm install gh-pages --save-dev`)
+
+- To view, set the window dimensions to have a maximum width of 600px.

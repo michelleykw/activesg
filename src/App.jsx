@@ -31,14 +31,15 @@ function App() {
         {isMobile ? (
           <BrowserRouter>
             <Routes>
-              <Route path="/facilities/view/" element={<FacilityViewPage />} />
-              <Route path="/facilities/result/" element={<ResultPage />} />
-              <Route path="/complete" element={<Complete />} />
-              <Route exact path="/facilities" element={<FacilitiesPage />} />
-              <Route exact path="/programmes" element={<NotFound isNotFacility />} />
-              <Route exact path="/home" element={<NotFound isNotFacility />} />
-              <Route exact path="/buypass" element={<NotFound isNotFacility />} />
-              <Route exact path="/gameon" element={<NotFound isNotFacility />} />
+              <Route path="/activesg/facilities/view/" element={<FacilityViewPage />} />
+              <Route path="/activesg/facilities/result/" element={<ResultPage />} />
+              <Route path="/activesg/complete" element={<Complete />} />
+              <Route exact path="/activesg/facilities" element={<FacilitiesPage />} />
+              <Route exact path="/activesg/programmes" element={<NotFound isNotFacility />} />
+              <Route exact path="/activesg/home" element={<NotFound isNotFacility />} />
+              <Route exact path="/activesg/buypass" element={<NotFound isNotFacility />} />
+              <Route exact path="/activesg/gameon" element={<NotFound isNotFacility />} />
+              <Route exact path="/activesg" element={<NotFound isNotFacility />} />
               <Route exact path="/" element={<NotFound isNotFacility />} />
             </Routes>
             <NavigationBar />

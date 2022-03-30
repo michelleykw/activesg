@@ -10,6 +10,7 @@ import { categoryOptionsMap } from '../resources/constants.jsx';
 import DialogHeaderNew from './DialogHeaderNew';
 import FormElement from '../form/FormElement.jsx';
 import AppButton from '../components/AppButton.jsx';
+import { sendNetworkLog } from '../logging/logging.js';
 
 const useStyles = makeStyles(theme => ({
     applyButton: {
@@ -74,9 +75,9 @@ function FilterDialogNewVer({ open, handleClose, versionId }) {
     };
 
     const applyFilter = (values) => {
-        console.log('Filter:', values);
         handleClose();
-        navigate(`/facilities/result?version=${versionId}&query=${JSON.stringify(values)}`);
+        sendNetworkLog('Clicked on: Apply Filters', 'Apply Filters', `query=${JSON.stringify(values)}`, versionId);
+        navigate(`/activesg/facilities/result?version=${versionId}&query=${JSON.stringify(values)}`);
     };
 
     const renderCheckboxRow = (title, value) => {
@@ -93,6 +94,7 @@ function FilterDialogNewVer({ open, handleClose, versionId }) {
     };
 
     const toggleShowAll = title => {
+        sendNetworkLog(`Clicked on: Toggle Show All for ${title} in Filter Dialog`, 'Toggle Show All Button', `category=${title}`, versionId);
         if (title === 'Location') {
             setShowAllLocations(!showAllLocations);
         } else if (title === 'Sports') {
@@ -140,7 +142,6 @@ function FilterDialogNewVer({ open, handleClose, versionId }) {
 
     const renderForm = formikBag => {
         const { touched, errors, values, setFieldValue } = formikBag;
-        console.log('Formik', values);
         return (
             <Form>
                 <Grid container justify="flex-start" alignItems="flex-start" className={classes.px2}>
@@ -149,14 +150,20 @@ function FilterDialogNewVer({ open, handleClose, versionId }) {
                         toggle={values.Availability} 
                         header='Availability'
                         subheader='Show only available locations'
-                        handleToggle={(e, r) => setFieldValue('Availability', r)} 
+                        handleToggle={(e, r) => {
+                            setFieldValue('Availability', r);
+                            sendNetworkLog('Clicked on: Toggle Availability (Filter)', 'Availability Toggle (Filter)', `newAvailabilityQuery=${r}`, versionId);
+                        }} 
                     />
                     {renderCheckboxSection("checkbox-group-location", 'Location', allLocationsNew)}
                     {renderCheckboxSection("checkbox-group-sport", 'Sports', categoryOptionsMap.Sport)}
                     <FormElement 
                         type="date" 
                         ranges={values.dateRange}
-                        onDateChange={item => setFieldValue('dateRange', [item.selection])}
+                        onDateChange={item => {
+                            setFieldValue('dateRange', [item.selection]);
+                            sendNetworkLog('Clicked on: Date Range (Filter)', 'Date Range (Filter)', `newDateRange=${[item.selection]}`, versionId);
+                        }}
                     />
                 </Grid>
                 <Grid container item justifyContent="center" alignItems="center" className={classes.applyButtonBackground}>
