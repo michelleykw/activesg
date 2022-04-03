@@ -24,10 +24,6 @@ const useStyles = makeStyles(theme => ({
 
 
 function App() {
-  // plan out the various versions
-  // input the data format, need to find a way to not change it when doing the survey
-  // does state helps? -- keep track of state at the first page and link to everywhere else
-  // sth like defaultData
   const classes = useStyles();
   const isMobile = useMediaQuery('(max-width:600px)');
   const valueRef = useRef('')
@@ -44,31 +40,28 @@ function App() {
   const sendValue = () => {
     window.localStorage.setItem('MTurkID', valueRef.current.value);
     setShowForm(false);
-  }
+  };
 
   const MturkIDForm = () => {
     return (
-      <>
-        <Box sx={{m: 3}}>
-          <Typography variant="h3">Welcome to our Experiment!</Typography>
-          <Typography>To start, please input your MTurkID. </Typography>
+      <Box sx={{m: 3}}>
+        <Typography variant="h3">Welcome to our Experiment!</Typography>
+        <Typography>To start, please input your MTurkID. </Typography>
 
-          <Box
-            component="form"
-            sx={{
-              '& > :not(style)': { m: 1, width: '25ch' },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-          <TextField id="standard-basic" label="MTurkID" variant="standard" inputRef={valueRef} />
-          <Button sx={{color: 'success.main'}}onClick={sendValue}>Send</Button>
-          </Box>
+        <Box
+          component="form"
+          sx={{
+            '& > :not(style)': { m: 1, width: '25ch' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+        <TextField id="standard-basic" label="MTurkID" variant="standard" inputRef={valueRef} />
+        <Button sx={{color: 'success.main'}}onClick={sendValue}>Send</Button>
         </Box>
-
-      </>
-    )
-  }
+      </Box>
+    );
+  };
 
   return (
     <ThemeProvider theme={theme}>

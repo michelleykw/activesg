@@ -1,20 +1,18 @@
-# User Tasks
-
-1. Book a `Badminton Court` at `Bishan Sports Hall` between Monday to Wednesday in the `afternoon`. If unavailable, find the next best suitable time slot.
-2. Book a `Hockey Pitch` over the `weekend` in the `morning`. If unavailable, find the next best suitable time slot.
-
-# View the website!
+# Demo Link - View the Website Here!
 
 - [Version 1](https://michelleykw.github.io/activesg/?version=1)
 - [Version 2](https://michelleykw.github.io/activesg/?version=2)
 - [Version 3](https://michelleykw.github.io/activesg/?version=3)
 - [Version 4](https://michelleykw.github.io/activesg/?version=4)
 
-## Pages
+- To view, open on mobile or set the window dimensions to have a maximum width of 600px.
 
-- `/activesg/facilities` : All Facilities Page
-- `/activesg/facilities/result` : Search Result Page
-- `/activesg/facilities/view` : Specific Facility View
+## How to Set Up Locally?
+
+1. Set up node packages: `npm install` or `npm i`
+   - To install a particular package: `npm i <PACKAGE NAME>`
+2. Run on local 3000: `npm start`
+3. When done, commit and push and `npm run deploy` (Remember to have `npm install gh-pages --save-dev`)
 
 ## Version Numbers
 
@@ -23,15 +21,27 @@
 3. New search, New result
 4. New search, Old result
 
-- Example: `url?version=1`
+- Note: The version number above is not the same as the order of trials showed to users.
 
-# Steps
+# Description of Files and Folders
 
-## How to
+- The website is built using React, with main files under the `src` folder.
 
-1. Set up node packages: `npm install` or `npm i`
-   - To install a particular package: `npm i <PACKAGE NAME>`
-2. Run on local 3000: `npm start`
-3. When done, commit and push and `npm run deploy` (Remember to have `npm install gh-pages --save-dev`)
+## Pages Folder
 
-- To view, set the window dimensions to have a maximum width of 600px.
+- `FacilitiesPage.jsx` - `/activesg/facilities` - All Facilities Page
+- `ResultPage.jsx` - `/activesg/facilities/result` - Search Result Page
+- `FacilityViewPage.jsx` - `/activesg/facilities/view` - Specific Facility View
+- `Complete.jsx` - `/activesg/complete` - Page shown on completion
+- `SearchPage.jsx` - Page shown for search, with a new and old version
+- Consists of a data folder with pre-populated data
+
+## Logging Folder
+
+- Consists of `logging.js` file for the tracking of user's usage on the website, including clicks and time taken
+
+## Components, Form, Resources and Static Folder
+
+- Consists of common resources used and data, form and components code used
+- Local storage is used as data base and is reset each time the task is completed
+- For Search/Result component, there are 2 versions (new and old) where the relevant ones will be rendered based on versionId
